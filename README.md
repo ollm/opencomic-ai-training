@@ -131,7 +131,7 @@ Typical workflow:
 
 ## Models Info
 
-The models can be found in the [`models`](models) folder or in the [`ollm/opencomic-ai-models`](https://github.com/ollm/opencomic-ai-models) model repository.
+The models can be found in the [`models`](models) folder, in the [`ollm/opencomic-ai-models`](https://github.com/ollm/opencomic-ai-models) repository, or in the [releases](https://github.com/ollm/opencomic-ai-training/releases) section.
 
 ### Artifact Removal
 
