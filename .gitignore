@@ -1,7 +1,8 @@
 node_modules
 dist
-assets
-!assets/example.jpg
+assets/*
+!assets/*clean.jpg
+!assets/*degraded.jpg
 models/tests
 
 # Extensions

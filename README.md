@@ -4,6 +4,8 @@ Ethical dataset generation pipeline for OpenComic AI models.
 
 This repository contains the scripts and configuration files used to generate paired training datasets with Krita. The generated pairs are used to train OpenComic AI models for artifact removal, descreening, and upscaling.
 
+[Example Generated Dataset](#dataset-examples)
+
 ## About
 
 OpenComic AI models are trained with ethically generated images created procedurally/randomly in Krita.
@@ -75,6 +77,28 @@ datasets/<dataset-name>/
 - `clean`: Ground-truth images.
 - `degraded`: Input images with synthetic degradations.
 - `options`: Resolved options used for reproducibility.
+
+## Dataset Examples
+
+Examples of generated dataset pairs (`clean` vs `degraded`):
+
+### Artifact Removal
+
+| Clean | Degraded |
+|------|----------|
+| ![Artifact removal clean](assets/artifact-removal-clean.jpg) | ![Artifact removal degraded](assets/artifact-removal-degraded.jpg) |
+
+### Descreen
+
+| Clean | Degraded |
+|------|----------|
+| ![Descreen clean](assets/descreen-clean.jpg) | ![Descreen degraded](assets/descreen-degraded.jpg) |
+
+### Upscale 3x
+
+| Clean | Degraded |
+|------|----------|
+| ![Upscale 3x clean](assets/upscale-3x-clean.jpg) | ![Upscale 3x degraded](assets/upscale-3x-degraded.jpg) |
 
 ## Validate Dataset Structure
 
