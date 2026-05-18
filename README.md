@@ -59,12 +59,7 @@ Main presets:
 - `opencomic-ai-upscale-3x.yml`
 - `opencomic-ai-upscale-4x-new.yml`
 
-Shared building blocks are available under:
-
-- [`options/common`](options/common)
-- [`options/drawings`](options/drawings)
-- [`options/halftone`](options/halftone)
-- [`options/textures`](options/textures)
+Shared building blocks are available under [`options/common`](options/common).
 
 ## Generated Dataset Structure
 
@@ -112,6 +107,8 @@ Typical workflow:
 
 ## Models Info
 
+The models can be found in the [`models`](models) folder or in the [`ollm/opencomic-ai-models`](https://github.com/ollm/opencomic-ai-models) model repository.
+
 ### Artifact Removal
 
 | Model | Type | Pretrained From | Image Pairs | Iterations |
@@ -142,12 +139,20 @@ Typical workflow:
 | `opencomic-ai-upscale-4x-lite` | ESRGAN Lite | `opencomic-ai-upscale-2x-lite` | 100,000 | 500,000 |
 | `opencomic-ai-upscale-4x` | ESRGAN | `opencomic-ai-upscale-2x` | 100,000 | 500,000 |
 
-## Acknowledgements
+## Acknowledgments
 
-- Krita team
-- kra-remote plugin by [NMaghfurUsman](https://github.com/NMaghfurUsman)
-- traiNNer-redux by [the-database](https://github.com/the-database)
+This project builds upon and is made possible thanks to:
+
+- The Krita development team
+- The `kra-remote` plugin by [NMaghfurUsman](https://github.com/NMaghfurUsman)
+- `traiNNer-redux` by [the-database](https://github.com/the-database)
+
+## Related Projects
+
+- [OpenComic](https://github.com/ollm/OpenComic)
+- [`ollm/opencomic-ai-bin`](https://github.com/ollm/opencomic-ai-bin)
+- [`ollm/opencomic-ai-models`](https://github.com/ollm/opencomic-ai-models)
 
 ## License
 
-MIT. See [LICENSE](LICENSE).
+This project is licensed under the MIT License. See [LICENSE](LICENSE) for details.
