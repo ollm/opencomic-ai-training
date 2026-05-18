@@ -24,7 +24,6 @@ postProcessing:
 
     -   type: texture-image # TODO: Not implemented yet, ignore?
         prob: 0.1
-        # file: 'options/textures/opencomic-ai-texture-image.yml'
         pattern:
             name: '' # Use group if name is empty
             category: [test, text]

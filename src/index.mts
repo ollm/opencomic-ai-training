@@ -34,8 +34,9 @@ const printKritaGradients = process.argv.includes('--print-krita-gradients');
 // const printKritaResources = process.argv.includes('--print-krita-resources');
 
 const help = process.argv.includes('--help') || process.argv.includes('-h');
+const dev = process.argv.includes('--dev');
 
-if(help || !file || !kritaPath)
+if(help || !file || !kritaPath || !options)
 {
 
 	console.log(`
@@ -216,7 +217,8 @@ async function generateImages() {
 			image--;
 		}
 
-		// process.exit(0);
+		if(dev) // In dev mode, generate only 1 image and exit for testing
+			process.exit(0);
 	}
 
 	progressBar.stop();

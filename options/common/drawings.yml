@@ -4,7 +4,7 @@
         list:
 
             -   type: lineart
-                file: options/drawings/opencomic-ai-lineart.yml
+                stroke: 'blue'
                 amount: [5, 20] # number of drawings to composite, per layer (up, middle, down)
                 points: # number of points to place the drawing (the drawing will be randomly moved and rotated around the point)
                     min: [4, 8]
