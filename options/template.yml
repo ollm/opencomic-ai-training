@@ -1,0 +1,88 @@
+seed: 1 # for reproducibility, Keep in mind that the patterns of the Krita brushes may change over different sessions.
+resume: true
+images: 1000 # number of clean images to generate, the total number of final images will be images * degradedImagesPerCleanImage
+degradedImagesPerCleanImage: 100
+format: jpg # final format of the clean and degraded images (png or jpg)
+
+# Base options, this will be base of the image
+base: 
+    file: options/common/base.yml
+    halftone:
+        angle:
+            -   value: 45
+                weight: 5.0 
+            -   value: [42.1, 47.9] # range, decimal value for decimal range
+                weight: 1.0
+            -   value: 0
+                weight: 1.0
+
+drawings:
+    file: 'options/common/drawings.yml'
+
+postProcessing:
+
+    -   type: texture-image # TODO: Not implemented yet, ignore?
+        prob: 0.1
+        # file: 'options/textures/opencomic-ai-texture-image.yml'
+        pattern:
+            name: '' # Use group if name is empty
+            category: [test, text]
+
+    -   type: layer-blur # TODO: Not implemented yet, ignore? Apply in drawings?
+        prob: 0.1
+        blurUp: [50, 100]
+        blurDown: [10, 50]
+
+finalProcessing:
+
+    -   type: noise # TODO: Not implemented yet
+        prob: 0.1
+        size: [0.5, 5.0]
+        gray: [5.1, 29.9]
+
+degradations:
+
+    -   name: descreen-soft
+        output:
+            clean: datasets/opencomic-ai-descreen-soft/clean
+            degraded: datasets/opencomic-ai-descreen-soft/degraded
+            # options:  datasets/opencomic-ai-descreen-soft/options
+        inKrita:
+
+            -   type: halftone
+                prob: 1.0
+                singleRun: false # Apply halftone only once for all degradations, reduce Krita processing time
+                sameInAllLayers: false # Use the same halftone settings for all layers (all, up, middle, down), required if inKrita.halftone.config.size is used
+                file: options/common/halftone-soft.yml
+
+        inNodePromiseAll: true # Run all inNode steps in parallel (faster but currently not compatible with "if" conditions if singleRun is disabled)
+        inNode:
+
+            -   type: rotate # rotation are applied in clean and degraded images
+                prob: 0.3
+                angle: [-2.99, 2.99]
+                background: '#ffffff'
+
+            -   type: resize
+                prob: 0.8
+                both: true
+                scale:
+                    -   value: [0.20, 0.999]
+                        weight: 4.0 
+                    -   value: [1.001, 1.20]
+                        weight: 1.0
+                kernel: [linear, cubic, mitchell, lanczos2, lanczos3, mks2013, mks2021, bicubic, bilinear, nohalo, lbb, vsqbs] # kernels: nearest, linear, cubic, mitchell, lanczos2, lanczos3, mks2013, mks2021 | and also affine: bicubic, bilinear, nohalo, lbb, vsqbs
+
+            -   type: jpeg
+                prob: 0.3
+                quality: [50, 100]
+
+            -   type: webp
+                # skipIf: [null, jpeg]
+                prob: 0.1
+                quality: [50, 100]
+
+            # Double degradation
+            -   type: jpeg
+                prob: 0.1
+                quality: [50, 100]

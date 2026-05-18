@@ -1,0 +1,43 @@
+angle:
+    -   value: 45
+        weight: 5.0 
+    -   value: [40.1, 49.9] # range, decimal value for decimal range
+        weight: 1.0
+applyIn: ['without', 'both', 'degraded']
+both:
+    pattern: dots
+    size: [6, 10]
+    mode: 
+        -   value: both
+            weight: 5.0 
+        -   value: intensity
+            weight: 1.0 
+        -   value: alpha
+            weight: 1.0
+    shapes:
+        -   value: dot
+            weight: 10.0 
+        -   value: [elipse, diamond, square]
+            weight: 1.0
+    interpolation:
+        -   value: lineal
+            weight: 5.0 
+        -   value: sinusoidal
+            weight: 1.0
+    # shape: []
+degraded:
+    pattern: dots # dots and lines
+    size: [2, 6]
+    mode: 
+        -   value: both
+            weight: 5.0 
+        -   value: intensity
+            weight: 1.0 
+        -   value: alpha
+            weight: 1.0
+    shapes:
+        -   value: dot
+            weight: 10.0 
+        -   value: [elipse, diamond, square]
+            weight: 1.0
+    interpolation: [lineal, sinusoidal]

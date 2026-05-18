@@ -1,0 +1,32 @@
+gray:
+    -   value: 
+            min: 255
+            max: 255
+        weight: 10.0
+    -   value: 
+            min: 150
+            max: 255
+        weight: 2.0
+    -   value: 
+            min: 0
+            max: 255
+        weight: 1.0
+alpha: # Consider disabling if pressure is implemented (pressureOne, pressureTwo)
+    -   value: 
+            min: 255
+            max: 255
+        weight: 5.0
+    -   value: 
+            min: 100
+            max: 255
+        weight: 1.0
+colored:
+    active:
+        prob: 0.1
+    colors: [1, 3] # Amount of different colors used in lineart
+    paletteColors: [3, 20] # A new palette will be created with this amount of colors.
+    similarColors:  [0, 3] # Agrupate colors in a range of similar colors, 0 disables similar colors
+    differentColors: # Use direfent colors inside same paint (By default similar colors are used inside same paint)
+        prob: 0.2
+    palette:
+        name: ['rand', 'Animation Color Set', 'Concept-cookie', 'Default', 'Swatches', 'PixelArt 32', 'Gradient', 'Markers']

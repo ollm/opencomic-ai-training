@@ -1,0 +1,106 @@
+seed: 1 # for reproducibility, Keep in mind that the patterns of the Krita brushes may change over different sessions.
+resume: true
+images: 1000 # 1200, if 14/7 GB # number of clean images to generate, the total number of final images will be images * degradedImagesPerCleanImage
+degradedImagesPerCleanImage: 10
+format: jpg # final format of the clean and degraded images (png or jpg)
+
+# Base options, this will be base of the image
+base: 
+    file: options/common/base.yml
+    halftone:
+        angle:
+            -   value: 45
+                weight: 5.0 
+            -   value: [42.1, 47.9] # range, decimal value for decimal range
+                weight: 1.0
+            -   value: 0
+                weight: 1.0
+        clean:
+            angle: 330 # 30 degrees
+
+drawings:
+    file: 'options/common/drawings.yml'
+
+postProcessing:
+
+    -   type: texture-image
+        prob: 0.1
+        # file: 'options/textures/opencomic-ai-texture-image.yml'
+        pattern:
+            name: '' # Use group if name is empty
+            category: [test, text]
+
+    -   type: layer-blur
+        prob: 0.1
+        blurUp: [50, 100]
+        blurDown: [10, 50]
+
+finalProcessing:
+
+    -   type: noise
+        prob: 0.1
+        size: [0.5, 5.0]
+        gray: [5.1, 29.9]
+
+degradations:
+
+    -   name: opencomic-ai-descreen-30deg
+        output:
+            clean: datasets/opencomic-ai-descreen-30deg/clean
+            degraded: datasets/opencomic-ai-descreen-30deg/degraded
+            # options:  datasets/opencomic-ai-descreen-30deg/options
+        inKrita:
+
+            -   type: halftone
+                prob: 1.0
+                singleRun: false # Apply halftone only once for all degradations, reduce Krita processing time
+                sameInAllLayers: false # Use the same halftone settings for all layers (all, up, middle, down), required if inKrita.halftone.config.size is used
+                file: options/common/halftone-hard.yml
+                applyIn:
+                    -   value: without
+                        weight: 1.0
+                    -   value: both
+                        weight: 4.0
+
+                colored: # colored and colorTone, copy from parent the options missing here, TODO: Check if this is working
+                    applyIn:
+                    -   value: without
+                        weight: 3.0
+                    -   value: both
+                        weight: 3.0
+
+                    degraded:
+                    pattern: dots # dots and lines
+                    size: [2.5, 9.99]
+                    mode: independent_channels
+
+        inNodePromiseAll: true # Run all inNode steps in parallel (faster but currently not compatible with "if" conditions if singleRun is disabled)
+        inNode:
+
+            -   type: resize
+                prob: 0.8
+                both: true
+                scale:
+                    -   value: [0.20, 0.999]
+                        weight: 4.0 
+                    -   value: [1.001, 1.20]
+                        weight: 1.0
+                kernel: [linear, cubic, mitchell, lanczos2, lanczos3, mks2013, mks2021, bicubic, bilinear, nohalo, lbb, vsqbs] # kernels: nearest, linear, cubic, mitchell, lanczos2, lanczos3, mks2013, mks2021 | and also affine: bicubic, bilinear, nohalo, lbb, vsqbs
+                clean: # Different kernels for clean images can produce different final image sizes, use checkSizes: true
+                    kernel: [mitchell, lanczos2, lanczos3, mks2013, mks2021] # Avoid moire effect in clean image
+
+            -   type: jpeg
+                prob: 0.3
+                quality: [50, 100]
+
+            -   type: webp
+                # skipIf: [null, jpeg]
+                prob: 0.1
+                quality: [50, 100]
+
+            # Double degradation
+            -   type: jpeg
+                prob: 0.1
+                quality: [50, 100]
+
+        checkSizes: true # Check that clean and degraded images have the same size (clean == degraded * multiplier)

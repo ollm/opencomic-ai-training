@@ -1,0 +1,21 @@
+node_modules
+dist
+assets
+!assets/example.jpg
+models/tests
+
+# Extensions
+*.AppImage
+*.log
+*.png
+*.kra
+*.kra~
+krita_remote
+
+# Files
+IMPROVING.md
+test_krita.py
+test.mjs
+
+# OSX
+.DS_Store

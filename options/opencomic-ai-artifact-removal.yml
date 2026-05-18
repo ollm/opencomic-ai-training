@@ -1,0 +1,88 @@
+seed: 1 # for reproducibility, Keep in mind that the patterns of the Krita brushes may change over different sessions.
+resume: true
+images: 4000 # number of clean images to generate, the total number of final images will be images * degradedImagesPerCleanImage
+degradedImagesPerCleanImage: 100
+format: jpg # final format of the clean and degraded images (png or jpg)
+
+# Base options, this will be base of the image
+base:
+    disableBrushesWithPixelatedEdges: true # Disable brushes that produce pixelated edges, useful upscaling datasets or avoid pixelated restoration
+    file: options/common/base.yml
+
+drawings:
+    file: 'options/common/drawings.yml'
+
+degradations:
+
+    -   name: opencomic-ai-artifact-removal
+        output:
+            clean: datasets/opencomic-ai-artifact-removal/clean
+            degraded: datasets/opencomic-ai-artifact-removal/degraded
+            options:  datasets/opencomic-ai-artifact-removal/options
+        inKrita:
+
+            -   type: halftone
+                prob: 1.0
+                singleRun: true # Apply halftone only once for all degradations, reduce Krita processing time
+                sameInAllLayers: true # Use the same halftone settings for all layers (all, up, middle, down)
+                file: options/common/halftone-hard.yml
+                applyIn:
+                    -   value: without
+                        weight: 10.0
+                    -   value: both
+                        weight: 1.0
+
+                colored: # colored and colorTone, copy from parent the options missing here, TODO: Check if this is working
+                    applyIn:
+                        -   value: without
+                            weight: 10.0
+                        -   value: both
+                            weight: 1.0
+
+                    both:
+                        pattern: dots # dots and lines
+                        size: [2.5, 9.99]
+                        mode: independent_channels
+
+        inNodePromiseAll: true # Run all inNode steps in parallel (faster)
+        inNode:
+
+            -   type: rotate # rotation are applied in clean and degraded images
+                prob: 0.2
+                angle: [-2.99, 2.99]
+                background: '#ffffff'
+
+            -   type: resize
+                prob: 0.5
+                both: true
+                scale: [0.3, 0.7]
+                kernel: [linear, cubic, mitchell, lanczos2, lanczos3, mks2013, mks2021, bicubic, bilinear, nohalo, lbb, vsqbs] # kernels: nearest, linear, cubic, mitchell, lanczos2, lanczos3, mks2013, mks2021 | and also affine: bicubic, bilinear, nohalo, lbb, vsqbs
+                clean: # Different kernels for clean images can produce different final image sizes, use checkSizes: true
+                    kernel: [mitchell, lanczos2, lanczos3, mks2013, mks2021] # Avoid moire effect in clean image
+
+            -   type: jpeg
+                prob: 0.8
+                quality: [30, 100]
+
+            -   type: webp
+                # skipIf: [null, jpeg]
+                prob: 0.1
+                quality: [30, 100]
+
+            -   type: jpeg
+                prob: 0.1
+                quality: [30, 100]
+
+            -   type: jpeg
+                prob: 0.1
+                quality: [30, 100]
+
+            -   type: jpeg
+                prob: 0.1
+                quality: [30, 100]
+
+            -   type: jpeg
+                prob: 0.1
+                quality: [30, 100]
+
+        checkSizes: true # Check that clean and degraded images have the same size (clean == degraded * multiplier)

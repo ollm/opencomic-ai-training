@@ -1,0 +1,63 @@
+applyIn:
+    -   value: without
+        weight: 1.0
+    -   value: degraded
+        weight: 5.0
+
+degraded:
+    pattern: dots # dots and lines
+    size: [2.5, 9.99]
+    mode: 
+        -   value: both # intensity and alpha
+            weight: 5.0 
+        -   value: intensity
+            weight: 3.0
+        -   value: alpha
+            weight: 1.0
+        -   value: independent_channels
+            weight: 0.5
+    shapes:
+        -   value: dot
+            weight: 10.0 
+        -   value: [elipse, diamond, square]
+            weight: 2.0
+    interpolation:
+        -   value: lineal
+            weight: 5.0 
+        -   value: sinusoidal
+            weight: 1.0
+
+both:
+    pattern: dots # dots and lines
+    size: [2.5, 9.99]
+    mode: 
+        -   value: both # intensity and alpha
+            weight: 5.0 
+        -   value: intensity
+            weight: 3.0
+        -   value: alpha
+            weight: 1.0
+        -   value: independent_channels
+            weight: 0.5
+    shapes:
+        -   value: dot
+            weight: 10.0 
+        -   value: [elipse, diamond, square]
+            weight: 2.0
+    interpolation:
+        -   value: lineal
+            weight: 5.0 
+        -   value: sinusoidal
+            weight: 1.0
+
+colored: # colored and colorTone, copy from parent the options missing here, TODO: Check if this is working
+    applyIn:
+        -   value: without
+            weight: 3.0
+        -   value: degraded
+            weight: 3.0
+
+    degraded:
+        pattern: dots # dots and lines
+        size: [2.5, 9.99]
+        mode: independent_channels
