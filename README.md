@@ -136,7 +136,7 @@ The models can be found in the [`models`](models) folder or in the [`ollm/openco
 ### Artifact Removal
 
 | Model | Type | Pretrained From | Image Pairs | Iterations |
-|------|------|-----------------|------------:|-----------:|
+| --- | --- | --- | ---: | ---: |
 | `opencomic-ai-artifact-removal-compact` | Compact | - | 400,000 | 450,000 |
 | `opencomic-ai-artifact-removal-lite` | ESRGAN Lite | - | 400,000 | 1,000,000 |
 | `opencomic-ai-artifact-removal` | ESRGAN | - | 400,000 | 1,000,000 |
@@ -144,7 +144,7 @@ The models can be found in the [`models`](models) folder or in the [`ollm/openco
 ### Descreen
 
 | Model | Type | Pretrained From | Image Pairs | Iterations |
-|------|------|-----------------|------------:|-----------:|
+| --- | --- | --- | ---: | ---: |
 | `opencomic-ai-descreen-hard-compact` | Compact | `artifact-removal-compact` | 120,000 | 450,000 |
 | `opencomic-ai-descreen-hard-lite` | ESRGAN Lite | `artifact-removal-lite` | 120,000 | 1,000,000 |
 | `opencomic-ai-descreen-hard` | ESRGAN | `artifact-removal` | 120,000 | 1,000,000 |
@@ -152,7 +152,7 @@ The models can be found in the [`models`](models) folder or in the [`ollm/openco
 ### Upscale
 
 | Model | Type | Pretrained From | Image Pairs | Iterations |
-|------|------|-----------------|------------:|-----------:|
+| --- | --- | --- | ---: | ---: |
 | `opencomic-ai-upscale-2x-compact` | Compact | `artifact-removal-compact` | 25,000 | 450,000 |
 | `opencomic-ai-upscale-2x-lite` | ESRGAN Lite | `artifact-removal-lite` | 25,000 | 1,000,000 |
 | `opencomic-ai-upscale-2x` | ESRGAN | `artifact-removal` | 25,000 | 1,000,000 |
