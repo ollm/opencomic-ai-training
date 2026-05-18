@@ -24,7 +24,7 @@ This repository focuses on dataset generation. For model training, the project h
 
 ```bash
 npm install
-npm run prepare && npm run generate -- --options ./options/opencomic-ai-upscale-2x.yml --krita ./krita-5.3.0-prealpha-96e6ffea4e-x86_64.AppImage
+npm run prepare && npm run generate -- --options ./options/opencomic-ai-upscale-2x.yml --krita ./krita-5.3.1-x86_64.AppImage
 ```
 
 ## CLI Reference
