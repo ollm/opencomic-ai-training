@@ -179,4 +179,13 @@ This project builds upon and is made possible thanks to:
 
 ## License
 
-This project is licensed under the MIT License. See [LICENSE](LICENSE) for details.
+| Component | License |
+|---|---|
+| Source code | MIT |
+| OpenComic AI model weights | CC BY 4.0 |
+
+The source code of this repository is licensed under the MIT License.
+
+OpenComic AI model weights are licensed under the [Creative Commons Attribution 4.0 International License (CC BY 4.0)](https://creativecommons.org/licenses/by/4.0/).
+
+See [LICENSE](LICENSE) and [LICENSE_MODELS](LICENSE_MODELS) for details.
