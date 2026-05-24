@@ -28,7 +28,7 @@ async function resize(options: any, degradation: Record<string, any>, image: str
 		width: Math.round(width * degradation.scale),
 		height: Math.round(height * degradation.scale),
 		kernel: kernel,
-		// fit: sharp.fit.fill, // Force exact size
+		fit: sharp.fit.fill, // Force exact size
 	};
 
 	// Minimum size 64x64
@@ -65,7 +65,7 @@ async function resize(options: any, degradation: Record<string, any>, image: str
 		}
 
 		if(_width != width)
-			_sharp = _sharp.resize({kernel: 'cubic', width: _width});
+			_sharp = _sharp.resize({kernel: 'cubic', width: _width, height: _height, fit: sharp.fit.fill});
 
 		_sharp = _sharp.affine([size.width / _width, 0, 0, size.height / _height], {interpolator: kernel});
 	}
