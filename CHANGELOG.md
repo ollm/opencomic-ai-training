@@ -8,7 +8,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### New
 
-- Add circles and circles with a dot inside to avoid descreen them (Like eyes) [`17bddcc`](https://github.com/ollm/OpenComic/commit/17bddcc36f9bbeb7527d5004bdf91f273b32174a)
+- Add circles and circles with a dot inside to avoid descreen them (Like eyes) [`17bddcc`](https://github.com/ollm/opencomic-ai-training/commit/17bddcc36f9bbeb7527d5004bdf91f273b32174a)
 
 ## OpenComic AI v1.0
 
