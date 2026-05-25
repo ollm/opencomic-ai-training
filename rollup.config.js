@@ -29,4 +29,19 @@ export default [
 		},
 		plugins: [dts()],
 	},
+	{
+		input: 'src/test.mts',
+		output: [
+			{
+				file: 'dist/test.mjs',
+				format: 'es',
+			},
+		],
+		plugins: [
+			typescript({
+				tsconfig: './tsconfig.json',
+				declaration: false,
+			}),
+		],
+	},
 ];

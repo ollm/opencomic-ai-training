@@ -4,7 +4,7 @@
 # https://trainner-redux.readthedocs.io/en/latest/config_reference.html#top-level-options
 #########################################################################################
 name: opencomic-ai-upscale-3x-lite
-scale: 4  # 1, 2, 3, 4, 8
+scale: 3  # 1, 2, 3, 4, 8
 use_amp: false  # Speed up training and reduce VRAM usage. NVIDIA only.
 amp_bf16: false  # Use bf16 instead of fp16 for AMP, RTX 3000 series or newer only. Only recommended if fp16 doesn't work.
 use_channels_last: true  # Enable channels last memory format while using AMP. Reduces VRAM and speeds up training for most architectures, but some architectures are slower with channels last.

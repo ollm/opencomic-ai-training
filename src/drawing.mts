@@ -254,6 +254,14 @@ async function processLayer(area: Area, groupLayer: string): Promise<any> {
 				draws.colorizeMask = await dots.draw(imageOptions, drawing, area, groupLayer, draws);
 				break;
 
+			case 'circles':
+				draws.colorizeMask = await dots.circles(imageOptions, drawing, area, groupLayer, draws);
+				break;
+
+			case 'circles-with-dot':
+				draws.colorizeMask = await dots.circlesWithDot(imageOptions, drawing, area, groupLayer, draws);
+				break;
+
 			/*case 'halftone':
 				draws.colorizeMask = await halftone.add(imageOptions, drawing, area);
 				break;*/

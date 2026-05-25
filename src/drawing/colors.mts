@@ -4,7 +4,7 @@ import getSimilarColor, {IDefaultColor} from 'get-similar-color';
 import rand from '../rand.mjs';
 import krita from '../krita.mjs';
 
-import {Color, ColorObject, RandGenerator} from '../types.mjs';
+import {Color, ColorObject, ColorGroup, RandGenerator} from '../types.mjs';
 
 function fixValue(value: number): number {
 
@@ -142,7 +142,7 @@ function generatePalette(options: any): ColorObject[] {
 
 let first = true;
 
-function group(options: any, drawing?: any): {color: () => void} {
+function group(options: any, drawing?: any): ColorGroup {
 
 	const randGenerator = options.currentImageRand!;
 	const colors = options.base.colors ?? {gray: {min: 0, max: 0}};
