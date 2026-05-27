@@ -1,0 +1,47 @@
+-   type: parallel-lines # Add parallel lines to avoid descreen them
+    # prob: 0.1
+    prob: 1
+    amount: [5, 15]
+    lines: # number of lines to place
+        min: 5
+        max: 20
+    length: # length of the lines
+        min: 5
+        max: 500
+    brush: 
+        name: '' # Use group if name is empty (Random brush from group)
+        category: [pencil, ink, charcoal, sketching]
+        disableBrushesWithPixelatedEdgesInSmallSize: true
+        size: 
+            min: [0.1, 2.1]
+            max: [2.1, 4.1]
+    separation: # separation between the lines of the grid
+        min: 0.5
+        max: 4.9
+    verticalAndHorizontalChance: 0.25 # Probability of placing dots in vertical or horizontal lines, the rest will be placed in random lines
+    # colors: # TODO: Not working currently, only in base color
+    #    file: options/common/colors.yml
+
+-   type: grid # Add random grid to avoid descreen them
+    # prob: 0.1
+    prob: 1
+    amount: [5, 15]
+    lines: # number of lines to place the grid
+        min: 5
+        max: 20
+    length: # length of the lines
+        min: 5
+        max: 100
+    brush: 
+        name: '' # Use group if name is empty (Random brush from group)
+        category: [pencil, ink, charcoal, sketching]
+        disableBrushesWithPixelatedEdgesInSmallSize: true
+        size: 
+            min: [0.1, 2.1]
+            max: [2.1, 4.1]
+    separation: # separation between the lines of the grid
+        min: 0.5
+        max: 14.9
+    verticalAndHorizontalChance: 0.25 # Probability of placing dots in vertical or horizontal lines, the rest will be placed in random lines
+    # colors: # TODO: Not working currently, only in base color
+    #    file: options/common/colors.yml

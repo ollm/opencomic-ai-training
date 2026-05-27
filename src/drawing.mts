@@ -10,6 +10,7 @@ import lineart from './drawing/lineart.mjs';
 import colorizeMask from './drawing/colorize-mask.mjs';
 import paint from './drawing/paint.mjs';
 import dots from './drawing/dots.mjs';
+import lines from './drawing/lines.mjs';
 import halftone from './drawing/halftone.mjs';
 import texture from './drawing/texture.mjs';
 import gradient from './drawing/gradient.mjs'
@@ -211,6 +212,11 @@ async function processLayer(area: Area, groupLayer: string): Promise<any> {
 		lineartRandom: [],
 		colorizeMask: [],
 		paint: [],
+		dots: [],
+		circles: [],
+		circlesWithDot: [],
+		parallelLines: [],
+		grid: [],
 		halftone: [],
 		texture: [],
 		gradient: [],
@@ -247,19 +253,27 @@ async function processLayer(area: Area, groupLayer: string): Promise<any> {
 				break;
 
 			case 'paint':
-				draws.colorizeMask = await paint.draw(imageOptions, drawing, area, draws);
+				draws.paint = await paint.draw(imageOptions, drawing, area, draws);
 				break;
 
 			case 'dots':
-				draws.colorizeMask = await dots.draw(imageOptions, drawing, area, groupLayer, draws);
+				draws.dots = await dots.draw(imageOptions, drawing, area, groupLayer, draws);
 				break;
 
 			case 'circles':
-				draws.colorizeMask = await dots.circles(imageOptions, drawing, area, groupLayer, draws);
+				draws.circles = await dots.circles(imageOptions, drawing, area, groupLayer, draws);
 				break;
 
 			case 'circles-with-dot':
-				draws.colorizeMask = await dots.circlesWithDot(imageOptions, drawing, area, groupLayer, draws);
+				draws.circlesWithDot = await dots.circlesWithDot(imageOptions, drawing, area, groupLayer, draws);
+				break;
+
+			case 'parallel-lines':
+				draws.parallelLines = await lines.parallel(imageOptions, drawing, area, groupLayer, draws);
+				break;
+
+			case 'grid':
+				draws.grid = await lines.grid(imageOptions, drawing, area, groupLayer, draws);
 				break;
 
 			/*case 'halftone':
@@ -267,11 +281,11 @@ async function processLayer(area: Area, groupLayer: string): Promise<any> {
 				break;*/
 
 			case 'texture':
-				draws.colorizeMask = await texture.add(imageOptions, drawing);
+				draws.texture = await texture.add(imageOptions, drawing);
 				break;
 
 			case 'gradient':
-				draws.colorizeMask = await gradient.add(imageOptions, drawing);
+				draws.gradient = await gradient.add(imageOptions, drawing);
 				break;
 		}
 

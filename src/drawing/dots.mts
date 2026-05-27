@@ -5,26 +5,9 @@ import rand from '../rand.mjs';
 import coords from '../coords.mjs';
 import colors from './colors.mjs';
 import calcArea from './area.mjs';
-import {sleep} from 'tools.mjs';
-
-import {lines} from './lineart.mjs';
+import brush from './brush.mjs';
 
 import {Drawings, Area, ColorGroup} from '../types.mjs';
-
-let prevSize = 0;
-
-async function setBrushSize(size: number, scale: number, colorsGroup: ColorGroup, force: boolean = false) {
-
-	size = size * scale;
-	if(prevSize === size && !force) return;
-
-	await krita.editView({
-		foregroundColor: {r: 0, g: 0, b: 0, a: 255}, // colorsGroup.color(),
-		currentBrushPreset: 'b) Basic-1',
-		brushSize: size,
-	}); 
-
-}
 
 async function draw(options: any, drawing: any, area: Area, groupLayer: string, draws: Record<string, Drawings[]>): Promise<Drawings[]> {
 
@@ -35,24 +18,30 @@ async function draw(options: any, drawing: any, area: Area, groupLayer: string, 
 
 	const drawings: Drawings[] = [];
 
-	await krita.send(`add_layer:${JSON.stringify({
-		name: 'opencomic:dots:'+area,
-		type: 'paintlayer',
-		inside: {
-			name: 'opencomic:group:'+groupLayer,
-		},
-	})}`);
+	if(!await krita.getLayer({name: 'opencomic:dots:'+area}))
+	{
+		await krita.send(`add_layer:${JSON.stringify({
+			name: 'opencomic:dots:'+area,
+			type: 'paintlayer',
+			inside: {
+				name: 'opencomic:group:'+groupLayer,
+			},
+		})}`);
+	}
 
 	const points: number[] = [];
 
 	const colorsGroup = colors.group(options, drawing);
 
-	await setBrushSize(2, scale, colorsGroup, true);
+	const drawingBrush = drawing.brush ?? {size: 2, name: 'b) Basic-1'};
+	await brush.set(options, drawingBrush);
 
 	const amount = rand.generate(_drawing?.amount ?? [1], randGenerator) as number;
 
 	for(let i = 0; i < amount; i++)
 	{
+		await brush.set(options, drawingBrush);
+	
 		const size = rand.generate([drawing.size.min, drawing.size.max], randGenerator) as number * scale;
 		const sizeDot = drawing.sizeDot ? rand.generate([drawing.sizeDot.min, drawing.sizeDot.max], randGenerator) as number * scale : 0;
 
@@ -100,7 +89,6 @@ async function draw(options: any, drawing: any, area: Area, groupLayer: string, 
 			const _points: number[] = processPoints(size, i2, drawX, drawY, offsetX, offsetY, spreadX, spreadY, segments, flattenX, flattenY);
 
 			const brushSize = drawing.brushSize ? rand.generate([drawing.brushSize.min, drawing.brushSize.max], randGenerator) as number : 2;
-			console.log(brushSize);
 			await setBrushSize(brushSize, scale, colorsGroup);
 
 			await krita.send(`draw_cubic_line: ${JSON.stringify({

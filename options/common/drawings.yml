@@ -56,6 +56,7 @@
                 #     file: options/common/colors.yml
 
             -   file: 'options/common/dots-and-circles.yml'
+            -   file: 'options/common/parallel-lines-and-grid.yml'
 
             -   type: texture
                 prob: 0.0 # Disable, has some problems with paint layer
@@ -144,6 +145,7 @@
                 #     file: options/common/colors.yml
 
             -   file: 'options/common/dots-and-circles.yml'
+            -   file: 'options/common/parallel-lines-and-grid.yml'
 
             # TODO: Not implemented yet
             -   type: blender-paint
@@ -210,6 +212,7 @@
                 #     file: options/common/colors.yml
 
             -   file: 'options/common/dots-and-circles.yml'
+            -   file: 'options/common/parallel-lines-and-grid.yml'
 
             # TODO: Not implemented yet
             -   type: blender-paint
