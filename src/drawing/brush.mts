@@ -50,10 +50,17 @@ async function set(options: any, brush: any) {
 	let brushPreset = brush.name;
 	brushPreset = Array.isArray(brushPreset) ? rand.generate(brushPreset, randGenerator) : brushPreset;
 
+	const rgbBrush = brush.color;
+	const grayBrush = brush.color.gray;
+
+	const r = rgbBrush.r ?? grayBrush ?? 0;
+	const g = rgbBrush.g ?? grayBrush ?? 0;
+	const b = rgbBrush.b ?? grayBrush ?? 0;
+
 	await setBrushSize(brushSize, brushPreset, {
-		r: invert ? 255 : 0,
-		g: invert ? 255 : 0,
-		b: invert ? 255 : 0,
+		r: invert ? 255 - r : r,
+		g: invert ? 255 - g : g,
+		b: invert ? 255 - b : b,
 		a: 255,
 	});
 

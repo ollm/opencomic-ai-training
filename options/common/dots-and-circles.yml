@@ -3,6 +3,19 @@
     segments: # Number of segments to draw the dots, higher segments means more cicular dots, lower segments means cubic dots
         min: 1
         max: 32
+    brush: 
+        name: 'b) Basic-1'
+        color:
+            -   value:
+                    gray: 0
+                weight: 10.0
+            -   value: 
+                    gray: [200, 254]
+                weight: 2.0
+            -   value: 
+                    gray: [100, 200]
+                weight: 2.0
+        size: 2
     amount: [5, 15]
     flatten:
         _prob: 0.1 # Chance to flatten the circle
@@ -24,6 +37,19 @@
     segments: # Number of segments to draw the dots, higher segments means more cicular dots, lower segments means cubic dots
         min: 1
         max: 32
+    brush: 
+        name: 'b) Basic-1'
+        color:
+            -   value:
+                    gray: 0
+                weight: 10.0
+            -   value: 
+                    gray: [200, 254]
+                weight: 2.0
+            -   value: 
+                    gray: [100, 200]
+                weight: 2.0
+        size: 2
     amount: [5, 15]
     spread: [30.1, 120.1]
     flatten:
@@ -45,15 +71,24 @@
     segments: # Number of segments to draw the dots, higher segments means more cicular dots, lower segments means cubic dots
         min: 1
         max: 32
-    brushSize:
-        -   value:
-                min: 0.1
-                max: 0.9
-            weight: 1.0
-        -   value:
-                min: 0.1
-                max: 1.9
-            weight: 1.0
+    brush: 
+        name: 'b) Basic-1'
+        color:
+            -   value:
+                    gray: 0
+                weight: 10.0
+            -   value: 
+                    gray: [200, 254]
+                weight: 2.0
+        size: 
+            -   value:
+                    min: 0.1
+                    max: 0.9
+                weight: 1.0
+            -   value:
+                    min: 0.1
+                    max: 1.9
+                weight: 1.0
     amount: 
         -   value: [5, 15]
             weight: 2.0
@@ -81,15 +116,24 @@
     segments: # Number of segments to draw the dots, higher segments means more cicular dots, lower segments means cubic dots
         min: 1
         max: 32
-    brushSize:
-        -   value:
-                min: 0.1
-                max: 0.9
-            weight: 1.0
-        -   value:
-                min: 0.1
-                max: 1.9
-            weight: 5.0
+    brush: 
+        name: 'b) Basic-1'
+        color:
+            -   value:
+                    gray: 0
+                weight: 10.0
+            -   value: 
+                    gray: [200, 254]
+                weight: 2.0
+        size: 
+            -   value:
+                    min: 0.1
+                    max: 0.9
+                weight: 1.0
+            -   value:
+                    min: 0.1
+                    max: 1.9
+                weight: 5.0
     amount: 
         -   value: [5, 15]
             weight: 2.0

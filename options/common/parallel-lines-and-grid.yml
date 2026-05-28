@@ -11,6 +11,13 @@
         name: '' # Use group if name is empty (Random brush from group)
         category: [pencil, ink, charcoal, sketching]
         disableBrushesWithPixelatedEdgesInSmallSize: true
+        color:
+            -   value:
+                    gray: 0
+                weight: 10.0
+            -   value: 
+                    gray: [200, 254]
+                weight: 2.0
         size: 
             min: [0.1, 2.1]
             max: [2.1, 4.1]
@@ -34,6 +41,13 @@
         name: '' # Use group if name is empty (Random brush from group)
         category: [pencil, ink, charcoal, sketching]
         disableBrushesWithPixelatedEdgesInSmallSize: true
+        color:
+            -   value:
+                    gray: 0
+                weight: 10.0
+            -   value: 
+                    gray: [200, 254]
+                weight: 2.0
         size: 
             min: [0.1, 2.1]
             max: [2.1, 4.1]
