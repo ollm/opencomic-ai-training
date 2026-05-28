@@ -10,7 +10,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ##### Artifact Removal
 
-- Add small blur and resize after compression to better detect artifacts
+- Add small blur and resize after compression to better detect artifacts [`d837c71`](https://github.com/ollm/opencomic-ai-training/commit/d837c717152c6f50fd5dc27b24672e830e1b42e9)
+- Add AVIF and JXL compression
 
 ##### Descreen
 

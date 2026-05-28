@@ -512,6 +512,19 @@ async function processDegradations(layers: Layers, setProgress: (degradedImage: 
 							degraded = await sharp.webp(imageOptions, _inNode, degraded);
 
 							break;
+
+						case 'avif':
+
+							degraded = await sharp.avif(imageOptions, _inNode, degraded);
+
+							break;
+
+						case 'jxl':
+
+							degraded = await sharp.jxl(imageOptions, _inNode, degraded);
+
+							break;
+
 					}
 
 					doneInNode.push(inNode.type);

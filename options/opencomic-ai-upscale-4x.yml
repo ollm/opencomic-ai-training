@@ -65,4 +65,12 @@ degradations:
                 prob: 0.05
                 quality: [30, 100]
 
+            -   type: avif
+                prob: 0.1
+                quality: [30, 100]
+
+            -   type: jxl
+                prob: 0.1
+                quality: [30, 100]
+
             -   file: 'options/common/blur.yml'

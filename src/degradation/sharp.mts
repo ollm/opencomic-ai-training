@@ -147,6 +147,22 @@ async function webp(options: any, degradation: Record<string, any>, image: strin
 
 }
 
+async function avif(options: any, degradation: Record<string, any>, image: string | Buffer): Promise<Buffer> {
+
+	const {data, info} = await sharp(buffer(image), {}).avif({quality: degradation.quality, force: true}).toBuffer({resolveWithObject: true});
+
+	return data;
+
+}
+
+async function jxl(options: any, degradation: Record<string, any>, image: string | Buffer): Promise<Buffer> {
+
+	const {data, info} = await sharp(buffer(image), {}).jxl({quality: degradation.quality, force: true}).toBuffer({resolveWithObject: true});
+
+	return data;
+
+}
+
 async function pngBase64(buffer: string | Buffer): Promise<string> {
 
 	if(typeof buffer === 'string')
@@ -186,6 +202,8 @@ export default {
 	rotate,
 	jpeg,
 	webp,
+	avif,
+	jxl,
 	pngBase64,
 	jpegBuffer,
 	checkSizes,
