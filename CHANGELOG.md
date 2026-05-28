@@ -11,12 +11,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ##### Artifact Removal
 
 - Add small blur and resize after compression to better detect artifacts [`d837c71`](https://github.com/ollm/opencomic-ai-training/commit/d837c717152c6f50fd5dc27b24672e830e1b42e9)
-- Add AVIF and JXL compression
+- Add AVIF and JXL compression [`95ce60b`](https://github.com/ollm/opencomic-ai-training/commit/95ce60b2183a1b1c9dca3b3bb8bad926cc13d639)
 
 ##### Descreen
 
 - Add circles and circles with a dot inside to avoid descreen them (Like eyes) [`17bddcc`](https://github.com/ollm/opencomic-ai-training/commit/17bddcc36f9bbeb7527d5004bdf91f273b32174a)
 - Add parallel lines and grids to avoid descreen them [`33b5d43`](https://github.com/ollm/opencomic-ai-training/commit/33b5d4374e34bf53c9db2767934cedc7918108ec)
+- Fix descreening causing some edges or very dark images to brighten with halftone
 
 ##### Upscale
 

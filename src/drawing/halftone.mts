@@ -91,7 +91,7 @@ async function add(options: any, drawing: any, area: Area, isDegraded: boolean =
 				name: 'opencomic:halftone:'+area+':'+mode,
 				filter: 'halftone',
 				inside: {
-					name: 'opencomic:draw:'+area,
+					name: 'opencomic:group:draw:'+area,
 				},
 				properties: properties,
 				visible: true,
@@ -120,7 +120,7 @@ async function addWithConfig(options: any, {applyIn, config, modes}: Config, are
 
 		let backgroundOpacity = 100;
 
-		const layerName = (await krita.getLayer({name: 'opencomic:texture:pattern'}) || await krita.getLayer({name: 'opencomic:gradient'})) ? `opencomic:group:${options.groupLayer}` : `opencomic:draw:${area}`;
+		const layerName = (await krita.getLayer({name: 'opencomic:texture:pattern'}) || await krita.getLayer({name: 'opencomic:gradient'})) ? `opencomic:group:${options.groupLayer}` : `opencomic:group:draw:${area}`;
 
 		if(colored || colorTone)
 		{
@@ -301,7 +301,7 @@ async function removeAll(): Promise<void> {
 		});
 
 		layers.push({
-			name: `opencomic:draw:${area}:clone`,
+			name: `opencomic:group:draw:${area}:clone`,
 		});
 	}
 

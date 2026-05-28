@@ -698,9 +698,10 @@ interface selectByColorOptions {
 	b?: number;
 	a?: number;
 	blur?: number;
+	onlyAlpha?: boolean;
 }
 
-async function selectByColor({layer = {}, r = 255, g = 255, b = 255, a = 255, blur = 0}: selectByColorOptions = {}): Promise<any> {
+async function selectByColor({layer = {}, r = 255, g = 255, b = 255, a = 255, blur = 0, onlyAlpha = false}: selectByColorOptions = {}): Promise<any> {
 
 	const pixels = await layerCache(layer);
 
@@ -728,7 +729,7 @@ async function selectByColor({layer = {}, r = 255, g = 255, b = 255, a = 255, bl
 			const _b = pixels.data[i + 2];
 			const _a = pixels.data[i + 3];
 
-			if(_r === r && _g === g && _b === b && _a === a)
+			if((_r === r && _g === g && _b === b && _a === a) || (onlyAlpha && _a > 0))
 			{
 				blurrySelection[i] = 0;
 				blurrySelection[i + 1] = 0;
@@ -775,7 +776,7 @@ async function selectByColor({layer = {}, r = 255, g = 255, b = 255, a = 255, bl
 			const _b = pixels.data[i + 2];
 			const _a = pixels.data[i + 3];
 
-			if(_r === r && _g === g && _b === b && _a === a)
+			if((_r === r && _g === g && _b === b && _a === a) || (onlyAlpha && _a > 0))
 			{
 				selection[i / 4] = 255;
 

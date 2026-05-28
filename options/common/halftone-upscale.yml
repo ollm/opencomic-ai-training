@@ -7,13 +7,7 @@ applyIn:
 both:
     pattern: dots # dots and lines
     size: [2.5, 9.99]
-    mode: 
-        -   value: both # intensity and alpha
-            weight: 5.0 
-        -   value: intensity
-            weight: 1.0
-        -   value: alpha
-            weight: 1.0
+    mode: intensity
     shapes:
         -   value: dot
             weight: 10.0 

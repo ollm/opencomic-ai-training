@@ -8,13 +8,7 @@ applyIn:
 both:
     pattern: dots
     size: [6.40, 15.99]
-    mode: 
-        -   value: both # intensity and alpha
-            weight: 5.0 
-        -   value: intensity
-            weight: 3.0
-        -   value: alpha
-            weight: 1.0
+    mode: intensity
     shapes:
         -   value: dot
             weight: 10.0 
@@ -28,13 +22,7 @@ both:
 degraded:
     pattern: dots # dots and lines
     size: [2.5, 4.3]
-    mode: 
-        -   value: both
-            weight: 5.0 
-        -   value: intensity
-            weight: 1.0 
-        -   value: alpha
-            weight: 1.0
+    mode: intensity
     shapes:
         -   value: dot
             weight: 10.0 

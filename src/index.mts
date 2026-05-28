@@ -218,7 +218,7 @@ async function generateImages() {
 		}
 
 		if(dev) // In dev mode, generate only 1 image and exit for testing
-			process.exit(0);
+			process.exit(0);	
 	}
 
 	progressBar.stop();

@@ -21,11 +21,27 @@ async function draw(options: any, drawing: any, area: Area, draws:Record<string,
 	const drawings: Drawings[] = [];
 
 	await krita.send(`add_layer:${JSON.stringify({
-		name: 'opencomic:draw:'+area,
-		type: 'paintlayer',
+		name: 'opencomic:group:draw:'+area,
+		type: 'grouplayer',
 		above: {
 			index: 0, // Background layer
 		}
+	})}`);
+
+	await krita.send(`add_layer:${JSON.stringify({
+		name: 'opencomic:draw:background:'+area,
+		type: 'paintlayer',
+		inside: {
+			name: 'opencomic:group:draw:'+area,
+		},
+	})}`);
+
+	await krita.send(`add_layer:${JSON.stringify({
+		name: 'opencomic:draw:'+area,
+		type: 'paintlayer',
+		inside: {
+			name: 'opencomic:group:draw:'+area,
+		},
 	})}`);
 
 	await krita.send('edit_layer:'+JSON.stringify({
@@ -118,6 +134,29 @@ async function draw(options: any, drawing: any, area: Area, draws:Record<string,
 
 		// break;
 	}
+
+	const select = await krita.selectByColor({
+		layer: {
+			name: 'opencomic:draw:'+area,
+		},
+		onlyAlpha: true,
+		blur: 1, // 2,
+	});
+
+	await krita.send(`edit_view:${JSON.stringify({
+		backgroundColor: {
+			r: 255,
+			g: 255,
+			b: 255,
+			a: 255,
+		},
+	})}`);
+
+	await krita.send(`select_layer:${JSON.stringify({
+		name: 'opencomic:draw:background:'+area,
+	})}`);
+
+	await krita.send('action:fill_selection_background_color');
 
 	await krita.send('action:deselect');
 	
