@@ -112,7 +112,7 @@ degradations:
 
                     degraded:
                     pattern: dots # dots and lines
-                    size: [3.01, 9.99]
+                    size: [2.5, 9.99]
                     mode: independent_channels
 
         inNodePromiseAll: false # Run all inNode steps in parallel (faster but currently not compatible with "if" conditions if singleRun is disabled)

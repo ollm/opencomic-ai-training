@@ -6,7 +6,7 @@ applyIn:
 
 both:
     pattern: dots # dots and lines
-    size: [6, 16]
+    size: [2.5, 9.99]
     mode: 
         -   value: both # intensity and alpha
             weight: 5.0 
@@ -14,8 +14,6 @@ both:
             weight: 1.0
         -   value: alpha
             weight: 1.0
-        -   value: independent_channels
-            weight: 0.5
     shapes:
         -   value: dot
             weight: 10.0 
@@ -30,11 +28,11 @@ both:
 colored: # colored and colorTone, copy from parent the options missing here, TODO: Checi if this is working
     applyIn:
         -   value: without
-            weight: 10.0
+            weight: 20.0
         -   value: both
             weight: 1.0
 
     both:
         pattern: dots # dots and lines
-        size: [6, 16]
+        size: [2.5, 9.99]
         mode: 'independent_channels'

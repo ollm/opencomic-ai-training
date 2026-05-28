@@ -21,6 +21,11 @@ async function setBrushSize(size: number, preset: string = 'b) Basic-1', color: 
 		color: _color,
 	};
 
+	console.log('-----');
+	console.log('-----');
+	console.log(prev);
+	console.log('-----');
+
 	await krita.editView({
 		foregroundColor: {r: 0, g: 0, b: 0, a: 255},
 		currentBrushPreset: preset,
@@ -30,11 +35,6 @@ async function setBrushSize(size: number, preset: string = 'b) Basic-1', color: 
 }
 
 async function set(options: any, brush: any) {
-
-	console.log('-----');
-	console.log('-----');
-	console.log(brush);
-	console.log('-----');
 
 	const scale = options.base.scale ?? 1;
 	const randGenerator = options.currentImageRand!;

@@ -15,8 +15,6 @@ both:
             weight: 3.0
         -   value: alpha
             weight: 1.0
-        -   value: independent_channels
-            weight: 0.5
     shapes:
         -   value: dot
             weight: 10.0 

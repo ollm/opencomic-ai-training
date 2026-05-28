@@ -4,12 +4,18 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## OpenComic AI v1.1
+## OpenComic AI v2.0
 
 ### New
 
+##### Descreen
+
 - Add circles and circles with a dot inside to avoid descreen them (Like eyes) [`17bddcc`](https://github.com/ollm/opencomic-ai-training/commit/17bddcc36f9bbeb7527d5004bdf91f273b32174a)
 - Add parallel lines and grids to avoid descreen them
+
+##### Upscale
+
+- Disable independent channels halftone in not colored to avoid black and white upscales from becoming colored
 
 ## OpenComic AI v1.0
 

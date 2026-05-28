@@ -89,7 +89,7 @@ async function draw(options: any, drawing: any, area: Area, groupLayer: string, 
 			const _points: number[] = processPoints(size, i2, drawX, drawY, offsetX, offsetY, spreadX, spreadY, segments, flattenX, flattenY);
 
 			const brushSize = drawing.brushSize ? rand.generate([drawing.brushSize.min, drawing.brushSize.max], randGenerator) as number : 2;
-			await setBrushSize(brushSize, scale, colorsGroup);
+			await brush.set(options, {...drawingBrush, size: brushSize});
 
 			await krita.send(`draw_cubic_line: ${JSON.stringify({
 				name: 'opencomic:dots:'+area,
@@ -104,7 +104,7 @@ async function draw(options: any, drawing: any, area: Area, groupLayer: string, 
 
 			if(sizeDot > 0)
 			{
-				await setBrushSize(2, scale, colorsGroup);
+				await brush.set(options, {...drawingBrush, size: 2});
 				const _points: number[] = processPoints(sizeDot, i2, drawX, drawY, offsetX, offsetY, spreadX, spreadY, segments);
 
 				await krita.send(`draw_cubic_line: ${JSON.stringify({
