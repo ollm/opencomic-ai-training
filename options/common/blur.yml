@@ -1,0 +1,14 @@
+-   type: blur
+    prob: 0.1
+    sigma: [0.3, 0.5]
+
+-   type: group
+    prob: 0.05
+    list:
+        -   type: blur
+            prob: 1
+            sigma: [0.3, 0.4]
+
+        -   type: blur
+            prob: 1
+            sigma: [0.3, 0.4]

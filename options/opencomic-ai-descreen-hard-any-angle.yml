@@ -58,6 +58,16 @@ degradations:
                 prob: 0.1
                 quality: [50, 100]
 
+            -   file: 'options/common/blur.yml'
+
+            -   type: resize
+                prob: 0.05
+                both: true
+                scale: [0.9, 1.1]
+                kernel: [linear, cubic, mitchell, lanczos2, lanczos3, mks2013, mks2021, bicubic, bilinear, nohalo, lbb, vsqbs] # kernels: nearest, linear, cubic, mitchell, lanczos2, lanczos3, mks2013, mks2021 | and also affine: bicubic, bilinear, nohalo, lbb, vsqbs
+                clean: # Different kernels for clean images can produce different final image sizes, use checkSizes: true
+                    kernel: [mitchell, lanczos2, lanczos3, mks2013, mks2021] # Avoid moire effect in clean image
+
         checkSizes: true # Check that clean and degraded images have the same size (clean == degraded * multiplier)
 
     -   name: opencomic-ai-descreen-hard-moire-any-angle # Force moire effect
@@ -124,5 +134,15 @@ degradations:
             -   type: jpeg
                 prob: 0.1
                 quality: [50, 100]
+
+            -   file: 'options/common/blur.yml'
+
+            -   type: resize
+                prob: 0.05
+                both: true
+                scale: [0.9, 1.1]
+                kernel: [linear, cubic, mitchell, lanczos2, lanczos3, mks2013, mks2021, bicubic, bilinear, nohalo, lbb, vsqbs] # kernels: nearest, linear, cubic, mitchell, lanczos2, lanczos3, mks2013, mks2021 | and also affine: bicubic, bilinear, nohalo, lbb, vsqbs
+                clean: # Different kernels for clean images can produce different final image sizes, use checkSizes: true
+                    kernel: [mitchell, lanczos2, lanczos3, mks2013, mks2021] # Avoid moire effect in clean image
 
         checkSizes: true # Check that clean and degraded images have the same size (clean == degraded * multiplier)

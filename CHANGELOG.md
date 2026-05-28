@@ -8,14 +8,18 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### New
 
+##### Artifact Removal
+
+- Add small blur and resize after compression to better detect artifacts
+
 ##### Descreen
 
 - Add circles and circles with a dot inside to avoid descreen them (Like eyes) [`17bddcc`](https://github.com/ollm/opencomic-ai-training/commit/17bddcc36f9bbeb7527d5004bdf91f273b32174a)
-- Add parallel lines and grids to avoid descreen them
+- Add parallel lines and grids to avoid descreen them [`33b5d43`](https://github.com/ollm/opencomic-ai-training/commit/33b5d4374e34bf53c9db2767934cedc7918108ec)
 
 ##### Upscale
 
-- Disable independent channels halftone in not colored to avoid black and white upscales from becoming colored
+- Disable independent channels halftone in not colored to avoid black and white upscales from becoming colored [`880c18e`](https://github.com/ollm/opencomic-ai-training/commit/880c18eb76270c1247821411d7f267ec37259bb9)
 
 ## OpenComic AI v1.0
 

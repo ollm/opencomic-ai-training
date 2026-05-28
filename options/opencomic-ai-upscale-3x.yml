@@ -12,8 +12,9 @@ base:
     size:
         # width: [500, 2000] # [1000, 4000]
         # height: [500, 2000] # [1000, 4000]
-        width: [250, 1000] # [1000, 4000]
-        height: [250, 1000] # [1000, 4000]
+        size: [250, 1000] # Force square image
+        # width: [250, 1000] # [1000, 4000]
+        # height: [250, 1000] # [1000, 4000]
         multiple: 3
 
 drawings:
@@ -63,3 +64,5 @@ degradations:
             -   type: jpeg
                 prob: 0.05
                 quality: [30, 100]
+
+            -   file: 'options/common/blur.yml'

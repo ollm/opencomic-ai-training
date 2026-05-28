@@ -22,9 +22,10 @@ halftone:
         -   value: 0
             weight: 1.0
 size:
-    width: [500, 2000]
-    height: [500, 2000]
-    _multiple: 4
+    size: [500, 2000] # Force square image
+    # width: [500, 2000]
+    # height: [500, 2000]
+    multiple: 4
 
 lineart:
     invertBackground:

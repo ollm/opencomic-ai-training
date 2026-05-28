@@ -1,0 +1,17 @@
+-   type: resize-blur
+    prob: 1
+    scale: [0.3, 1.50]
+    kernel: cubic
+
+-   type: group
+    prob: 0.05
+    list:
+        -   type: resize-blur
+            prob: 1
+            scale: [0.3, 1.50]
+            kernel: cubic
+
+        -   type: resize-blur
+            prob: 1
+            scale: [0.3, 1.50]
+            kernel: cubic

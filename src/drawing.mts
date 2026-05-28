@@ -117,6 +117,9 @@ async function generateImage(image: number, setProgress: (image: number, degrade
 		groupLayer,
 	};
 
+	imageOptions.base.size.width = imageOptions.base.size.width ?? imageOptions.base.size.size;
+	imageOptions.base.size.height = imageOptions.base.size.height ?? imageOptions.base.size.size;
+
 	const multiple = imageOptions.base.size.multiple ?? imageOptions.base.size._multiple;
 
 	if(multiple)
@@ -445,8 +448,11 @@ async function processDegradations(layers: Layers, setProgress: (degradedImage: 
 				const degradationInNode: object[] = [];
 				const doneInNode: string[] = [];
 
-				for(const inNode of degradation.inNode || [])
+				const dInNode = cloneDeep(degradation.inNode || []);
+
+				while(dInNode && dInNode.length > 0)
 				{
+					const inNode = dInNode.shift()!;
 					const _inNode = _options.randomize(cloneDeep(inNode));
 
 					if(inNode.skipIf && doneInNode.some(v => inNode.skipIf.includes(v)))
@@ -457,6 +463,12 @@ async function processDegradations(layers: Layers, setProgress: (degradedImage: 
 					if(!run)
 						continue;
 
+					if(inNode.type === 'group')
+					{
+						dInNode.unshift(...inNode.list);
+						continue;
+					}
+
 					degradationInNode.push(inNode);
 
 					switch(inNode.type)
@@ -465,6 +477,20 @@ async function processDegradations(layers: Layers, setProgress: (degradedImage: 
 
 							if(inNode.both) clean = await sharp.resize(imageOptions, _inNode, clean, false);
 							degraded = await sharp.resize(imageOptions, _inNode, degraded, true);
+
+							break;
+
+						case 'resize-blur':
+
+							if(inNode.both) clean = await sharp.resizeBlur(imageOptions, _inNode, clean, false);
+							degraded = await sharp.resizeBlur(imageOptions, _inNode, degraded, true);
+
+							break;
+
+						case 'blur':
+
+							if(inNode.both) clean = await sharp.blur(imageOptions, _inNode, clean, false);
+							degraded = await sharp.blur(imageOptions, _inNode, degraded, true);
 
 							break;
 

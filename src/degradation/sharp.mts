@@ -80,6 +80,40 @@ async function resize(options: any, degradation: Record<string, any>, image: str
 
 }
 
+// This can produce desalination
+async function resizeBlur(options: any, degradation: Record<string, any>, image: string | Buffer, isDegraded: boolean = false): Promise<Buffer> {
+
+	let _sharp = sharp(buffer(image));
+	const _size = await _sharp.metadata();
+
+	const width = Math.round(_size.width * degradation.scale);
+
+	const scale = width / _size.width;
+	const scaleRestore = 1 / scale;
+
+	const resized = await resize(options, {...degradation, scale}, image, isDegraded);
+	const final = await resize(options, {...degradation, scale: scaleRestore}, resized, isDegraded);
+
+	return final;
+
+}
+
+
+async function blur(options: any, degradation: Record<string, any>, image: string | Buffer, isDegraded: boolean = false): Promise<Buffer> {
+
+	let _sharp = sharp(buffer(image));
+
+	_sharp = _sharp.blur({
+		sigma: degradation.sigma,
+		precision: 'integer',
+		minAmplitude: 0.02,
+	});
+
+	const {data, info} = await _sharp.toBuffer({resolveWithObject: true});
+	return data;
+
+}
+
 async function rotate(options: any, degradation: Record<string, any>, image: string | Buffer): Promise<Buffer> {
 
 	const {data, info} = await sharp(buffer(image), {}).rotate(degradation.angle, {background: degradation.background}).toBuffer({resolveWithObject: true});
@@ -147,6 +181,8 @@ async function checkSizes(options: any, clean: string | Buffer, degraded: string
 export default {
 	buffer,
 	resize,
+	resizeBlur,
+	blur,
 	rotate,
 	jpeg,
 	webp,

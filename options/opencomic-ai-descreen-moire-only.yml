@@ -96,3 +96,13 @@ degradations:
                         if: default
 
                 kernel: [bicubic, bilinear, nohalo, lbb, vsqbs] # kernels: nearest, linear, cubic, mitchell, lanczos2, lanczos3, mks2013, mks2021 | and also affine: bicubic, bilinear, nohalo, lbb, vsqbs
+
+            -   file: 'options/common/blur.yml'
+
+            -   type: resize
+                prob: 0.05
+                both: true
+                scale: [0.9, 1.1]
+                kernel: [linear, cubic, mitchell, lanczos2, lanczos3, mks2013, mks2021, bicubic, bilinear, nohalo, lbb, vsqbs] # kernels: nearest, linear, cubic, mitchell, lanczos2, lanczos3, mks2013, mks2021 | and also affine: bicubic, bilinear, nohalo, lbb, vsqbs
+                clean: # Different kernels for clean images can produce different final image sizes, use checkSizes: true
+                    kernel: [mitchell, lanczos2, lanczos3, mks2013, mks2021] # Avoid moire effect in clean image
