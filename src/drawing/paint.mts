@@ -140,14 +140,17 @@ async function draw(options: any, drawing: any, area: Area, draws:Record<string,
 			name: 'opencomic:draw:'+area,
 		},
 		onlyAlpha: true,
-		blur: 1, // 2,
+		// blur: 1, // 2,
 	});
+
+	const rgb = options.base.background;
+	const gray = options.base.background.gray;
 
 	await krita.send(`edit_view:${JSON.stringify({
 		backgroundColor: {
-			r: 255,
-			g: 255,
-			b: 255,
+			r: rgb.r ?? gray,
+			g: rgb.g ?? gray,
+			b: rgb.b ?? gray,
 			a: 255,
 		},
 	})}`);
