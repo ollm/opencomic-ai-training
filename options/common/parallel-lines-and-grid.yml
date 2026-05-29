@@ -1,5 +1,5 @@
 -   type: parallel-lines # Add parallel lines to avoid descreen them
-    prob: 0.1
+    prob: 0.05
     amount: [5, 15]
     lines: # number of lines to place
         min: 5
@@ -29,8 +29,8 @@
     #    file: options/common/colors.yml
 
 -   type: grid # Add random grid to avoid descreen them
-    prob: 0.1
-    amount: [5, 15]
+    prob: 0.05
+    amount: [5, 30]
     lines: # number of lines to place the grid
         min: 5
         max: 20
