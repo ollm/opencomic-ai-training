@@ -1,6 +1,6 @@
 # opencomic-ai-training
 
-Ethical dataset generation pipeline for OpenComic AI models.
+Ethical dataset generation pipeline for OpenComic AI models. The models have been designed to preserve as much detail from the original image as possible, modifying only the necessary parts.
 
 This repository contains the scripts and configuration files used to generate paired training datasets with Krita. The generated pairs are used to train OpenComic AI models for artifact removal, descreening, and upscaling.
 
@@ -8,7 +8,7 @@ This repository contains the scripts and configuration files used to generate pa
 
 ## About
 
-OpenComic AI models are trained with ethically generated images created procedurally/randomly in Krita.
+OpenComic AI models are trained with ethically generated images created procedurally/randomly in Krita and have been designed to preserve as much detail from the original image as possible, modifying only the necessary parts.
 
 This repository focuses on dataset generation. For model training, the project has been used with [`the-database/traiNNer-redux`](https://github.com/the-database/traiNNer-redux) and the training options in [`options/train`](options/train), but you can use any training framework that supports paired datasets.
 

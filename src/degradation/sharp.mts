@@ -1,7 +1,10 @@
+import os from 'os';
 import sharp from 'sharp';
 
 import _options from '../options.mjs';
 import cloneDeep from 'lodash.clonedeep';
+
+sharp.concurrency(os.cpus().length);
 
 function buffer(base64: string | Buffer): Buffer {
 

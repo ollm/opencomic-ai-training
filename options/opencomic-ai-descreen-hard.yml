@@ -38,6 +38,12 @@ degradations:
         inNodePromiseAll: false # Run all inNode steps in parallel (faster but currently not compatible with "if" conditions if singleRun is disabled)
         inNode:
 
+            -   type: rotate # rotation are applied in clean and degraded images
+                prob: 0.05
+                skipIf: [null, rotate]
+                angle: [-45, 45]
+                background: '#ffffff'
+
             -   type: resize
                 prob: 0.8
                 both: true
@@ -103,6 +109,12 @@ degradations:
             -   type: rotate # rotation are applied in clean and degraded images
                 prob: 0.3
                 angle: [-2.99, 2.99]
+                background: '#ffffff'
+
+            -   type: rotate # rotation are applied in clean and degraded images
+                prob: 0.05
+                skipIf: [null, rotate]
+                angle: [-45, 45]
                 background: '#ffffff'
 
             -   type: resize

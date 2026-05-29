@@ -1,3 +1,9 @@
+colorSpace: 
+    -   value: 'RGBA'
+        weight: 10.0 
+    -   value: 'CMYKA'
+        weight: 1.0
+
 applyIn:
     -   value: without
         weight: 1.0
@@ -35,6 +41,12 @@ both:
             weight: 1.0
 
 colored: # colored and colorTone, copy from parent the options missing here, TODO: Check if this is working
+    colorSpace: 
+        -   value: 'RGBA'
+            weight: 1.0 
+        -   value: 'CMYKA'
+            weight: 5.0
+
     applyIn:
         -   value: without
             weight: 3.0

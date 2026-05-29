@@ -33,6 +33,12 @@ degradations:
                         weight: 1.0
 
                 colored: # colored and colorTone, copy from parent the options missing here, TODO: Check if this is working
+                    colorSpace: 
+                        -   value: 'RGBA'
+                            weight: 1.0 
+                        -   value: 'CMYKA'
+                            weight: 5.0
+
                     applyIn:
                         -   value: without
                             weight: 10.0
@@ -94,6 +100,12 @@ degradations:
                 quality: [30, 100]
 
             -   file: 'options/common/blur.yml'
+
+            -   type: rotate # rotation are applied in clean and degraded images
+                prob: 0.05
+                skipIf: [null, rotate]
+                angle: [-45, 45]
+                background: '#ffffff'
 
             -   type: resize
                 prob: 0.1

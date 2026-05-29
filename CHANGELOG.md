@@ -18,6 +18,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - Add circles and circles with a dot inside to avoid descreen them (Like eyes) [`17bddcc`](https://github.com/ollm/opencomic-ai-training/commit/17bddcc36f9bbeb7527d5004bdf91f273b32174a)
 - Add parallel lines and grids to avoid descreen them [`33b5d43`](https://github.com/ollm/opencomic-ai-training/commit/33b5d4374e34bf53c9db2767934cedc7918108ec)
 - Fix descreening causing some edges or very dark images with halftone to brighten [`435fbf9`](https://github.com/ollm/opencomic-ai-training/commit/435fbf9517858f490279c4c67d2875756b9034de)
+- Add CMYK halftone to descreen them
 
 ##### Upscale
 
