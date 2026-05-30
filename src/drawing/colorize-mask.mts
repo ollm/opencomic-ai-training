@@ -5,6 +5,7 @@ import cloneDeep from 'lodash.clonedeep';
 import rand from '../rand.mjs';
 import calcArea from './area.mjs';
 import {sleep} from '../tools.mjs';
+import brush from './brush.mjs';
 
 import {Drawings, Area} from '../types.mjs';
 
@@ -16,15 +17,15 @@ async function colorize(options: any, drawing: any, area: Area): Promise<Drawing
 
 	const {drawHeight, offsetArea, pointOffset, drawY, drawYEnd, middleWidth} = calcArea(area, options.base.size.height, options.base.size.width);
 
-	await krita.editView({
-		foregroundColor: {
+	await brush.set(options, {
+		color: {
 			r: 0,
 			g: 0,
 			b: 0,
 			a: 255,
 		},
-		currentBrushPreset: 'u) Pixel Art Fill',
-		brushSize: 10,
+		name: 'u) Pixel Art Fill',
+		size: 10,
 	});
 
 	const drawings: Drawings[] = [];
@@ -42,11 +43,11 @@ async function colorize(options: any, drawing: any, area: Area): Promise<Drawing
 		const x = randGenerator.range(0, options.base.size.width);
 		const y = randGenerator.range(drawY, drawYEnd);
 
-		drawings.push(await drawPointsAt(area, x, y, {r, g, b, a: 255}));
+		drawings.push(await drawPointsAt(options, area, x, y, {r, g, b, a: 255}));
 	}
 	
-	await krita.editView({
-		foregroundColor: {
+	await brush.set(options, {
+		color: {
 			r: 0,
 			g: 0,
 			b: 0,
@@ -56,14 +57,9 @@ async function colorize(options: any, drawing: any, area: Area): Promise<Drawing
 
 	if(area !== 'all')
 	{
-		drawings.push(await drawPointsAt(area, 0, drawY - offsetArea, {r: 0, g: 0, b: 0, a: 0}, options.base.size.width));
-		drawings.push(await drawPointsAt(area, 0, drawYEnd + offsetArea, {r: 0, g: 0, b: 0, a: 0}, options.base.size.width));
+		drawings.push(await drawPointsAt(options, area, 0, drawY - offsetArea, {r: 0, g: 0, b: 0, a: 0}, options.base.size.width));
+		drawings.push(await drawPointsAt(options, area, 0, drawYEnd + offsetArea, {r: 0, g: 0, b: 0, a: 0}, options.base.size.width));
 	}
-
-	// Change brush to airbrush
-	/*await krita.send(`edit_view:${JSON.stringify({
-		currentBrushPreset: 'b) Airbrush Soft',
-	})}`);*/
 
 	await krita.send(`edit_layer:${JSON.stringify({
 		name: 'opencomic:colorize-mask:'+area,
@@ -83,7 +79,7 @@ async function colorize(options: any, drawing: any, area: Area): Promise<Drawing
 
 }
 
-async function drawPointsAt(area: Area, x: number, y: number, color: {r: number; g: number; b: number; a: number;}, x2?: number, y2?: number): Promise<Drawings> {
+async function drawPointsAt(options: any,area: Area, x: number, y: number, color: {r: number; g: number; b: number; a: number;}, x2?: number, y2?: number): Promise<Drawings> {
 
 	x = Math.floor(x);
 	y = Math.floor(y);
@@ -93,8 +89,8 @@ async function drawPointsAt(area: Area, x: number, y: number, color: {r: number;
 
 	const {r, g, b, a} = color;
 
-	await krita.editView({
-		foregroundColor: {
+	await brush.set(options, {
+		color: {
 			r: r,
 			g: g,
 			b: b,

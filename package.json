@@ -20,7 +20,8 @@
 		"url": "git+https://github.com/ollm/opencomic-ai-training.git"
 	},
 	"scripts": {
-		"prepare": "npx rollup -c",
+		"tsc": "tsc",
+		"prepare": "tsc && npx rollup -c",
 		"generate": "node ./dist/index.mjs"
 	},
 	"keywords": [

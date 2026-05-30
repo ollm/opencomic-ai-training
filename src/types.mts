@@ -111,6 +111,7 @@ export interface Color {
 	g: number;
 	b: number;
 	a?: number;
+	gray?: number;
 }
 
 export interface ColorObject {
@@ -120,4 +121,4 @@ export interface ColorObject {
 	rgb?: Color;
 }
 
-export type ColorGroup = {color: () => void}; 
+export type ColorGroup = {color: () => Color}; 

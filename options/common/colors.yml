@@ -1,8 +1,8 @@
 gray:
     -   value: 
-            min: 255
-            max: 255
-        weight: 10.0
+            min: 0
+            max: 0
+        weight: 5.0
     -   value: 
             min: 150
             max: 255
@@ -20,6 +20,13 @@ alpha: # Consider disabling if pressure is implemented (pressureOne, pressureTwo
             min: 100
             max: 255
         weight: 1.0
+colorTone: # Only if colored is not active
+    active:
+        prob: 0.1
+    offset:
+        r: [-20, 20]
+        g: [-20, 20]
+        b: [-20, 20]
 colored:
     active:
         prob: 0.1

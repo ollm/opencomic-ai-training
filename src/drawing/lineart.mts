@@ -4,6 +4,8 @@ import _options from '../options.mjs';
 import cloneDeep from 'lodash.clonedeep';
 import rand from '../rand.mjs';
 import calcArea from './area.mjs';
+import brush from './brush.mjs';
+import colors from './colors.mjs';
 
 import {sleep} from '../tools.mjs';
 
@@ -13,33 +15,20 @@ async function draw(options: any, drawing: any, area: Area, layerName: Drawing =
 	
 	const scale = options.base.scale ?? 1;
 	const randGenerator = options.currentImageRand!;
+
 	drawing = _options.randomize(cloneDeep(drawing));
 
-	let brushSize = drawing?.brush?.size ?? options.base[layerName].brush.size;
+	console.log(drawing?.brush?.colors);
+	console.log(options.base[layerName]?.brush?.colors);
 
-	if(brushSize.min || brushSize.max)
-		brushSize = rand.generate([brushSize.min, brushSize.max], randGenerator);
+	const _colors = drawing?.brush?.colors || options.base[layerName]?.brush?.colors; // : options.base.colors;
+	const colorsGroup = colors.group(options, _colors, layerName);
 
-	brushSize = brushSize * scale;
-
-	const rgb = options.base.background;
-	const gray = options.base.background.gray;
-
-	const color = ((rgb.r ?? gray) + (rgb.g ?? gray) + (rgb.b ?? gray)) / 3;
-	const invert = options.base[layerName].invertBackground && (color < 128);
-
-	let brushPreset = drawing?.brush?.name ?? options.base[layerName].brush.name;
-	brushPreset = Array.isArray(brushPreset) ? rand.generate(brushPreset, randGenerator) : brushPreset;
-
-	await krita.editView({
-		foregroundColor: {
-			r: invert ? 255 : 0,
-			g: invert ? 255 : 0,
-			b: invert ? 255 : 0,
-			a: 255,
-		},
-		currentBrushPreset: brushPreset,
-		brushSize: brushSize,
+	await brush.set(options, {
+		size: drawing?.brush?.size ?? options.base[layerName]?.brush?.size,
+		name: drawing?.brush?.name ?? options.base[layerName]?.brush?.name,
+		color: colorsGroup.color(),
+		layerName,
 	});
 
 	const drawings: Drawings[] = [];
@@ -52,11 +41,7 @@ async function draw(options: any, drawing: any, area: Area, layerName: Drawing =
 
 		drawings.push({
 			type: layerName,
-			data: {
-				brushPreset,
-				brushSize,
-				color,
-			},
+			data: {},
 			points: points,
 		});
 	}

@@ -14,6 +14,7 @@ import lines from './drawing/lines.mjs';
 import halftone from './drawing/halftone.mjs';
 import texture from './drawing/texture.mjs';
 import gradient from './drawing/gradient.mjs'
+import brush from './drawing/brush.mjs'
 
 import output from './degradation/output.mjs';
 import sharp from './degradation/sharp.mjs';
@@ -100,6 +101,7 @@ async function generateImage(image: number, setProgress: (image: number, degrade
 	krita.cleanLayerCache();
 	_options.setCurrentImageRand(image);
 	_options.resetValues();
+	brush.reset();
 	const options: Options = cloneDeep(_options.get()!);
 
 	const groupLayer = 'general';

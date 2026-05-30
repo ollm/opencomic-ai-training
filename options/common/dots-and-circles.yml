@@ -5,17 +5,9 @@
         max: 32
     brush: 
         name: 'b) Basic-1'
-        color:
-            -   value:
-                    gray: 0
-                weight: 10.0
-            -   value: 
-                    gray: [200, 254]
-                weight: 2.0
-            -   value: 
-                    gray: [100, 200]
-                weight: 2.0
         size: 2
+        colors:
+            file: options/common/colors.yml
     amount: [5, 15]
     flatten:
         _prob: 0.1 # Chance to flatten the circle
@@ -29,8 +21,6 @@
         min: [1, 3]
         max: [3, 10]
     verticalAndHorizontalChance: 0.5 # Probability of placing dots in vertical or horizontal lines, the rest will be placed in random lines
-    # colors: # TODO: Not working currently, only in base color
-    #    file: options/common/colors.yml
 
 -   type: dots # Add random dots to avoid descreen them
     prob: 0.05
@@ -39,17 +29,9 @@
         max: 32
     brush: 
         name: 'b) Basic-1'
-        color:
-            -   value:
-                    gray: 0
-                weight: 10.0
-            -   value: 
-                    gray: [200, 254]
-                weight: 2.0
-            -   value: 
-                    gray: [100, 200]
-                weight: 2.0
         size: 2
+        colors:
+            file: options/common/colors.yml
     amount: [5, 15]
     spread: [30.1, 120.1]
     flatten:
@@ -63,8 +45,6 @@
     dots: # number of secuential dots to place the drawing
         min: [1, 2]
         max: [2, 5]
-    # colors: # TODO: Not working currently, only in base color
-    #    file: options/common/colors.yml
 
 -   type: circles # Add circles to avoid descreen them
     prob: 0.05
@@ -73,13 +53,6 @@
         max: 32
     brush: 
         name: 'b) Basic-1'
-        color:
-            -   value:
-                    gray: 0
-                weight: 10.0
-            -   value: 
-                    gray: [200, 254]
-                weight: 2.0
         size: 
             -   value:
                     min: 0.1
@@ -89,6 +62,8 @@
                     min: 0.1
                     max: 1.9
                 weight: 1.0
+        colors:
+            file: options/common/colors.yml
     amount: 
         -   value: [5, 15]
             weight: 2.0
@@ -108,8 +83,6 @@
         -   value:
                 min: [20.1, 60.1]
                 max: [120.1, 240.1]
-    # colors: # TODO: Not working currently, only in base color
-    #    file: options/common/colors.yml
 
 -   type: circles-with-dot # Add circles with a dot inside to avoid descreen them (Like eyes)
     prob: 0.05
@@ -118,13 +91,6 @@
         max: 32
     brush: 
         name: 'b) Basic-1'
-        color:
-            -   value:
-                    gray: 0
-                weight: 10.0
-            -   value: 
-                    gray: [200, 254]
-                weight: 2.0
         size: 
             -   value:
                     min: 0.1
@@ -134,6 +100,8 @@
                     min: 0.1
                     max: 1.9
                 weight: 5.0
+        colors:
+            file: options/common/colors.yml
     amount: 
         -   value: [5, 15]
             weight: 2.0
@@ -157,5 +125,3 @@
     sizeDot: 
         min: [1.1, 3.1]
         max: [3.1, 6.1]
-    # colors: # TODO: Not working currently, only in base color
-    #    file: options/common/colors.yml

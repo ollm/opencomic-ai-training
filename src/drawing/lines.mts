@@ -36,13 +36,13 @@ async function parallel(options: any, drawing: any, area: Area, groupLayer: stri
 	const colorsGroup = colors.group(options, drawing);
 
 	const drawingBrush = drawing.brush ?? {size: 2, name: 'b) Basic-1'};
-	await brush.set(options, drawingBrush);
+	await brush.set(options, {...drawingBrush, color: colorsGroup.color()});
 
 	const amount = rand.generate(_drawing?.amount ?? [1], randGenerator) as number;
 
 	for(let i = 0; i < amount; i++)
 	{
-		await brush.set(options, drawingBrush);
+		await brush.set(options, {...drawingBrush, color: colorsGroup.color()});
 		const size = rand.generate([drawing.brush.size.min, drawing.brush.size.max], randGenerator) as number * scale;
 
 		const areaSize = {

@@ -7,6 +7,7 @@ import {sleep} from '../tools.mjs';
 
 import colors from './colors.mjs';
 import {lines} from './lineart.mjs';
+import brush from './brush.mjs';
 
 async function add(options: any, drawing: any): Promise<any> {
 
@@ -40,9 +41,9 @@ async function kritaGradient(options: any, drawing: any) {
 	if(gradient === 'all')
 		gradient = rand.generate(Object.keys(krita.gradients), randGenerator);
 
-	await krita.send(`edit_view:${JSON.stringify({
+	await krita.editView({
 		currentGradient: gradient,
-	})}`);
+	});
 
 	const properties = {
 		gradient,
@@ -67,21 +68,21 @@ async function brushGradient(options: any, drawing: any) {
 
 	const size = options.base.size;
 
-	const colorsGroup = colors.group(options);
+	const colorsGroup = colors.group(options, options.base.colors);
 	const color = colorsGroup.color();
 
-	const brushSize = rand.generate([100, 1000], randGenerator) as number * scale;
+	const brushSize = rand.generate([100, 1000], randGenerator) as number;
 
-	await krita.editView({
-		foregroundColor: color,
+	await brush.set(options, {
+		color: color,
 		backgroundColor: {
 			r: 255,
 			g: 255,
 			b: 255,
 			a: 255,
 		},
-		currentBrushPreset: 'b) Airbrush Soft',
-		brushSize: brushSize,
+		name: 'b) Airbrush Soft',
+		size: brushSize,
 	});
 
 	await krita.send(`add_layer:${JSON.stringify({

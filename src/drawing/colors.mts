@@ -32,6 +32,7 @@ function similarFromPalette(target: ColorObject, palette: ColorObject[], ignore:
 
 	});
 
+	// @ts-ignore: package typings vary between default export and callable export.
 	const findColor = (getSimilarColor?.default ?? getSimilarColor)({
 		targetColor: target.color,
 		colorArray: colorArray,
@@ -59,10 +60,10 @@ function randFromPalette(randGenerator: RandGenerator, palette: ColorObject[], i
 
 }
 
-function generateRandPalette(options: any): ColorObject[] {
+function generateRandPalette(options: any, colors: any): ColorObject[] {
 
 	const randGenerator = options.currentImageRand!;
-	const num = options.base.colors.colored.paletteColors * 3;
+	const num = colors.colored.paletteColors * 3;
 
 	const palette: ColorObject[] = [];
 
@@ -86,11 +87,9 @@ function generateRandPalette(options: any): ColorObject[] {
 
 }
 
-function generatePalette(options: any): ColorObject[] {
+function generatePalette(options: any, colors: any): ColorObject[] {
 
 	const randGenerator = options.currentImageRand!;
-
-	const colors = options.base.colors;
 	const colored = colors.colored.active ? colors.colored : false;
 
 	const palette = cloneDeep(krita.palettes[colored.palette.name] as ColorObject[]);
@@ -142,10 +141,20 @@ function generatePalette(options: any): ColorObject[] {
 
 let first = true;
 
-function group(options: any, drawing?: any): ColorGroup {
+function group(options: any, colors: any, layerName: string = 'lineart'): ColorGroup {
+
+	colors = colors.brush?.colors ?? colors.colors ?? colors;
+
+	if(!colors)
+		throw new Error('Colors not found');
 
 	const randGenerator = options.currentImageRand!;
-	const colors = options.base.colors ?? {gray: {min: 0, max: 0}};
+
+	const rgb = options.base.background;
+	const gray = options.base.background.gray;
+
+	const color = ((rgb.r ?? gray) + (rgb.g ?? gray) + (rgb.b ?? gray)) / 3;
+	const invert = options.base?.[layerName]?.invertBackground && (color < 128);
 
 	const grayed = colors.gray;
 	const colored = colors.colored.active ? colors.colored : false;
@@ -156,9 +165,9 @@ function group(options: any, drawing?: any): ColorGroup {
 	if(colored && !options.currentImagePalette)
 	{
 		if(colored.palette.name === 'rand')
-			generateRandPalette(options);
+			generateRandPalette(options, colors);
 		else
-			generatePalette(options);
+			generatePalette(options, colors);
 	}
 
 	// Used colors
@@ -208,6 +217,13 @@ function group(options: any, drawing?: any): ColorGroup {
 					g = fixValue(r + colorTone.offset.g);
 					b = fixValue(r + colorTone.offset.b);
 				}
+			}
+
+			if(invert)
+			{
+				r = 255 - r;
+				g = 255 - g;
+				b = 255 - b;
 			}
 
 			return {r, g, b, a};

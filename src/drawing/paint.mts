@@ -6,6 +6,7 @@ import rand from '../rand.mjs';
 import calcArea from './area.mjs';
 import colors from './colors.mjs';
 import {sleep} from '../tools.mjs';
+import brush from './brush.mjs';
 
 import {lines} from './lineart.mjs';
 
@@ -58,15 +59,12 @@ async function draw(options: any, drawing: any, area: Area, draws:Record<string,
 
 		const points: number[] = [];
 
-		const gray = randGenerator.range(0, 255);
-		const brushSize = rand.generate([drawing.brush.size.min, drawing.brush.size.max], randGenerator) as number * scale;
+		const colorsGroup = colors.group(options, options.base.colors);
 
-		const colorsGroup = colors.group(options);
-
-		await krita.editView({
-			foregroundColor: colorsGroup.color(),
-			currentBrushPreset: rand.generate(drawing.brush.name, randGenerator),
-			brushSize: brushSize,
+		await brush.set(options, {
+			color: colorsGroup.color(),
+			name: drawing.brush.name,
+			size: drawing.brush.size,
 		});
 
 		const select = await krita.selectByColor({
@@ -90,9 +88,9 @@ async function draw(options: any, drawing: any, area: Area, draws:Record<string,
 		{
 			if(i > 1)
 			{
-				await krita.send(`edit_view:${JSON.stringify({
-					foregroundColor: colorsGroup.color(),
-				})}`);
+				await brush.set(options, {
+					color: colorsGroup.color(),
+				});
 			}
 
 			switch(type)
@@ -120,10 +118,10 @@ async function draw(options: any, drawing: any, area: Area, draws:Record<string,
 
 					break;
 
-				case 1: // dots
+				/*case 1: // dots
 
 
-					break;
+					break;*/
 			}
 		}
 
@@ -146,14 +144,14 @@ async function draw(options: any, drawing: any, area: Area, draws:Record<string,
 	const rgb = options.base.background;
 	const gray = options.base.background.gray;
 
-	await krita.send(`edit_view:${JSON.stringify({
+	await brush.set(options, {
 		backgroundColor: {
 			r: rgb.r ?? gray,
 			g: rgb.g ?? gray,
 			b: rgb.b ?? gray,
 			a: 255,
 		},
-	})}`);
+	});
 
 	await krita.send(`select_layer:${JSON.stringify({
 		name: 'opencomic:draw:background:'+area,

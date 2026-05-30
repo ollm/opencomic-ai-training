@@ -34,13 +34,13 @@ async function draw(options: any, drawing: any, area: Area, groupLayer: string, 
 	const colorsGroup = colors.group(options, drawing);
 
 	const drawingBrush = drawing.brush ?? {size: 2, name: 'b) Basic-1'};
-	await brush.set(options, drawingBrush);
+	await brush.set(options, {...drawingBrush, color: colorsGroup.color()});
 
 	const amount = rand.generate(_drawing?.amount ?? [1], randGenerator) as number;
 
 	for(let i = 0; i < amount; i++)
 	{
-		await brush.set(options, drawingBrush);
+		await brush.set(options, {...drawingBrush, color: colorsGroup.color()});
 	
 		const size = rand.generate([drawing.size.min, drawing.size.max], randGenerator) as number * scale;
 		const sizeDot = drawing.sizeDot ? rand.generate([drawing.sizeDot.min, drawing.sizeDot.max], randGenerator) as number * scale : 0;
@@ -53,13 +53,6 @@ async function draw(options: any, drawing: any, area: Area, groupLayer: string, 
 		};
 
 		const {drawHeight, offsetArea, pointOffset, drawY, drawYEnd, drawX, drawXEnd} = calcArea(area, options.base.size.height, options.base.size.width, areaSize);
-
-		/*if(i > 1)
-		{
-			await krita.send(`edit_view:${JSON.stringify({
-				foregroundColor: colorsGroup.color(),
-			})}`);
-		}*/
 
 		const spread = drawing.spread ?? 0 as number;
 
@@ -88,7 +81,7 @@ async function draw(options: any, drawing: any, area: Area, groupLayer: string, 
 
 			const _points: number[] = processPoints(size, i2, drawX, drawY, offsetX, offsetY, spreadX, spreadY, segments, flattenX, flattenY);
 
-			await brush.set(options, drawingBrush);
+			await brush.set(options, {...drawingBrush, color: colorsGroup.color()});
 
 			await krita.send(`draw_cubic_line: ${JSON.stringify({
 				name: 'opencomic:dots:'+area,
@@ -103,7 +96,7 @@ async function draw(options: any, drawing: any, area: Area, groupLayer: string, 
 
 			if(sizeDot > 0)
 			{
-				await brush.set(options, {...drawingBrush, size: 2});
+				await brush.set(options, {...drawingBrush, size: 2, color: colorsGroup.color()});
 				const _points: number[] = processPoints(sizeDot, i2, drawX, drawY, offsetX, offsetY, spreadX, spreadY, segments);
 
 				await krita.send(`draw_cubic_line: ${JSON.stringify({
