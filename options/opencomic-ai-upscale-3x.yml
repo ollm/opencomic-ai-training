@@ -6,7 +6,7 @@ format: jpg # final format of the clean and degraded images (png or jpg)
 
 # Base options, this will be base of the image
 base:
-    scale: 2 # This scaled all size values, for example if the width is 500-2000 it would be 1000-4000
+    scale: 1.5 # This scaled all size values, for example if the width is 500-2000 it would be 1000-4000
     disableBrushesWithPixelatedEdges: true # Disable brushes that produce pixelated edges, useful upscaling datasets or avoid pixelated restoration
     file: options/common/base.yml
     size:

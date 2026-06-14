@@ -1,7 +1,7 @@
 seed: 1 # for reproducibility, Keep in mind that the patterns of the Krita brushes may change over different sessions.
 resume: true
-images: 4000 # number of clean images to generate, the total number of final images will be images * degradedImagesPerCleanImage
-degradedImagesPerCleanImage: 100
+images: 5000 # number of clean images to generate, the total number of final images will be images * degradedImagesPerCleanImage
+degradedImagesPerCleanImage: 20
 format: jpg # final format of the clean and degraded images (png or jpg)
 
 # Base options, this will be base of the image
