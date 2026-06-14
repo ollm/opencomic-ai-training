@@ -15,6 +15,7 @@ async function parallel(options: any, drawing: any, area: Area, groupLayer: stri
 	const randGenerator = options.currentImageRand!;
 	const _drawing = drawing;
 	drawing = _options.randomize(cloneDeep(drawing));
+	const panels = drawing.panels;
 
 	const isGrid = drawing.type === 'grid';
 
@@ -29,6 +30,32 @@ async function parallel(options: any, drawing: any, area: Area, groupLayer: stri
 				name: 'opencomic:group:'+groupLayer,
 			},
 		})}`);
+	}
+
+	if(panels)
+	{
+		const erode = drawing.erode;
+
+		for(const paintDrawing of draws.colorizeMask)
+		{
+			const color = paintDrawing.color!;
+
+			if(color.a === 0)
+				continue;
+
+			const select = await krita.selectByColor({
+				layer: {
+					name: 'opencomic:colorize-mask:'+area,
+				},
+				r: color.r,
+				g: color.g,
+				b: color.b,
+				a: color.a,
+				blur: 0.6,
+			});
+
+			break
+		}
 	}
 
 	const points: number[] = [];
@@ -105,6 +132,11 @@ async function parallel(options: any, drawing: any, area: Area, groupLayer: stri
 		points: points,
 	});
 	
+	if(panels)
+	{
+		await krita.send('action:deselect');
+	}
+
 	return drawings;
 
 }

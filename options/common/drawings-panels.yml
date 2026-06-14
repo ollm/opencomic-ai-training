@@ -1,0 +1,267 @@
+-   weight: 1.0
+    value:
+        type: panels
+        generator:
+            -   value: 'bsp'
+                weight: 2.0
+            -   value: 'voronoi'
+                weight: 1.0
+        amount: # Number of panels to place in the image
+            -   value: 1
+                weight: 1.0
+            -   value: [2, 6]
+                weight: 10.0
+            -   value: [2, 10]
+                weight: 4.0
+        bsp: # Only applied if generator is bsp
+            margin: # In relative of the image size
+                top:
+                    -   value: 0
+                        weight: 1.0
+                    -   value: [-0.1, 0.1]
+                        weight: 1.0
+                right:
+                    -   value: 0
+                        weight: 1.0
+                    -   value: [-0.1, 0.1]
+                        weight: 1.0
+                bottom:
+                    -   value: 0
+                        weight: 1.0
+                    -   value: [-0.1, 0.1]
+                        weight: 1.0
+                left:
+                    -   value: 0
+                        weight: 1.0
+                    -   value: [-0.1, 0.1]
+                        weight: 1.0
+            diagonal:
+                _prob: 0.2
+                percent:
+                    -   value:
+                            min: -0.3
+                            max: 0.3
+                        weight: 2.0
+                    -   value:
+                            min: -0.999
+                            max: 0.999
+                        weight: 1.0
+            split:
+                min: 0.3
+                max: 0.7
+        voronoi: # Only applied if generator is voronoi
+            lloydIterations: 
+                min: 0
+                max: 4
+        separation:
+            -   value: [0, 5]
+                weight: 3.0
+            -   value: [2, 10]
+                weight: 3.0
+            -   value: [5, 20]
+                weight: 1.0
+            -   value: [5, 50]
+                weight: 1.0
+            -   value: 
+                    min: 5
+                    max: 50
+                weight: 1.0
+        joinPanels:
+            _prob: 0.2
+            max: [1, 5] # Max amount of panels to join together, Randomized
+        ignorePanels:
+            _prob: 0.1
+            max: [1, 3] # Max amount of panels to ignore to create empty space
+        list:
+            -   type: panels-lineart
+                unclosedPanels:
+                    _prob: 0.01 # Applied independently to each panel edge line
+                    max: [1, 5] # Max number of lines to leave unclosed
+                fullUnclosedPanels:
+                    _prob: 0.01
+
+            -   type: colorize-mask # This is also used in black-white images to ad some gray areas
+                panels: true
+
+            -   type: paint
+                prob: 0.99
+                panels: true
+                brush:
+                    name: '' # Use group if name is empty (Random brush from group)
+                    category:
+                        -   value: [ink, sketching]
+                            weight: 3.0
+                        -   value: [airbrush, basic, bristles, dry, chalk, charcoal, wet, watercolor, rgba, shapes, texture, stamp]
+                            weight: 3.0
+                        -   value: [pencil, ink, charcoal, sketching]
+                            weight: 1.0
+                    # amount: [1, 3]
+                    amount: 
+                        -   value: [0, 1]
+                            weight: 1.0
+                        -   value: [1, 10]
+                            weight: 5.0
+                        -   value: [1, 50]
+                            weight: 1.0
+                    size:
+                        -   value:
+                                min: [1, 5]
+                                max: [5, 10]
+                            weight: 1.0
+                        -   value:
+                                min: [20, 50]
+                                max: [50, 150]
+                            weight: 1.0
+                points:
+                    min: [40, 80]
+                    max: [80, 150]
+                colors:
+                    gray:
+                        -   value:
+                                min: 0
+                                max: 0
+                            weight: 3.0
+                        -   value: 
+                                min: 0
+                                max: 127
+                            weight: 3.0
+                        -   value: 
+                                min: 0
+                                max: 255
+                            weight: 1.0
+                    alpha:
+                        -   value: 
+                                min: 255
+                                max: 255
+                            weight: 5.0
+                        -   value: 
+                                min: 100
+                                max: 255
+                            weight: 1.0
+                    colorTone: # Only if colored is not active
+                        active:
+                            prob: 0.2
+                        offset:
+                            r: [-20, 20]
+                            g: [-20, 20]
+                            b: [-20, 20]
+                    colored:
+                        active:
+                            prob: 0.2
+                        paletteColors: [3, 20] # A new palette will be created with this amount of colors.
+                        similarColors:  # Agrupate colors in a range of similar colors, 0 disables similar colors
+                            -   value: [0, 3]
+                                weight: 1.0
+                            -   value: [5, 9]
+                                weight: 1.0
+                        differentColors: # Use direfent colors inside same paint (By default similar colors are used inside same paint)
+                            prob: 0.5
+                        palette:
+                            name: ['rand', 'Animation Color Set', 'Concept-cookie', 'Default', 'Swatches', 'PixelArt 32', 'Gradient', 'Markers']
+
+            -   type: lineart
+                layer: lineart-2
+                # prob: 0.2
+                prob: 0.1
+                panels: true
+                fillBackground:
+                    active:
+                        prob: 0.5
+                    erode: [1, 5]
+                    blur: [0.5, 0.8]
+                erode: [5, 50]
+                amount: [1, 10] # number of drawings to composite, per layer (up, middle, down)
+                points: # number of points to place the drawing (the drawing will be randomly moved and rotated around the point)
+                    min: [4, 8]
+                    max: [8, 15]
+
+            -   type: lineart-texture
+                prob: 0.5
+                panels: true
+                erode: [5, 50]
+                brush:
+                    name: '' # Use group if name is empty (Random brush from group)
+                    category: [texture, stamp]
+                    # amount: [1]
+                    size: 
+                        min: [50, 150]
+                        max: [150, 500]
+                points: # number of points to place the drawing (the drawing will be randomly moved and rotated around the point)
+                    min: [4, 8]
+                    max: [8, 15]
+
+            -   type: lineart-random
+                prob: 0.1
+                panels: true
+                erode: [5, 50]
+                brush: 
+                    name: '' # Use group if name is empty (Random brush from group)
+                    category: [pencil, ink, charcoal, sketching]
+                    disableBrushesWithPixelatedEdgesInSmallSize: true
+                    amount: [2, 10]
+                    size: 
+                        min: [0.1, 2.1]
+                        max: [2.1, 4.1]
+                areaSize:
+                    min: [20, 50]
+                    max: [50, 150]
+                points: # number of points to place the drawing (the drawing will be randomly moved and rotated around the point)
+                    min: [4, 20]
+                    max: [20, 40]
+                # colors: # TODO: Not working currently, only in base color
+                #     file: options/common/colors.yml
+
+
+            -   type: parallel-lines # Add parallel lines to avoid descreen them
+                prob: 0.25
+                panels: true
+                amount: [1, 2]
+                lines: # number of lines to place
+                    min: 1
+                    max: 5
+                length: # length of the lines
+                    min: 100
+                    max: 500
+                brush: 
+                    name: '' # Use group if name is empty (Random brush from group)
+                    category: [pencil, ink, charcoal, sketching]
+                    disableBrushesWithPixelatedEdgesInSmallSize: true
+                    size: 
+                        min: [0.1, 2.1]
+                        max: [2.1, 4.1]
+                    colors:
+                        file: options/common/colors.yml
+                separation: # separation between the lines of the grid
+                    min: 5
+                    max: 50
+                verticalAndHorizontalChance: 0.25 # Probability of placing dots in vertical or horizontal lines, the rest will be placed in random lines
+
+
+            -   type: grid # Add random grid to avoid descreen them
+                prob: 0.25
+                panels: true
+                amount: [1, 2]
+                lines: # number of lines to place the grid
+                    min: 1
+                    max: 5
+                length: # length of the lines
+                    min: 100
+                    max: 500
+                brush: 
+                    name: '' # Use group if name is empty (Random brush from group)
+                    category: [pencil, ink, charcoal, sketching]
+                    disableBrushesWithPixelatedEdgesInSmallSize: true
+                    size: 
+                        min: [0.1, 2.1]
+                        max: [2.1, 4.1]
+                    colors:
+                        file: options/common/colors.yml
+                separation: # separation between the lines of the grid
+                    min: 5
+                    max: 50
+                verticalAndHorizontalChance: 0.25 # Probability of placing dots in vertical or horizontal lines, the rest will be placed in random lines
+
+
+
+            # -   file: 'options/common/dots-and-circles.yml'
+            # -   file: 'options/common/parallel-lines-and-grid.yml'

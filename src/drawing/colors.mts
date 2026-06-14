@@ -139,6 +139,31 @@ function generatePalette(options: any, colors: any): ColorObject[] {
 
 }
 
+function needInvert(options: any, color: Color, layerName: string = 'lineart'): boolean {
+
+	const rgb = options.base.background;
+	const gray = options.base.background.gray;
+
+	const bR = rgb.r ?? gray;
+	const bG = rgb.g ?? gray;
+	const bB = rgb.b ?? gray;
+
+	const invert = options.base?.[layerName]?.invertBackground;
+
+	if(invert && (bR + bG + bB) / 3 < 128)
+		return true;
+
+	const r = color.r ?? (color.gray ?? 0);
+	const g = color.g ?? (color.gray ?? 0);
+	const b = color.b ?? (color.gray ?? 0);
+
+	if(Math.abs(r - bR) < 32 && Math.abs(g - bG) < 32 && Math.abs(b - bB) < 32)
+		return true;
+
+	return false;
+
+}
+
 let first = true;
 
 function group(options: any, colors: any, layerName: string = 'lineart'): ColorGroup {
@@ -149,12 +174,6 @@ function group(options: any, colors: any, layerName: string = 'lineart'): ColorG
 		throw new Error('Colors not found');
 
 	const randGenerator = options.currentImageRand!;
-
-	const rgb = options.base.background;
-	const gray = options.base.background.gray;
-
-	const color = ((rgb.r ?? gray) + (rgb.g ?? gray) + (rgb.b ?? gray)) / 3;
-	const invert = options.base?.[layerName]?.invertBackground && (color < 128);
 
 	const grayed = colors.gray;
 	const colored = colors.colored.active ? colors.colored : false;
@@ -178,6 +197,7 @@ function group(options: any, colors: any, layerName: string = 'lineart'): ColorG
 		color: function(): Color {
 
 			let r, g, b, a;
+			let inverted = false;
 
 			a = rand.generate(_alpha, randGenerator) as number;
 
@@ -219,14 +239,15 @@ function group(options: any, colors: any, layerName: string = 'lineart'): ColorG
 				}
 			}
 
-			if(invert)
+			if(needInvert(options, {r, g, b}, layerName))
 			{
 				r = 255 - r;
 				g = 255 - g;
 				b = 255 - b;
+				inverted = true;
 			}
 
-			return {r, g, b, a};
+			return {r, g, b, a, inverted};
 
 		}
 	}
@@ -234,4 +255,5 @@ function group(options: any, colors: any, layerName: string = 'lineart'): ColorG
 
 export default {
 	group,
+	needInvert,
 }

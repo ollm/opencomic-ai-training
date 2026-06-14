@@ -1,3 +1,5 @@
+import panels from '../panels.mjs';
+
 import {Area} from '../types.mjs';
 
 interface AreaSize {
@@ -18,6 +20,27 @@ export default function calcArea(area: Area, height: number, width: number, area
 
 	let drawX = 0;
 	let drawXEnd = width;
+
+	if(area.startsWith('panel-'))
+	{
+		const p = parseInt(area.split('-')[1]);	
+		const polygons = panels.current;
+		const polygon = polygons?.[p];
+
+		if(polygon)
+		{
+			const ys = polygon.map(point => point.y);
+			const xs = polygon.map(point => point.x);
+
+			drawY = Math.min(...ys);
+			drawYEnd = Math.max(...ys);
+			drawX = Math.min(...xs);
+			drawXEnd = Math.max(...xs);
+
+			pointOffset = Math.min(drawHeight, drawXEnd - drawX) / 2;
+			offsetArea = Math.min(drawHeight, drawXEnd - drawX) / 2;
+		}
+	}
 
 	if(areaSize)
 	{

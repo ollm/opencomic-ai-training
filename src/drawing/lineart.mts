@@ -11,15 +11,42 @@ import {sleep} from '../tools.mjs';
 
 import {Drawing, Drawings, Area, RandGenerator} from '../types.mjs';
 
-async function draw(options: any, drawing: any, area: Area, layerName: Drawing = 'lineart'): Promise<Drawings[]> {
+async function draw(options: any, drawing: any, area: Area, draws:Record<string, Drawings[]>, layerName: Drawing = 'lineart'): Promise<Drawings[]> {
 	
 	const scale = options.base.scale ?? 1;
 	const randGenerator = options.currentImageRand!;
 
 	drawing = _options.randomize(cloneDeep(drawing));
+	const panels = drawing.panels;
 
-	console.log(drawing?.brush?.colors);
-	console.log(options.base[layerName]?.brush?.colors);
+	const _layerName = drawing.layer ?? layerName;
+
+	if(panels)
+	{
+		const erode = drawing.erode;
+
+		for(const paintDrawing of draws.colorizeMask)
+		{
+			const color = paintDrawing.color!;
+
+			if(color.a === 0)
+				continue;
+
+			const select = await krita.selectByColor({
+				layer: {
+					name: 'opencomic:colorize-mask:'+area,
+				},
+				r: color.r,
+				g: color.g,
+				b: color.b,
+				a: color.a,
+				blur: 0.6, // 2,
+				erode: erode,
+			});
+
+			break
+		}
+	}
 
 	const _colors = drawing?.brush?.colors || options.base[layerName]?.brush?.colors; // : options.base.colors;
 	const colorsGroup = colors.group(options, _colors, layerName);
@@ -37,7 +64,7 @@ async function draw(options: any, drawing: any, area: Area, layerName: Drawing =
 
 	for(let i = 0; i < amount; i++)
 	{
-		const points = await _lines(options, drawing, area, layerName);
+		const points = await _lines(options, drawing, area, layerName, _layerName);
 
 		drawings.push({
 			type: layerName,
@@ -46,11 +73,56 @@ async function draw(options: any, drawing: any, area: Area, layerName: Drawing =
 		});
 	}
 	
+	if(panels)
+	{
+		const fillBackground = drawing.fillBackground ?? {};
+
+		if(fillBackground.active)
+		{
+			await krita.send(`add_layer:${JSON.stringify({
+				name: 'opencomic:'+_layerName+':background:'+area,
+				type: 'paintlayer',
+				below: {
+					name: 'opencomic:draw:'+area,
+				},
+			})}`);
+
+			await krita.selectByColor({
+				layer: {
+					name: 'opencomic:'+_layerName+':'+area,
+				},
+				onlyAlpha: true,
+				erode: fillBackground.erode,
+				blur: fillBackground.blur,
+			});
+
+			const rgb = options.base.background;
+			const gray = options.base.background.gray;
+
+			await brush.set(options, {
+				backgroundColor: {
+					r: rgb.r ?? gray,
+					g: rgb.g ?? gray,
+					b: rgb.b ?? gray,
+					a: 255,
+				},
+			});
+
+			await krita.send(`select_layer:${JSON.stringify({
+				name: 'opencomic:'+_layerName+':background:'+area,
+			})}`);
+
+			await krita.send('action:fill_selection_background_color');
+		}
+
+		await krita.send('action:deselect');
+	}
+
 	return drawings;
 
 }
 
-export async function _lines(options: any, drawing: any, area: Area, layerName: string = 'lineart'): Promise<number[]> {
+export async function _lines(options: any, drawing: any, area: Area, layerName: string = 'lineart', _layerName: string = 'lineart'): Promise<number[]> {
 
 	const scale = options.base.scale ?? 1;
 	const randGenerator = options.currentImageRand!;
@@ -67,7 +139,7 @@ export async function _lines(options: any, drawing: any, area: Area, layerName: 
 	const sublinesActive = drawing?.sublines?.active ?? options.base[layerName].sublines.active;
 
 	return await lines({
-		layer: 'opencomic:'+layerName+':'+area,
+		layer: 'opencomic:'+_layerName+':'+area,
 		width: options.base.size.width,
 		height: drawHeight,
 		x: drawX,

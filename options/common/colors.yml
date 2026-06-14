@@ -8,7 +8,7 @@ gray:
             max: 255
         weight: 2.0
     -   value: 
-            min: 0
+            min: 50
             max: 255
         weight: 1.0
 alpha: # Consider disabling if pressure is implemented (pressureOne, pressureTwo)

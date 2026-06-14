@@ -24,7 +24,11 @@ function generateFloat32(rng: prand.RandomGenerator): number {
 
 }
 
-function generateRange(rng: prand.RandomGenerator, from: number, to: number): number {
+function generateRange(rng: prand.RandomGenerator, from: number, to: number, forceDecimal: boolean = false): number {
+
+	// Decimal Range
+	if(from % 1 !== 0 || to % 1 !== 0 || forceDecimal)
+		return generateFloat32(rng) * (to - from) + from;
 
 	const value = prand.unsafeUniformIntDistribution(from, to, rng);
 	return value;
@@ -55,7 +59,7 @@ export function uniqueRand(seed: number = 0): RandGenerator {
 	return {
 		rng,
 		next: () => generateFloat32(rng),
-		range: (from: number, to: number) => generateRange(rng, from, to),
+		range: (from: number, to: number, forceDecimal: boolean = false) => generateRange(rng, from, to, forceDecimal),
 	};
 
 }

@@ -12,6 +12,8 @@ import _options from './options.mjs';
 import krita from './krita.mjs';
 import drawing from './drawing.mjs';
 
+import {sleep} from './tools.mjs';
+
 const ___dirname = typeof __dirname !== 'undefined' ? __dirname : import.meta.dirname;
 
 function getArgValue(flag: string, defaultValue: any = null) {
@@ -211,6 +213,8 @@ async function generateImages() {
 			});
 
 			await promise;
+
+			// await sleep(1000000);
 		}
 		catch
 		{

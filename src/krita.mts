@@ -1,5 +1,6 @@
 import fs from 'fs';
 import canvas from '@napi-rs/canvas';
+import sharp from 'sharp';
 import zlib from 'zlib';
 import {spawn} from 'child_process';
 import isEqual from 'lodash.isequal';
@@ -698,10 +699,12 @@ interface selectByColorOptions {
 	b?: number;
 	a?: number;
 	blur?: number;
+	dilate?: number;
+	erode?: number;
 	onlyAlpha?: boolean;
 }
 
-async function selectByColor({layer = {}, r = 255, g = 255, b = 255, a = 255, blur = 0, onlyAlpha = false}: selectByColorOptions = {}): Promise<any> {
+async function selectByColor({layer = {}, r = 255, g = 255, b = 255, a = 255, dilate = 0, erode = 0, blur = 0, onlyAlpha = false}: selectByColorOptions = {}): Promise<any> {
 
 	const pixels = await layerCache(layer);
 
@@ -709,7 +712,6 @@ async function selectByColor({layer = {}, r = 255, g = 255, b = 255, a = 255, bl
 	const height = pixels.height;
 
 	const selection = Array(width * height).fill(0);
-	const blurrySelection = Array(width * height * 4).fill(255);
 
 	const select = {
 		x: 0,
@@ -720,79 +722,66 @@ async function selectByColor({layer = {}, r = 255, g = 255, b = 255, a = 255, bl
 		height: 0,
 	};
 
-	if(blur)
+	for(let i = 0, len = pixels.data.length; i < len; i += 4)
 	{
-		for(let i = 0, len = pixels.data.length; i < len; i += 4)
+		const _r = pixels.data[i];
+		const _g = pixels.data[i + 1];
+		const _b = pixels.data[i + 2];
+		const _a = pixels.data[i + 3];
+
+		if((_r === r && _g === g && _b === b && _a === a) || (onlyAlpha && _a > 0))
 		{
-			const _r = pixels.data[i];
-			const _g = pixels.data[i + 1];
-			const _b = pixels.data[i + 2];
-			const _a = pixels.data[i + 3];
+			selection[i / 4] = 255;
 
-			if((_r === r && _g === g && _b === b && _a === a) || (onlyAlpha && _a > 0))
-			{
-				blurrySelection[i] = 0;
-				blurrySelection[i + 1] = 0;
-				blurrySelection[i + 2] = 0;
-				blurrySelection[i + 3] = 255;
+			const x = Math.floor((i / 4) % width);
+			const y = Math.floor((i / 4) / width);
 
-				const x = Math.floor((i / 4) % width);
-				const y = Math.floor((i / 4) / width);
+			if(x < select.x || select.x === 0)
+				select.x = x;
+			else if(x > select.endX || select.endX === 0)
+				select.endX = x;
 
-				if(x < select.x || select.x === 0)
-					select.x = x;
-				else if(x > select.endX || select.endX === 0)
-					select.endX = x;
-
-				if(y < select.y || select.y === 0)
-					select.y = y;
-				else if(y > select.endY || select.endY === 0)
-					select.endY = y;
-			}
-		}
-
-		const blurryCanvas = canvas.createCanvas(width, height);
-		const blurryCtx = blurryCanvas.getContext('2d');
-		const blurryImageData = blurryCtx.createImageData(width, height);
-		blurryImageData.data.set(Uint8ClampedArray.from(blurrySelection));
-		blurryCtx.putImageData(blurryImageData, 0, 0);
-		blurryCtx.filter = 'blur('+blur+'px)';
-		blurryCtx.drawImage(blurryCanvas, 0, 0);
-
-		const finalBlurryImageData = blurryCtx.getImageData(0, 0, blurryCanvas.width, blurryCanvas.height);
-
-		for(let i = 0, len = finalBlurryImageData.data.length; i < len; i += 4)
-		{
-			const _a = finalBlurryImageData.data[i];
-			selection[i / 4] = 255 - _a;
+			if(y < select.y || select.y === 0)
+				select.y = y;
+			else if(y > select.endY || select.endY === 0)
+				select.endY = y;
 		}
 	}
-	else
+	
+	if(blur || dilate)
 	{
-		for(let i = 0, len = pixels.data.length; i < len; i += 4)
+		const options: any = {
+			raw: {
+				width,
+				height,
+				channels: 1,
+			},
+		};
+
+		let _sharp = sharp(Buffer.from(selection), options);
+
+		if(blur)
 		{
-			const _r = pixels.data[i];
-			const _g = pixels.data[i + 1];
-			const _b = pixels.data[i + 2];
-			const _a = pixels.data[i + 3];
+			const blurOptions: any = {
+				sigma: blur,
+				precision: 'integer',
+				minAmplitude: 0.02,
+			};
 
-			if((_r === r && _g === g && _b === b && _a === a) || (onlyAlpha && _a > 0))
-			{
-				selection[i / 4] = 255;
+			_sharp = _sharp.blur(blurOptions);
+		}
 
-				const x = Math.floor((i / 4) % width);
-				const y = Math.floor((i / 4) / width);
+		if(dilate)	
+			_sharp = _sharp.dilate(dilate);
 
-				if(x < select.x || select.x === 0)
-					select.x = x;
-				else if(x > select.endX || select.endX === 0)
-					select.endX = x;
+		if(erode)	
+			_sharp = _sharp.erode(erode);
 
-				if(y < select.y || select.y === 0)
-					select.y = y;
-				else if(y > select.endY || select.endY === 0)
-					select.endY = y;
-			}
+		const sharpSelection = await _sharp.greyscale().raw().toBuffer();
+
+		for(let i = 0, len = sharpSelection.length; i < len; i++)
+		{
+			selection[i] = sharpSelection[i];
 		}
 	}
 

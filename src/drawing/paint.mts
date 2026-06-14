@@ -19,6 +19,7 @@ async function draw(options: any, drawing: any, area: Area, draws:Record<string,
 	const _drawing = drawing;
 	drawing = _options.randomize(cloneDeep(drawing));
 
+	const panels = drawing.panels ?? false;
 	const drawings: Drawings[] = [];
 
 	await krita.send(`add_layer:${JSON.stringify({
@@ -59,7 +60,7 @@ async function draw(options: any, drawing: any, area: Area, draws:Record<string,
 
 		const points: number[] = [];
 
-		const colorsGroup = colors.group(options, options.base.colors);
+		const colorsGroup = colors.group(options, drawing.colors ?? options.base.colors);
 
 		await brush.set(options, {
 			color: colorsGroup.color(),
@@ -75,7 +76,7 @@ async function draw(options: any, drawing: any, area: Area, draws:Record<string,
 			g: color.g,
 			b: color.b,
 			a: color.a,
-			blur: 1, // 2,
+			blur: 0.6, // 2,
 		});
 
 		// await krita.send('action:deselect');
@@ -130,15 +131,17 @@ async function draw(options: any, drawing: any, area: Area, draws:Record<string,
 			points: points,
 		});
 
-		// break;
+		if(panels) // Only first colorize mask, second mask are outside of the panel
+			break;
 	}
 
-	const select = await krita.selectByColor({
+	await krita.selectByColor({
 		layer: {
 			name: 'opencomic:draw:'+area,
 		},
 		onlyAlpha: true,
-		// blur: 1, // 2,
+		erode: 1,
+		blur: 0.6,
 	});
 
 	const rgb = options.base.background;
@@ -161,6 +164,8 @@ async function draw(options: any, drawing: any, area: Area, draws:Record<string,
 
 	await krita.send('action:deselect');
 	
+	// await sleep(100000000);
+
 	return drawings;
 
 }

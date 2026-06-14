@@ -88,6 +88,9 @@ export interface Options {
 			clean: string;
 			degraded: string;
 			options: string;
+			mask: string;
+			labels: string;
+			preview: string;
 		};
 		list: DegradationObject[];
 	}[];
@@ -102,7 +105,7 @@ export interface Drawings {
 	data?: any,
 }
 
-export type Area = 'all' | 'up' | 'middle' | 'down';
+export type Area = 'all' | 'up' | 'middle' | 'down' | `panel-${number}`;
 
 export type Layers = Partial<Record<Area, Record<string, any>>>;
 
@@ -112,6 +115,7 @@ export interface Color {
 	b: number;
 	a?: number;
 	gray?: number;
+	inverted?: boolean;
 }
 
 export interface ColorObject {
@@ -122,3 +126,11 @@ export interface ColorObject {
 }
 
 export type ColorGroup = {color: () => Color}; 
+
+export interface Point {
+	x: number,
+	y: number,
+}
+
+export type Polygon = Point[];
+export type Polygons = Polygon[];

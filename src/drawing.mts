@@ -5,6 +5,7 @@ import _options from './options.mjs';
 import rand from './rand.mjs';
 import cloneDeep from 'lodash.clonedeep';
 import krita from './krita.mjs';
+import panels from './panels.mjs';
 
 import lineart from './drawing/lineart.mjs';
 import colorizeMask from './drawing/colorize-mask.mjs';
@@ -18,6 +19,8 @@ import brush from './drawing/brush.mjs'
 
 import output from './degradation/output.mjs';
 import sharp from './degradation/sharp.mjs';
+
+import {sleep} from './tools.mjs';
 
 import {Drawings, Area, Layers} from './types.mjs';
 
@@ -33,6 +36,14 @@ async function addGroupLayer(name: string): Promise<void> {
 }
 
 async function addLayers(area: Area, layerTypes: Record<string, boolean>, groupLayer: string): Promise<void> {
+
+	await krita.send(`add_layer:${JSON.stringify({
+		name: 'opencomic:lineart-2:'+area,
+		type: 'paintlayer',
+		inside: {
+			name: 'opencomic:group:'+groupLayer,
+		},
+	})}`);
 
 	await krita.send(`add_layer:${JSON.stringify({
 		name: 'opencomic:lineart:'+area,
@@ -152,9 +163,33 @@ async function generateImage(image: number, setProgress: (image: number, degrade
 	}
 
 	let layers: Layers = {};
+	let areas: Area[] = ['all'];
 
 	switch(imageOptions.drawings.type)
 	{
+		case 'panels':
+
+			areas = [];
+
+			await addGroupLayer(groupLayer);
+			const polygons = panels.generate(imageOptions, imageOptions.drawings);
+
+			for(let p = 0, len = polygons.length; p < len; p++)
+			{
+				const area = `panel-${p}` as Area;
+				await addLayers(area, layerTypes, groupLayer);
+
+				areas.push(area);
+			}
+
+			for(let p = 0, len = polygons.length; p < len; p++)
+			{
+				const area = `panel-${p}` as Area;
+				layers[area] = await processLayer(area, groupLayer);
+			}
+
+			break;
+
 		case '3layered':
 
 			await addGroupLayer(groupLayer);
@@ -168,6 +203,8 @@ async function generateImage(image: number, setProgress: (image: number, degrade
 				down: await processLayer('down', groupLayer),
 			};
 
+			areas = ['up', 'middle', 'down'];
+
 			break;
 
 		case 'singlelayered':
@@ -179,6 +216,8 @@ async function generateImage(image: number, setProgress: (image: number, degrade
 				all: await processLayer('all', groupLayer),
 			};
 
+			areas = ['all'];
+
 			break;
 
 	}
@@ -187,7 +226,7 @@ async function generateImage(image: number, setProgress: (image: number, degrade
 
 	// await processFinalProcessing('up');
 
-	await processDegradations(layers, function(degradedImage: number) {
+	await processDegradations(layers, areas, function(degradedImage: number) {
 
 		setProgress(image, (image - 1) * imageOptions.degradedImagesPerCleanImage + degradedImage);
 
@@ -242,15 +281,19 @@ async function processLayer(area: Area, groupLayer: string): Promise<any> {
 		switch(drawing.type)
 		{
 			case 'lineart':
-				draws.lineart = await lineart.draw(imageOptions, drawing, area);
+				draws.lineart = await lineart.draw(imageOptions, drawing, area, draws);
 				break;
 
 			case 'lineart-texture':
-				draws.lineartTexture = await lineart.draw(imageOptions, drawing, area, 'lineart-texture');
+				draws.lineartTexture = await lineart.draw(imageOptions, drawing, area, draws, 'lineart-texture');
 				break;
 
 			case 'lineart-random':
-				draws.lineartRandom = await lineart.draw(imageOptions, drawing, area, 'lineart-random');
+				draws.lineartRandom = await lineart.draw(imageOptions, drawing, area, draws, 'lineart-random');
+				break;
+
+			case 'panels-lineart':
+				draws.lineart = await panels.lineart(imageOptions, drawing, area);
 				break;
 
 			case 'colorize-mask':
@@ -300,25 +343,9 @@ async function processLayer(area: Area, groupLayer: string): Promise<any> {
 	return draws;
 }
 
-async function processDegradations(layers: Layers, setProgress: (degradedImage: number) => void): Promise<void> {
+async function processDegradations(layers: Layers, areas: Area[], setProgress: (degradedImage: number) => void): Promise<void> {
 
 	const randGenerator = imageOptions.currentImageRand!;
-
-	let areas: Area[] = [];
-
-	switch(imageOptions.drawings.type)
-	{
-		case '3layered':
-
-			areas = ['up', 'middle', 'down'];
-			break;
-
-		case 'singlelayered':
-
-			areas = ['all'];
-			break;
-
-	}
 
 	let cleanCache = null;
 	let degradedCache = null;
@@ -339,6 +366,11 @@ async function processDegradations(layers: Layers, setProgress: (degradedImage: 
 				middle: {},
 				down: {},
 			};
+
+			for(const area of areas)
+			{
+				_layers[area] = {};
+			}
 
 			const _configs: Record<string, any> = {};
 
@@ -395,7 +427,7 @@ async function processDegradations(layers: Layers, setProgress: (degradedImage: 
 					{
 						case 'halftone':
 
-							await halftone.removeAll();
+							await halftone.removeAll(areas);
 							const _halftone = await halftone.addAllWithConfig(imageOptions, areas, config.halftone, false);
 
 							break;
@@ -421,7 +453,7 @@ async function processDegradations(layers: Layers, setProgress: (degradedImage: 
 					{
 						case 'halftone':
 
-							await halftone.removeAll();
+							await halftone.removeAll(areas);
 							const _halftone = await halftone.addAllWithConfig(imageOptions, areas, config.halftone, true);
 
 							for(const area in _halftone)
@@ -543,6 +575,8 @@ async function processDegradations(layers: Layers, setProgress: (degradedImage: 
 						configs: _configs,
 						options: imageOptions,
 					}), degradation, imageDegradation);
+
+					await output.savePanels(imageOptions, clean, degradation, imageDegradation, areas);
 				}
 
 				imageDegradationDone++;

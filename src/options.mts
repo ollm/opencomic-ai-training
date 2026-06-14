@@ -107,6 +107,24 @@ function load(file: string) {
 			degradation.output.options = resolve(degradation.output.options);
 			if(!fs.existsSync(degradation.output.options)) fs.mkdirSync(degradation.output.options, {recursive: true});
 		}
+
+		if(degradation.output.mask)
+		{
+			degradation.output.mask = resolve(degradation.output.mask);
+			if(!fs.existsSync(degradation.output.mask)) fs.mkdirSync(degradation.output.mask, {recursive: true});
+		}
+
+		if(degradation.output.labels)
+		{
+			degradation.output.labels = resolve(degradation.output.labels);
+			if(!fs.existsSync(degradation.output.labels)) fs.mkdirSync(degradation.output.labels, {recursive: true});
+		}
+
+		if(degradation.output.preview)
+		{
+			degradation.output.preview = resolve(degradation.output.preview);
+			if(!fs.existsSync(degradation.output.preview)) fs.mkdirSync(degradation.output.preview, {recursive: true});
+		}
 	}
 
 	/* Due this in every image

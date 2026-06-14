@@ -20,8 +20,6 @@
         min: 0.5
         max: 4.9
     verticalAndHorizontalChance: 0.25 # Probability of placing dots in vertical or horizontal lines, the rest will be placed in random lines
-    # colors: # TODO: Not working currently, only in base color
-    #    file: options/common/colors.yml
 
 -   type: grid # Add random grid to avoid descreen them
     prob: 0.05
@@ -45,5 +43,3 @@
         min: 0.5
         max: 14.9
     verticalAndHorizontalChance: 0.25 # Probability of placing dots in vertical or horizontal lines, the rest will be placed in random lines
-    # colors: # TODO: Not working currently, only in base color
-    #    file: options/common/colors.yml

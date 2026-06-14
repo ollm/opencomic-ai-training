@@ -1,6 +1,8 @@
 import krita from '../krita.mjs';
 import rand from '../rand.mjs';
 
+import colors from './colors.mjs';
+
 import {Color} from '../types.mjs';
 
 interface BrushOptions {
@@ -9,6 +11,7 @@ interface BrushOptions {
 	color?: Color,
 	backgroundColor?: Color,
 	layerName?: string,
+	notInvert?: boolean,
 }
 
 interface BrushPrev {
@@ -55,19 +58,13 @@ async function setBrushSize(size: number, name: string, color: Color, bColor: Co
 
 }
 
-function getColor(options: any, Color: Color, layerName: string, type: 'color' | 'backgroundColor' = 'color'): Color {
+function getColor(options: any, Color: Color, layerName: string, type: 'color' | 'backgroundColor' = 'color', notInvert: boolean = false): Color {
 
 	// Color
 	let r = 0, g = 0, b = 0, a = 255;
 
 	if(Color)
 	{
-		const rgb = options.base.background;
-		const gray = options.base.background.gray;
-
-		const color = ((rgb.r ?? gray) + (rgb.g ?? gray) + (rgb.b ?? gray)) / 3;
-		const invert = options.base?.[layerName]?.invertBackground && (color < 128);
-
 		const rgbBrush = Color;
 		const grayBrush = Color.gray ?? 0
 
@@ -76,7 +73,7 @@ function getColor(options: any, Color: Color, layerName: string, type: 'color' |
 		b = rgbBrush.b ?? grayBrush;
 		a = rgbBrush.a ?? 255;
 
-		if(invert)
+		if(!Color.inverted && colors.needInvert(options, {r, g, b}, layerName) && type === 'color' && !notInvert)
 		{
 			r = 255 - r;
 			g = 255 - g;
@@ -136,11 +133,13 @@ async function set(options: any, brush: BrushOptions) {
 		brushSize = prev.size ?? (2 * scale);
 	}
 
+	const notInvert = brush.notInvert ?? false;
+
 	// Color
-	const fColor = getColor(options, brush.color!, layerName, 'color');
+	const fColor = getColor(options, brush.color!, layerName, 'color', notInvert);
 
 	// Background color
-	const bColor = getColor(options, brush.backgroundColor!, layerName, 'backgroundColor');
+	const bColor = getColor(options, brush.backgroundColor!, layerName, 'backgroundColor', notInvert);
 
 	// Brush preset
 	let brushPreset;

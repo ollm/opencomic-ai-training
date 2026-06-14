@@ -14,6 +14,7 @@ function getArg(arg)
 }
 
 const dataset = getArg('--dataset');
+const minSize = getArg('--size');
 let scale = getArg('--scale');
 
 if(!scale)
@@ -41,6 +42,7 @@ Usage:
 
 Arguments:
   --dataset   Dataset name (required)
+  --size	  Min image size (optional)
   --scale     Scale factor (optional, auto-detected from dataset name)
   --print     Print mismatched rows
   --delete    Delete unmatched images
@@ -53,6 +55,7 @@ console.log('');
 
 console.log([
 	`Dataset : ${dataset}`,
+	`Size    : ${minSize || 'N/A'}`,
 	`Scale   : ${scale}`,
 	`Print   : ${PRINT}`,
 	`Delete  : ${DELETE}`
@@ -90,7 +93,7 @@ for(const file of files)
 		const size = await sharp(clean).metadata();
 		const sizeD = await sharp(degraded).metadata();
 
-		if(size.width !== sizeD.width * scale || size.height !== sizeD.height * scale)
+		if(size.width !== sizeD.width * scale || size.height !== sizeD.height * scale || (minSize && (size.width < minSize || size.height < minSize)))
 		{
 			if(PRINT)
 				console.log(`Mismatched size: ${file} (clean: ${size.width}x${size.height}, degraded: ${sizeD.width}x${sizeD.height})`);

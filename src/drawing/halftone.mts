@@ -4,7 +4,6 @@ import _options from '../options.mjs';
 import cloneDeep from 'lodash.clonedeep';
 import merge from 'lodash.merge';
 import rand from '../rand.mjs';
-import calcArea from './area.mjs';
 import {PATTERNS, SHAPES, INTERPOLATIONS, property} from '../filter.mjs';
 
 import {Drawings, Area} from '../types.mjs';
@@ -144,68 +143,7 @@ async function edit(name: string, properties: Record<string, any>, visible: bool
 
 }
 
-async function randLayers(options: any, drawing: Record<string, any>): Promise<Record<Area, any>> {
-
-	const scale = options.base.scale ?? 1;
-	const randGenerator = options.currentImageRand!;
-	drawing = _options.randomize(cloneDeep(drawing));
-
-	const halftone = options.base.halftone;
-
-	const areas: Area[] = ['up', 'middle', 'down'];
-	const result: Record<Area, any> = {
-		all: null,
-		up: null,
-		middle: null,
-		down: null,
-	};
-
-	for(const area of areas)
-	{
-		const applyIn = rand.generate(drawing.applyIn, randGenerator);
-		const config = applyIn === 'both' ? drawing.both : drawing.degraded;
-		const modes = config.mode === 'both' ? ['intensity', 'alpha'] : [config.mode];
-
-		if(applyIn !== 'without')
-		{
-			if(config.mode !== 'both')
-				await edit(`opencomic:halftone:${area}:${config.mode === 'intensity' ? 'alpha' : 'intensity'}`, {}, false);
-
-			for(const mode of modes)
-			{
-				const properties = {
-					mode,
-					...property('pattern', PATTERNS[config.pattern] ?? PATTERNS.lineal),
-					...property('shape', SHAPES[config.shape] ?? SHAPES.dot),
-					...property('interpolation', INTERPOLATIONS[config.interpolation] ?? INTERPOLATIONS.sinusoidal),
-					...property('size_mode', 1),
-					...property('size_x', config.size * scale),
-					...property('size_y', config.size * scale),
-					...property('rotation', halftone.angle),
-				};
-
-				await edit(`opencomic:halftone:${area}:${mode}`, properties, (applyIn === 'both'));
-			}
-		}
-		else
-		{
-			await edit(`opencomic:halftone:${area}:intensity`, {}, false);
-			await edit(`opencomic:halftone:${area}:alpha`, {}, false);
-		}
-
-		result[area] = {
-			type: 'halftone',
-			applyIn,
-			modes,
-		};
-	}
-
-	return result;
-}
-
-async function removeAll(): Promise<void> {
-
-	const areas: Area[] = ['all', 'up', 'middle', 'down'];
+async function removeAll(areas: Area[]): Promise<void> {
 
 	const layers: any[] = [];
 
@@ -238,6 +176,5 @@ export default {
 	config,
 	addAllWithConfig,
 	edit,
-	randLayers,
 	removeAll,
 }
