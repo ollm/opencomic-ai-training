@@ -166,7 +166,7 @@ async function savePanels(options: any, image: string | Buffer, degradation: any
 					const a = data[i + 3];
 					const pi = Math.floor(i / 4);
 
-					if(a > 0)
+					if(a > 127) // if(a > 0)
 					{
 						mask[pi] = 255;
 					}
@@ -188,7 +188,7 @@ async function savePanels(options: any, image: string | Buffer, degradation: any
 						const a = data[i + 3];
 						const pi = Math.floor(i / 4);
 
-						if(a > 0)
+						if(a > 127) // if(a > 0)
 						{
 							mask[pi] = 255;
 						}
