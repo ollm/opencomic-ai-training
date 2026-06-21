@@ -36,8 +36,13 @@ const size = parseInt(getArg('--size') || '256', 10);
 if(!input || !output || !process.argv.includes('--input') || !process.argv.includes('--output') || !fs.existsSync(input) || !fs.existsSync(output))
 {
 	console.log(`
+	Usage:
+	  npm run prepare && node ./dist/images-to-model-size.mjs --input ./input-images --output ./output-images --size 256
 
-
+	Arguments:
+	  --input: Path to the input images directory (must exist).
+	  --output: Path to the output images directory (must exist).
+	  --size: Size to resize the images to (default: 256).
 	`);
 
 	process.exit(1);

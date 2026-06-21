@@ -30,7 +30,7 @@ function resolve(path: string): string
 }
 
 const dataset = resolve(getArg('--dataset') || '');
-const size = parseInt(getArg('--size') || '256', 10);
+const size = parseInt(getArg('--size') || '512', 10);
 const dilateValue = parseInt(getArg('--dilate') || '2', 10);
 const threshold = parseInt(getArg('--threshold') || '0', 10); // 128 half
 
@@ -40,8 +40,13 @@ const mask = p.join(dataset, 'mask');
 if(!dataset || !fs.existsSync(panel) || !fs.existsSync(mask))
 {
 	console.log(`
+	Usage:
+	  npm run prepare && node ./dist/mask-to-image.mjs --dataset ./datasets/opencomic-ai-panels --size 512 --dilate 2
 
-
+	Arguments:
+	  --dataset: Path to the dataset directory containing 'degraded' and 'mask' subdirectories (must exist).
+	  --size: Size to resize the images to (default: 512).
+	  --dilate: Value for dilating the mask (default: 2).
 	`);
 
 	process.exit(1);
@@ -178,7 +183,7 @@ for(const file of files)
 		raw: {
 			width: size,
 			height: size,
-			channels: 3,
+			channels: 4,
 		}
 	});
 
