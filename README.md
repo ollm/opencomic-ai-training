@@ -177,7 +177,7 @@ This project builds upon and is made possible thanks to:
 - [`ollm/opencomic-ai-bin`](https://github.com/ollm/opencomic-ai-bin)
 - [`ollm/opencomic-ai-models`](https://github.com/ollm/opencomic-ai-models)
 
-## Citation (opencomic-ai-training)
+## Citation
 
 If you use this project, please cite it as follows.
 
