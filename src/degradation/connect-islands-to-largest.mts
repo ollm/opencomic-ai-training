@@ -153,29 +153,19 @@ export default function connectIslandsToLargest(mask: Uint8Array, width: number,
 			continue;
 
 		const component = components[i];
-		let closest = component[0];
-		let closestDistance = distance[closest];
 
-		for(const index of component)
+		for(const start of component)
 		{
-			const d = distance[index];
+			let current = start;
 
-			if(d >= 0 && (closestDistance < 0 || d < closestDistance))
+			while(current >= 0 && distance[current] > 0)
 			{
-				closest = index;
-				closestDistance = d;
+				mask[current] = 255;
+				current = parent[current];
 			}
+
+			if(current >= 0)
+				mask[current] = 255;
 		}
-
-		let current = closest;
-
-		while(current >= 0 && distance[current] > 0)
-		{
-			mask[current] = 255;
-			current = parent[current];
-		}
-
-		if(current >= 0)
-			mask[current] = 255;
 	}
 }

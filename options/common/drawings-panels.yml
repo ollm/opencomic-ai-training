@@ -83,6 +83,25 @@
             -   type: colorize-mask # This is also used in black-white images to ad some gray areas
                 panels: true
 
+            -   type: panel-background
+                prob: 0.9
+                panels: true
+                useBaseBackground:
+                    prob: 0.5
+                colors:
+                    -   value:
+                            gray: 255
+                        weight: 10.0
+                    -   value:
+                            gray: [200, 254]
+                        weight: 5.0
+                    -   value:
+                            gray: [1, 55]
+                        weight: 2.5
+                    -   value:
+                            gray: 0
+                        weight: 5.0
+
             -   type: paint
                 prob: 0.99
                 panels: true

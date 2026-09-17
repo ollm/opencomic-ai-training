@@ -45,7 +45,7 @@ if(help || !file || !kritaPath || !options)
 Generate a dataset of clean and degraded images using Krita, based on a YAML configuration file.
 
 Usage:
-  npm run prepare && npm run generate -- --options ./options/opencomic-ai-upscale-3x.yml --krita ./krita-5.3.1-x86_64.AppImage
+  npm run prepare && npm run generate -- --options ./options/opencomic-ai-upscale-3x.yml --krita ./krita-5.3.2.1-x86_64.AppImage
 
 Arguments:
   --options <file>                    Path to the options file (YAML).
@@ -214,6 +214,7 @@ async function generateImages() {
 
 			await promise;
 
+			// For test in krita
 			// await sleep(1000000);
 		}
 		catch

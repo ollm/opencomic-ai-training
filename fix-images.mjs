@@ -15,6 +15,7 @@ function getArg(arg)
 
 const dataset = getArg('--dataset');
 const minSize = getArg('--size');
+const cleanFolder = getArg('--clean') || 'clean';
 let scale = getArg('--scale');
 
 if(!scale)
@@ -64,13 +65,18 @@ console.log([
 const folder = p.join('./datasets', dataset);
 const path = p.join(import.meta.dirname, folder);
 
-const filesC = fs.readdirSync(p.join(path, 'clean'));
+const filesC = fs.readdirSync(p.join(path, cleanFolder));
 const filesD = fs.readdirSync(p.join(path, 'degraded'));
 
 if(!fs.existsSync(path))
 	throw new Error('Path does not exist: ' + path);
 
-const files = [...new Set([...filesC, ...filesD])];
+function name(files)
+{
+	return files.map(file => p.parse(file).name);
+}
+
+const files = [...new Set([...name(filesC), ...name(filesD)])];
 
 let count = 0;
 let all = 0;
@@ -79,8 +85,8 @@ for(const file of files)
 {
 	if(file.startsWith('.')) continue;
 
-	const clean = p.join(path, 'clean', file);
-	const degraded = p.join(path, 'degraded', file);
+	const clean = p.join(path, cleanFolder, `${file}.${cleanFolder === 'mask' ? 'png' : 'jpg'}`);
+	const degraded = p.join(path, 'degraded', `${file}.jpg`);
 
 	let _delete = false;
 

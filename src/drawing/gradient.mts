@@ -50,7 +50,7 @@ async function kritaGradient(options: any, drawing: any) {
 	};
 
 	await krita.send(`add_layer:${JSON.stringify({
-		name: 'opencomic:gradient',
+		name: `opencomic:gradient${options.layerName ? `:${options.layerName}` : ''}`,
 		inside: {
 			name: `opencomic:group:${options.groupLayer}`,
 		},
@@ -73,6 +73,8 @@ async function brushGradient(options: any, drawing: any) {
 
 	const brushSize = rand.generate([100, 1000], randGenerator) as number;
 
+	const layerName = `opencomic:gradient${options.layerName ? `:${options.layerName}` : ''}`;
+
 	await brush.set(options, {
 		color: color,
 		backgroundColor: {
@@ -86,7 +88,7 @@ async function brushGradient(options: any, drawing: any) {
 	});
 
 	await krita.send(`add_layer:${JSON.stringify({
-		name: 'opencomic:gradient',
+		name: layerName,
 		inside: {
 			name: `opencomic:group:${options.groupLayer}`,
 		},
@@ -95,7 +97,7 @@ async function brushGradient(options: any, drawing: any) {
 	})}`);
 
 	await krita.send(`select_layer:${JSON.stringify({
-		name: 'opencomic:gradient',
+		name: layerName,
 	})}`);
 
 	await krita.send('action:fill_selection_background_color');
@@ -104,7 +106,7 @@ async function brushGradient(options: any, drawing: any) {
 	const _height = size.height * scale;
 
 	await lines({
-		layer: 'opencomic:gradient',
+		layer: layerName,
 		width: _width,
 		height: _height,
 		x: 0,

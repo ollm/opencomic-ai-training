@@ -9,6 +9,7 @@ import panels from './panels.mjs';
 
 import lineart from './drawing/lineart.mjs';
 import colorizeMask from './drawing/colorize-mask.mjs';
+import panelBackground from './drawing/panel-background.mjs';
 import paint from './drawing/paint.mjs';
 import dots from './drawing/dots.mjs';
 import lines from './drawing/lines.mjs';
@@ -35,6 +36,29 @@ async function addGroupLayer(name: string): Promise<void> {
 
 }
 
+async function addBackground(): Promise<void> {
+
+	const background = imageOptions.base.background;
+
+	if(background.type === 'gradient' || background.type === 'texture')
+	{
+		await krita.send(`remove_layers:${JSON.stringify([{
+			index: 0,
+		}])}`);
+	}
+
+	const _imageOptions = {
+		...imageOptions,
+		layerName: 'background',
+	};
+
+	if(background.type === 'gradient')
+		await gradient.add(_imageOptions, background);
+	else if(background.type === 'texture')
+		await texture.add(_imageOptions, background);
+
+}
+
 async function addLayers(area: Area, layerTypes: Record<string, boolean>, groupLayer: string): Promise<void> {
 
 	await krita.send(`add_layer:${JSON.stringify({
@@ -57,6 +81,25 @@ async function addLayers(area: Area, layerTypes: Record<string, boolean>, groupL
 	await krita.send('edit_layer:'+JSON.stringify({
 		rename: 'opencomic:colorize-mask:'+area,
 	}));
+
+	if(layerTypes['panel-background'] || layerTypes.paint)
+	{
+		await krita.send(`add_layer:${JSON.stringify({
+			name: 'opencomic:group:draw:'+area,
+			type: 'grouplayer',
+			above: {
+				index: 0, // Background layer
+			}
+		})}`);
+
+		await krita.send(`add_layer:${JSON.stringify({
+			name: 'opencomic:draw:background:'+area,
+			type: 'paintlayer',
+			inside: {
+				name: 'opencomic:group:draw:'+area,
+			},
+		})}`);
+	}
 
 	/*
 	await krita.send(`add_layer:${JSON.stringify({
@@ -145,15 +188,19 @@ async function generateImage(image: number, setProgress: (image: number, degrade
 
 	await krita.document(width, height);
 
-	const rgb = imageOptions.base.background;
-	const gray = imageOptions.base.background.gray;
+	const background = imageOptions.base.background;
 
-	await krita.fillBackgroundLayer({
-		r: rgb.r ?? gray,
-		g: rgb.g ?? gray,
-		b: rgb.b ?? gray,
-		a: 255,
-	});
+	if(!background.type)
+	{
+		const gray = background.gray;
+
+		await krita.fillBackgroundLayer({
+			r: background.r ?? gray,
+			g: background.g ?? gray,
+			b: background.b ?? gray,
+			a: 255,
+		});
+	}
 
 	const layerTypes: Record<string, boolean> = {};
 
@@ -171,6 +218,7 @@ async function generateImage(image: number, setProgress: (image: number, degrade
 
 			areas = [];
 
+			await addBackground();
 			await addGroupLayer(groupLayer);
 			const polygons = panels.generate(imageOptions, imageOptions.drawings);
 
@@ -192,6 +240,7 @@ async function generateImage(image: number, setProgress: (image: number, degrade
 
 		case '3layered':
 
+			await addBackground();
 			await addGroupLayer(groupLayer);
 			await addLayers('up', layerTypes, groupLayer);
 			await addLayers('middle', layerTypes, groupLayer);
@@ -209,6 +258,7 @@ async function generateImage(image: number, setProgress: (image: number, degrade
 
 		case 'singlelayered':
 
+			await addBackground();
 			await addGroupLayer(groupLayer);
 			await addLayers('all', layerTypes, groupLayer);
 
@@ -266,6 +316,8 @@ async function processLayer(area: Area, groupLayer: string): Promise<any> {
 		gradient: [],
 	};
 
+	const globalDisable = (imageOptions?.globalDisable?.drawings ?? []) as string[];
+
 	const doneList: string[] = [];
 
 	for(const drawing of imageOptions.drawings.list)
@@ -276,6 +328,9 @@ async function processLayer(area: Area, groupLayer: string): Promise<any> {
 		const run = typeof drawing.prob !== 'undefined' ? rand.prob(drawing.prob, randGenerator) : true;
 
 		if(!run)
+			continue;
+
+		if(globalDisable.includes(drawing.type))
 			continue;
 
 		switch(drawing.type)
@@ -298,6 +353,10 @@ async function processLayer(area: Area, groupLayer: string): Promise<any> {
 
 			case 'colorize-mask':
 				draws.colorizeMask = await colorizeMask.colorize(imageOptions, drawing, area);
+				break;
+
+			case 'panel-background':
+				draws.panelBackground = await panelBackground.draw(imageOptions, drawing, area, draws);
 				break;
 
 			case 'paint':
@@ -477,9 +536,19 @@ async function processDegradations(layers: Layers, areas: Area[], setProgress: (
 				degraded = degradedCache;
 			}
 
+			const addConfig = function(type: string, config: any) {
+
+				if(!_configs[type])
+					_configs[type] = [];
+
+				_configs[type].push(config);
+
+			};
+
 			const promise = new Promise<void>(async function(resolve) {
 
 				const degradationInNode: object[] = [];
+				const degradation_InNode: any[] = [];
 				const doneInNode: string[] = [];
 
 				const dInNode = cloneDeep(degradation.inNode || []);
@@ -504,6 +573,7 @@ async function processDegradations(layers: Layers, areas: Area[], setProgress: (
 					}
 
 					degradationInNode.push(inNode);
+					degradation_InNode.push(_inNode);
 
 					switch(inNode.type)
 					{
@@ -511,6 +581,8 @@ async function processDegradations(layers: Layers, areas: Area[], setProgress: (
 
 							if(inNode.both) clean = await sharp.resize(imageOptions, _inNode, clean, false);
 							degraded = await sharp.resize(imageOptions, _inNode, degraded, true);
+							
+							addConfig(inNode.type, _inNode);
 
 							break;
 
@@ -519,12 +591,16 @@ async function processDegradations(layers: Layers, areas: Area[], setProgress: (
 							if(inNode.both) clean = await sharp.resizeBlur(imageOptions, _inNode, clean, false);
 							degraded = await sharp.resizeBlur(imageOptions, _inNode, degraded, true);
 
+							addConfig(inNode.type, _inNode);
+
 							break;
 
 						case 'blur':
 
 							if(inNode.both) clean = await sharp.blur(imageOptions, _inNode, clean, false);
 							degraded = await sharp.blur(imageOptions, _inNode, degraded, true);
+
+							addConfig(inNode.type, _inNode);
 
 							break;
 
@@ -533,11 +609,15 @@ async function processDegradations(layers: Layers, areas: Area[], setProgress: (
 							clean = await sharp.rotate(imageOptions, _inNode, clean);
 							degraded = await sharp.rotate(imageOptions, _inNode, degraded);
 
+							addConfig(inNode.type, _inNode);
+
 							break;
 
 						case 'jpeg':
 
 							degraded = await sharp.jpeg(imageOptions, _inNode, degraded);
+
+							addConfig(inNode.type, _inNode);
 
 							break;
 
@@ -545,17 +625,23 @@ async function processDegradations(layers: Layers, areas: Area[], setProgress: (
 
 							degraded = await sharp.webp(imageOptions, _inNode, degraded);
 
+							addConfig(inNode.type, _inNode);
+
 							break;
 
 						case 'avif':
 
 							degraded = await sharp.avif(imageOptions, _inNode, degraded);
 
+							addConfig(inNode.type, _inNode);
+
 							break;
 
 						case 'jxl':
 
 							degraded = await sharp.jxl(imageOptions, _inNode, degraded);
+
+							addConfig(inNode.type, _inNode);
 
 							break;
 
@@ -577,6 +663,30 @@ async function processDegradations(layers: Layers, areas: Area[], setProgress: (
 					}), degradation, imageDegradation);
 
 					await output.savePanels(imageOptions, clean, degradation, imageDegradation, areas);
+					let mask = await output.generateHalftoneSizeMask(imageOptions, clean, degradation, imageDegradation, areas, _configs);
+
+					if(mask)
+					{
+						for(const _inNode of degradation_InNode)
+						{
+							switch(_inNode.type)
+							{
+								case 'resize':
+
+									mask = await sharp.resize(imageOptions, _inNode, mask, true);
+
+									break;
+
+								case 'rotate':
+
+									mask = await sharp.rotate(imageOptions, _inNode, mask);
+
+									break;
+							}
+						}
+
+						await output.saveHalftoneSizeMask(imageOptions, mask, degradation, imageDegradation);
+					}
 				}
 
 				imageDegradationDone++;

@@ -24,7 +24,7 @@ export interface RandObject {
 export type Rand = _Rand | RandObject | ProbObject | RandObject[];
 export type Prob = boolean | number;
 
-export type Drawing = 'lineart' | 'background' | 'texture' | 'multiline-draw' | 'colorize-mask' | 'paint' | 'lineart-texture' | 'lineart-random' | 'dots' | 'lines';
+export type Drawing = 'lineart' | 'background' | 'panel-background' | 'texture' | 'multiline-draw' | 'colorize-mask' | 'paint' | 'lineart-texture' | 'lineart-random' | 'dots' | 'lines';
 export type Processing = 'halftone' | 'noise' | 'blur' | 'resize' | 'texture-image' | 'layer-blur';
 export type Degradation = 'jpeg' | 'webp';
 export type Kernel = KernelEnum;
@@ -88,6 +88,7 @@ export interface Options {
 			clean: string;
 			degraded: string;
 			options: string;
+			halftoneSizeMask: string;
 			mask: string;
 			labels: string;
 			preview: string;

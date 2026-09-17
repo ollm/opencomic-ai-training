@@ -27,7 +27,7 @@ async function add(options: any, drawing: any): Promise<any> {
 	});
 
 	await krita.send(`add_layer:${JSON.stringify({
-		name: 'opencomic:texture:pattern',
+		name: `opencomic:texture:${options.layerName ?? 'pattern'}`,
 		inside: {
 			name: `opencomic:group:${options.groupLayer}`,
 		},

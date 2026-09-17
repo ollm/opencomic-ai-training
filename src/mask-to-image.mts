@@ -31,8 +31,11 @@ function resolve(path: string): string
 
 const dataset = resolve(getArg('--dataset') || '');
 const size = parseInt(getArg('--size') || '512', 10);
+const type = getArg('--type') || 'normal';
 const dilateValue = parseInt(getArg('--dilate') || '2', 10);
+const erodeValue = parseInt(getArg('--erode') || '0', 10);
 const threshold = parseInt(getArg('--threshold') || '0', 10); // 128 half
+const start = parseInt(getArg('--start') || '0', 10);
 
 const panel = p.join(dataset, 'degraded');
 const mask = p.join(dataset, 'mask');
@@ -50,6 +53,46 @@ if(!dataset || !fs.existsSync(panel) || !fs.existsSync(mask))
 	`);
 
 	process.exit(1);
+}
+
+async function dilateErode(type: 'dilate' | 'erode', image: Buffer, value: number): Promise<Buffer>
+{
+	const bk = sharp({
+		create: {
+			width: size + 6,
+			height: size + 6,
+			channels: 3,
+			background: {r: 255, g: 255, b: 255}
+		}
+	});
+
+	const negate = await sharp(image).negate().png().toBuffer();
+
+	const composited = await bk.composite([{
+		input: negate,
+		left: 3,
+		top: 3,
+	}]).png().toBuffer();
+
+	let doe: sharp.Sharp | Buffer = sharp(composited);
+
+	if(type === 'dilate')
+		doe = doe.dilate(value);
+	else
+		doe = doe.erode(value);
+
+	doe = await doe.png().toBuffer();
+
+	// await sharp(doe).toFile(p.join(outputClean, `doe-${Math.random()}.png`));
+
+	const final = await sharp(doe).extract({
+		left: 3,
+		top: 3,
+		width: size,
+		height: size,
+	}).removeAlpha().negate().png().toBuffer();
+
+	return final;
 }
 
 const outputClean = p.join(dataset, 'esrgan', 'clean');
@@ -72,6 +115,11 @@ function getKey(file: string): string
 	return p.parse(file).name.split('-').slice(0, 2).join('-');
 }
 
+function getNumber(file: string): number
+{
+	return parseInt(p.parse(file).name.split('-')[0]);
+}
+
 for(const file of masksFiles)
 {
 	const path = p.join(mask, file);
@@ -81,10 +129,25 @@ for(const file of masksFiles)
 	maskPaths.push(path);
 }
 
+const BORDER = type === 'border' || type === 'border-pixelated';
+const CHANNELS = type === 'channels' || type === 'channels-pixelated' || type === 'channels-inverted' || type === 'channels-inverted-pixelated';
+const PIXELATED = type === 'border-pixelated' || type === 'channels-pixelated' || type === 'channels-inverted-pixelated';
+const INVERTED = type === 'channels-inverted' || type === 'channels-inverted-pixelated';
+
 for(const file of files)
 {
+	if(start > 0)
+	{
+		const number = getNumber(file);
+
+		if(number < start)
+			continue;
+	}
+
 	const path = p.join(panel, file);
 	const key = getKey(file);
+
+	const filePng = p.parse(file).name + '.png';
 
 	let canvas = sharp({
 		create: {
@@ -143,7 +206,7 @@ for(const file of files)
 		}).toFile(p.join(outputClean, `${key}-dilate-${i}.png`));
 		*/
 
-		const rgba = Buffer.alloc(size * size * 4);
+		let rgba = Buffer.alloc(size * size * 4);
 
 		for(let i = 0, j = 0; i < alpha.length; i++, j += 4)
 		{
@@ -158,7 +221,51 @@ for(const file of files)
 			drawed[i] = Math.max(drawed[i], dilate[i * 3]);
 		}
 
-		const layer = await sharp(rgba, {
+		if(BORDER)
+		{
+			for(let i = 0, j = 0; i < rgba.length; i++, j += 4)
+			{
+				const color = rgba[j + 3];
+
+				rgba[j] = color;
+				rgba[j + 1] = color;
+				rgba[j + 2] = color;
+				rgba[j + 3] = 255;
+			}
+
+			const layer = await sharp(rgba, {
+				raw: {
+					width: size,
+					height: size,
+					channels: 4,
+				}
+			}).removeAlpha().png().toBuffer();
+
+			// await sharp(layer).toFile(p.join(outputClean, `${key}-layer-${i}.png`));
+
+			const erode = await dilateErode('erode', layer, erodeValue || dilateValue);
+
+			// await sharp(erode).toFile(p.join(outputClean, `${key}-erode-${i}.png`));
+
+			const border = await sharp(layer).composite([{
+				input: erode,
+				blend: 'difference',
+			}]).raw().toBuffer();
+
+			for(let i = 0, j = 0; i < border.length; i++, j += 4)
+			{
+				const color = border[j];
+
+				border[j] = 255;
+				border[j + 1] = 255;
+				border[j + 2] = 255;
+				border[j + 3] = color;
+			}
+
+			rgba = border as Buffer<ArrayBuffer>;
+		}
+
+		let layer = await sharp(rgba, {
 			raw: {
 				width: size,
 				height: size,
@@ -190,13 +297,108 @@ for(const file of files)
 	//if(threshold)
 	//	canvas = canvas.threshold(threshold);
 
-	await canvas.jpeg({quality: 100}).toFile(p.join(outputClean, file));
+	if(BORDER)
+	{
+		let green = await canvas.raw().toBuffer();
 
-	await sharp(path).resize({
+		for(let i = 0, j = 0; i < green.length; i++, j += 4)
+		{
+			const color = green[j];
+
+			green[j] = 0;
+			green[j + 1] = 255;
+			green[j + 2] = 0;
+			green[j + 3] = type === 'border-pixelated' ? (color > 127 ? 255 : 0) : color;
+		}
+
+		let degraded = sharp(path).resize({
+			width: size,
+			height: size,
+			kernel: sharp.kernel.lanczos3,
+			fit: 'fill'
+		});
+
+		degraded.grayscale().toColourspace('srgb');
+
+		/*await sharp(green, {raw: {
+			width: size,
+			height: size,
+			channels: 4,
+		}}).toFile(p.join(outputClean, `${key}-green-${i}.png`));*/
+
+		canvas = sharp(await degraded.png().toBuffer()).composite([{
+			input: green,
+			raw: {
+				width: size,
+				height: size,
+				channels: 4,
+			},
+		}]).toColourspace('srgb');
+	}
+	else if(CHANNELS)
+	{
+		let degraded = sharp(path).resize({
+			width: size,
+			height: size,
+			kernel: sharp.kernel.lanczos3,
+			fit: 'fill'
+		});
+
+		const grayscale = await degraded.grayscale().raw().toBuffer();
+		const raw = Buffer.alloc(size * size * 4);
+
+		for(let i = 0, j = 0; i < grayscale.length; i++, j += 4)
+		{
+			const value = grayscale[i];
+
+			raw[j] = value;
+			raw[j + 1] = 0; // G = 0
+			raw[j + 2] = value;
+			raw[j + 3] = 255;
+		}
+
+		let green = await canvas.raw().toBuffer();
+
+		for(let i = 0, j = 0; j < green.length; i++, j += 4)
+		{
+			const color = INVERTED ? 255 - green[j] : green[j];
+			raw[j + 1] = PIXELATED ? (color > 127 ? 255 : 0) : color;
+		}
+
+		canvas = sharp(raw, {
+			raw: {
+				width: size,
+				height: size,
+				channels: 4,
+			},
+		}).removeAlpha().toColourspace('srgb');
+	}
+
+	await canvas.png().toFile(p.join(outputClean, filePng));
+
+	// Degraded
+	let degraded = sharp(path).resize({
 		width: size,
 		height: size,
 		kernel: sharp.kernel.lanczos3,
 		fit: 'fill'
-	}).jpeg({quality: 100}).toFile(p.join(outputDegraded, file));
+	});
+
+	if(BORDER || type === 'grayscale')
+	{
+		degraded.grayscale().toColourspace('srgb');
+	}
+	else if(CHANNELS)
+	{
+		degraded.grayscale().recomb([
+			[1, 0, 0],
+			[0, 0, 0], // G = 0
+			[0, 0, 1],
+		]);
+	}
+
+	await degraded.png().toFile(p.join(outputDegraded, filePng));
+
+	// process.exit(1);
 
 }

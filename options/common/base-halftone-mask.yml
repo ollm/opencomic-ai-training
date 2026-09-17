@@ -1,3 +1,5 @@
+# Copied from: base.yml
+
 disableBrushesWithPixelatedEdges: true # Disable brushes that produce pixelated edges, useful upscaling datasets or avoid pixelated restoration
 background:
     -   value:
@@ -12,19 +14,6 @@ background:
     -   value: 
             gray: 0
         weight: 5.0
-    -   value: 
-            type: gradient
-            gradient: all
-        weight: 200.0
-    -   value:
-            type: texture
-            blendingMode: [soft_light, gamma_light, hard_light] # https://github.com/KDE/krita/blob/ccbb2fcf3165bdac384a8264a135e030daa120c5/libs/pigment/KoCompositeOpRegistry.h
-            opacity: [128, 255]
-            pattern: [03_default-paper.png, 04_paper-C-grain.png, 05_paper-torchon.png, 06_hard-grain.png, 08_bump-relief.png, 09_drawed_crosshatched.png, 09b_drawed-CrossedLines.png, 10_drawed_dotted.png, 11_drawed_furry.png, 12_drawed_vertical.png, 13_drawed_swirl.png, 14_texture-rock.png, 15_texture-rockB.png, 16_texture-woody.png, 17_texture-melt.png, 18_texture-bark.png, 18b_WaveFlex.png, 19_texture-crackle.png, 20_texture-vegetal.png, 21_texture-chainmail.png, 22_texture-reptile.png, 4-paper-soft-grain_testdark-black15.png, Canvas 04]
-            patternSize: 
-                min: [0.1, 1.1]
-                max: [1.1, 2.1]
-        weight: 200.0
 
 halftone:
     angle:
@@ -126,7 +115,7 @@ colors:
                 max: 255
             weight: 3.0
         -   value: 
-                min: 0
+                min: 60 # TODO: Different from base.yml, avoid pure black
                 max: 255
             weight: 1.0
     alpha:

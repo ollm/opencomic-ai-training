@@ -352,33 +352,39 @@ function setReject(reject: (error: any) => void): void {
 
 }
 
-let checkRestartKritaCurrent = 0, killingKrita = false;
+let checkRestartKritaCurrent = 0, killingKrita = false, execKritaPath: string = '';
 
 async function checkRestartKrita(_execKrita: string = '', restartKritaEvery: number = 5): Promise<void> {
 
+	execKritaPath = _execKrita;
 	checkRestartKritaCurrent++;
 
 	if(restartKritaEvery > 0 && (checkRestartKritaCurrent > restartKritaEvery || proc === null))
 	{
 		checkRestartKritaCurrent = 0;
 
-		if(webSocket)
-		{
-			webSocket.close();
-			webSocket = null;
-		}
-
-		if(proc)
-		{
-			killingKrita = true;
-			proc.kill();
-			proc = null;
-		}
-
-		await sleep(2000);
-		killingKrita = false;
-		await init(_execKrita);
+		await killKrita();
 	}
+}
+
+async function killKrita(): Promise<void> {
+
+	if(webSocket)
+	{
+		webSocket.close();
+		webSocket = null;
+	}
+
+	if(proc)
+	{
+		killingKrita = true;
+		proc.kill();
+		proc = null;
+	}
+	
+	await sleep(2000);
+	killingKrita = false;
+	await init(execKritaPath);
 
 }
 
@@ -418,6 +424,8 @@ async function connect(): Promise<void> {
 						height: +size[1],
 						image: splitData[2],
 					};
+
+					resolveIdleTimeout('layer');
 
 					break;
 
@@ -608,6 +616,33 @@ async function getLayer(layer: any, _layers?: any): Promise<any> {
 
 }
 
+const idleTimeouts: Record<string, NodeJS.Timeout> = {};
+
+async function resolveIdleTimeout(key: string = ''): Promise<void> {
+
+	if(idleTimeouts[key])
+	{
+		clearTimeout(idleTimeouts[key]);
+		delete idleTimeouts[key];
+	}
+
+	return;
+
+}
+
+async function idleTimeout(key: string = '', timeout: number = 1000): Promise<void> {
+
+	if(idleTimeouts[key])
+		clearTimeout(idleTimeouts[key]);
+
+	idleTimeouts[key] = setTimeout(async () => {
+
+		await killKrita();
+
+	}, timeout);
+
+}
+
 interface Layer {
 	index?: number;
 	name?: string;
@@ -620,6 +655,8 @@ async function layer(layer: Layer = {}): Promise<any> {
 
 	const promise = setPromise('layer_image');
 	send(`get_layer_image:${JSON.stringify(layer)}`);
+
+	// idleTimeout('layer', 10000);
 
 	return promise;
 

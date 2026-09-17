@@ -1,6 +1,6 @@
 -   type: parallel-lines # Add parallel lines to avoid descreen them
-    prob: 0.05
-    amount: [5, 15]
+    prob: 0.02
+    amount: [1, 10]
     lines: # number of lines to place
         min: 5
         max: 200
@@ -22,8 +22,8 @@
     verticalAndHorizontalChance: 0.25 # Probability of placing dots in vertical or horizontal lines, the rest will be placed in random lines
 
 -   type: grid # Add random grid to avoid descreen them
-    prob: 0.05
-    amount: [5, 30]
+    prob: 0.02
+    amount: [1, 20]
     lines: # number of lines to place the grid
         min: 5
         max: 20

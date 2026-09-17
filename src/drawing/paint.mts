@@ -22,6 +22,7 @@ async function draw(options: any, drawing: any, area: Area, draws:Record<string,
 	const panels = drawing.panels ?? false;
 	const drawings: Drawings[] = [];
 
+	/*
 	await krita.send(`add_layer:${JSON.stringify({
 		name: 'opencomic:group:draw:'+area,
 		type: 'grouplayer',
@@ -37,6 +38,7 @@ async function draw(options: any, drawing: any, area: Area, draws:Record<string,
 			name: 'opencomic:group:draw:'+area,
 		},
 	})}`);
+	*/
 
 	await krita.send(`add_layer:${JSON.stringify({
 		name: 'opencomic:draw:'+area,

@@ -108,6 +108,12 @@ function load(file: string) {
 			if(!fs.existsSync(degradation.output.options)) fs.mkdirSync(degradation.output.options, {recursive: true});
 		}
 
+		if(degradation.output.halftoneSizeMask)
+		{
+			degradation.output.halftoneSizeMask = resolve(degradation.output.halftoneSizeMask);
+			if(!fs.existsSync(degradation.output.halftoneSizeMask)) fs.mkdirSync(degradation.output.halftoneSizeMask, {recursive: true});
+		}
+
 		if(degradation.output.mask)
 		{
 			degradation.output.mask = resolve(degradation.output.mask);

@@ -141,6 +141,11 @@ function generatePalette(options: any, colors: any): ColorObject[] {
 
 function needInvert(options: any, color: Color, layerName: string = 'lineart'): boolean {
 
+	const globalDisable = (options?.globalDisable?.colors ?? []) as string[];
+
+	if(globalDisable.includes('invert'))
+		return false;
+
 	const rgb = options.base.background;
 	const gray = options.base.background.gray;
 
