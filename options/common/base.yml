@@ -15,7 +15,7 @@ background:
     -   value: 
             type: gradient
             gradient: all
-        weight: 200.0
+        weight: 2.0
     -   value:
             type: texture
             blendingMode: [soft_light, gamma_light, hard_light] # https://github.com/KDE/krita/blob/ccbb2fcf3165bdac384a8264a135e030daa120c5/libs/pigment/KoCompositeOpRegistry.h
@@ -24,7 +24,7 @@ background:
             patternSize: 
                 min: [0.1, 1.1]
                 max: [1.1, 2.1]
-        weight: 200.0
+        weight: 2.0
 
 halftone:
     angle:

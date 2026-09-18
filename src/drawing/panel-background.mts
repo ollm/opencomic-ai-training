@@ -17,23 +17,17 @@ async function draw(options: any, drawing: any, area: Area, draws: Record<string
 	if(!color)
 		return [];
 
-	await krita.selectByColor({
-		layer: {
-			name: 'opencomic:colorize-mask:'+area,
-		},
-		r: color.r,
-		g: color.g,
-		b: color.b,
-		a: color.a,
-		blur: 0.6,
-	});
-
 	const baseBackground = options.base.background;
 	const hasBaseGray = typeof baseBackground?.gray === 'number';
 	const hasBaseRgb = typeof baseBackground?.r === 'number' && typeof baseBackground?.g === 'number' && typeof baseBackground?.b === 'number';
 
 	const useBaseBackground = drawing.useBaseBackground && (hasBaseGray || hasBaseRgb);
 	const gray = drawing.colors.gray;
+
+	const type = useBaseBackground?.type ?? 'background';
+
+	if(!drawing.activeOnlyIf[type])
+		return [];
 
 	const backgroundColor = useBaseBackground ? {
 		r: baseBackground.r ?? baseBackground.gray,
@@ -44,6 +38,17 @@ async function draw(options: any, drawing: any, area: Area, draws: Record<string
 		g: gray,
 		b: gray,
 	};
+
+	await krita.selectByColor({
+		layer: {
+			name: 'opencomic:colorize-mask:'+area,
+		},
+		r: color.r,
+		g: color.g,
+		b: color.b,
+		a: color.a,
+		blur: 0.6,
+	});
 
 	await brush.set(options, {
 		backgroundColor: {

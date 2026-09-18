@@ -40,11 +40,18 @@ async function addBackground(): Promise<void> {
 
 	const background = imageOptions.base.background;
 
-	if(background.type === 'gradient' || background.type === 'texture')
+	await krita.send(`remove_layers:${JSON.stringify([{
+		index: 0,
+	}])}`);
+
+	if(background.type !== 'gradient' && background.type !== 'texture')
 	{
-		await krita.send(`remove_layers:${JSON.stringify([{
-			index: 0,
-		}])}`);
+		await krita.send(`add_layer:${JSON.stringify({
+			name: 'opencomic:background',
+			type: 'paintlayer',
+		})}`);
+
+		return;
 	}
 
 	const _imageOptions = {
@@ -187,6 +194,7 @@ async function generateImage(image: number, setProgress: (image: number, degrade
 	const {width, height} = imageOptions.base.size;
 
 	await krita.document(width, height);
+	await addBackground();
 
 	const background = imageOptions.base.background;
 
@@ -218,7 +226,6 @@ async function generateImage(image: number, setProgress: (image: number, degrade
 
 			areas = [];
 
-			await addBackground();
 			await addGroupLayer(groupLayer);
 			const polygons = panels.generate(imageOptions, imageOptions.drawings);
 
@@ -240,7 +247,6 @@ async function generateImage(image: number, setProgress: (image: number, degrade
 
 		case '3layered':
 
-			await addBackground();
 			await addGroupLayer(groupLayer);
 			await addLayers('up', layerTypes, groupLayer);
 			await addLayers('middle', layerTypes, groupLayer);
@@ -258,7 +264,6 @@ async function generateImage(image: number, setProgress: (image: number, degrade
 
 		case 'singlelayered':
 
-			await addBackground();
 			await addGroupLayer(groupLayer);
 			await addLayers('all', layerTypes, groupLayer);
 
