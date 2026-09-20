@@ -57,9 +57,11 @@ Main presets:
 - `opencomic-ai-descreen-hard.yml`
 - `opencomic-ai-descreen-hard-any-angle.yml`
 - `opencomic-ai-descreen-moire-only.yml`
+- `opencomic-ai-descreen-mask.yml`
+- `opencomic-ai-panels.yml`
 - `opencomic-ai-upscale-2x.yml`
 - `opencomic-ai-upscale-3x.yml`
-- `opencomic-ai-upscale-4x-new.yml`
+- `opencomic-ai-upscale-4x.yml`
 
 Shared building blocks are available under [`options/common`](options/common).
 

@@ -24,7 +24,7 @@ async function draw(options: any, drawing: any, area: Area, draws: Record<string
 	const useBaseBackground = drawing.useBaseBackground && (hasBaseGray || hasBaseRgb);
 	const gray = drawing.colors.gray;
 
-	const type = useBaseBackground?.type ?? 'background';
+	const type = baseBackground?.type ?? 'background';
 
 	if(!drawing.activeOnlyIf[type])
 		return [];
