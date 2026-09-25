@@ -24,6 +24,38 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 - Disable independent channels halftone in not colored to avoid black and white upscales from becoming colored [`880c18e`](https://github.com/ollm/opencomic-ai-training/commit/880c18eb76270c1247821411d7f267ec37259bb9)
 
+### Models
+
+#### Artifact Removal
+
+| Model | Type | Pretrained From | Image Pairs | Iterations |
+| --- | --- | --- | ---: | ---: |
+| `opencomic-ai-artifact-removal-compact-v2` | Compact | `artifact-removal-compact` | 400,000 | 45,000 |
+| `opencomic-ai-artifact-removal-lite-v2` | ESRGAN Lite | `artifact-removal-lite` | 400,000 | 100,000 |
+| `opencomic-ai-artifact-removal-v2` | ESRGAN | `artifact-removal` | 400,000 | 100,000 |
+
+#### Descreen
+
+| Model | Type | Pretrained From | Image Pairs | Iterations |
+| --- | --- | --- | ---: | ---: |
+| `opencomic-ai-descreen-hard-compact-v2` | Compact | `artifact-removal-compact` | 120,000 | 45,000 |
+| `opencomic-ai-descreen-hard-lite-v2` | ESRGAN Lite | `artifact-removal-lite` | 120,000 | 100,000 |
+| `opencomic-ai-descreen-hard-v2` | ESRGAN | `artifact-removal` | 120,000 | 100,000 |
+
+#### Upscale
+
+| Model | Type | Pretrained From | Image Pairs | Iterations |
+| --- | --- | --- | ---: | ---: |
+| `opencomic-ai-upscale-2x-compact-v2` | Compact | `artifact-removal-compact` | 100,000 | 45,000 |
+| `opencomic-ai-upscale-2x-lite-v2` | ESRGAN Lite | `artifact-removal-lite` | 100,000 | 100,000 |
+| `opencomic-ai-upscale-2x-v2` | ESRGAN | `artifact-removal` | 100,000 | 100,000 |
+| `opencomic-ai-upscale-3x-compact-v2` | Compact | `upscale-2x-compact` | 100,000 | 45,000 |
+| `opencomic-ai-upscale-3x-lite-v2` | ESRGAN Lite | `upscale-2x-lite` | 100,000 | 100,000 |
+| `opencomic-ai-upscale-3x-v2` | ESRGAN | `upscale-2x` | 100,000 | 100,000 |
+| `opencomic-ai-upscale-4x-compact-v2` | Compact | `upscale-2x-compact` | 100,000 | 45,000 |
+| `opencomic-ai-upscale-4x-lite-v2` | ESRGAN Lite | `upscale-2x-lite` | 100,000 | 100,000 |
+| `opencomic-ai-upscale-4x-v2` | ESRGAN | `upscale-2x` | 100,000 | 100,000 |
+
 ## OpenComic AI v1.0
 
 ### Added

@@ -1,0 +1,526 @@
+7767517
+524 933
+Input                    in0                      0 1 in0
+Convolution              conv_0                   1 1 in0 1 0=32 1=3 4=1 5=1 6=864
+Split                    splitncnn_0              1 8 1 2 3 4 5 6 7 8 9
+Convolution              convrelu_0               1 1 9 10 0=32 1=3 4=1 5=1 6=9216 9=2 -23310=1,2.000000e-01
+Split                    splitncnn_1              1 4 10 11 12 13 14
+Concat                   cat_0                    2 1 2 11 15
+Convolution              convrelu_1               1 1 15 16 0=32 1=3 4=1 5=1 6=18432 9=2 -23310=1,2.000000e-01
+Split                    splitncnn_2              1 3 16 17 18 19
+Concat                   cat_1                    3 1 3 12 17 20
+Convolution              convrelu_2               1 1 20 21 0=32 1=3 4=1 5=1 6=27648 9=2 -23310=1,2.000000e-01
+Split                    splitncnn_3              1 2 21 22 23
+Concat                   cat_2                    4 1 4 13 18 22 24
+Convolution              convrelu_3               1 1 24 25 0=32 1=3 4=1 5=1 6=36864 9=2 -23310=1,2.000000e-01
+Concat                   cat_3                    5 1 5 14 19 23 25 26
+Convolution              conv_5                   1 1 26 27 0=32 1=3 4=1 5=1 6=46080
+Eltwise                  add_1                    2 1 27 6 29 0=1 -23301=2,2.000000e-01,1.000000e+00
+Split                    splitncnn_4              1 6 29 30 31 32 33 34 35
+Convolution              convrelu_4               1 1 35 36 0=32 1=3 4=1 5=1 6=9216 9=2 -23310=1,2.000000e-01
+Split                    splitncnn_5              1 4 36 37 38 39 40
+Concat                   cat_4                    2 1 30 37 41
+Convolution              convrelu_5               1 1 41 42 0=32 1=3 4=1 5=1 6=18432 9=2 -23310=1,2.000000e-01
+Split                    splitncnn_6              1 3 42 43 44 45
+Concat                   cat_5                    3 1 31 38 43 46
+Convolution              convrelu_6               1 1 46 47 0=32 1=3 4=1 5=1 6=27648 9=2 -23310=1,2.000000e-01
+Split                    splitncnn_7              1 2 47 48 49
+Concat                   cat_6                    4 1 32 39 44 48 50
+Convolution              convrelu_7               1 1 50 51 0=32 1=3 4=1 5=1 6=36864 9=2 -23310=1,2.000000e-01
+Concat                   cat_7                    5 1 33 40 45 49 51 52
+Convolution              conv_10                  1 1 52 53 0=32 1=3 4=1 5=1 6=46080
+Eltwise                  add_3                    2 1 53 34 55 0=1 -23301=2,2.000000e-01,1.000000e+00
+Split                    splitncnn_8              1 6 55 56 57 58 59 60 61
+Convolution              convrelu_8               1 1 61 62 0=32 1=3 4=1 5=1 6=9216 9=2 -23310=1,2.000000e-01
+Split                    splitncnn_9              1 4 62 63 64 65 66
+Concat                   cat_8                    2 1 56 63 67
+Convolution              convrelu_9               1 1 67 68 0=32 1=3 4=1 5=1 6=18432 9=2 -23310=1,2.000000e-01
+Split                    splitncnn_10             1 3 68 69 70 71
+Concat                   cat_9                    3 1 57 64 69 72
+Convolution              convrelu_10              1 1 72 73 0=32 1=3 4=1 5=1 6=27648 9=2 -23310=1,2.000000e-01
+Split                    splitncnn_11             1 2 73 74 75
+Concat                   cat_10                   4 1 58 65 70 74 76
+Convolution              convrelu_11              1 1 76 77 0=32 1=3 4=1 5=1 6=36864 9=2 -23310=1,2.000000e-01
+Concat                   cat_11                   5 1 59 66 71 75 77 78
+Convolution              conv_15                  1 1 78 79 0=32 1=3 4=1 5=1 6=46080
+Eltwise                  add_5                    2 1 79 60 81 0=1 -23301=2,2.000000e-01,1.000000e+00
+Eltwise                  add_7                    2 1 81 7 83 0=1 -23301=2,2.000000e-01,1.000000e+00
+Split                    splitncnn_12             1 7 83 84 85 86 87 88 89 90
+Convolution              convrelu_12              1 1 90 91 0=32 1=3 4=1 5=1 6=9216 9=2 -23310=1,2.000000e-01
+Split                    splitncnn_13             1 4 91 92 93 94 95
+Concat                   cat_12                   2 1 84 92 96
+Convolution              convrelu_13              1 1 96 97 0=32 1=3 4=1 5=1 6=18432 9=2 -23310=1,2.000000e-01
+Split                    splitncnn_14             1 3 97 98 99 100
+Concat                   cat_13                   3 1 85 93 98 101
+Convolution              convrelu_14              1 1 101 102 0=32 1=3 4=1 5=1 6=27648 9=2 -23310=1,2.000000e-01
+Split                    splitncnn_15             1 2 102 103 104
+Concat                   cat_14                   4 1 86 94 99 103 105
+Convolution              convrelu_15              1 1 105 106 0=32 1=3 4=1 5=1 6=36864 9=2 -23310=1,2.000000e-01
+Concat                   cat_15                   5 1 87 95 100 104 106 107
+Convolution              conv_20                  1 1 107 108 0=32 1=3 4=1 5=1 6=46080
+Eltwise                  add_9                    2 1 108 88 110 0=1 -23301=2,2.000000e-01,1.000000e+00
+Split                    splitncnn_16             1 6 110 111 112 113 114 115 116
+Convolution              convrelu_16              1 1 116 117 0=32 1=3 4=1 5=1 6=9216 9=2 -23310=1,2.000000e-01
+Split                    splitncnn_17             1 4 117 118 119 120 121
+Concat                   cat_16                   2 1 111 118 122
+Convolution              convrelu_17              1 1 122 123 0=32 1=3 4=1 5=1 6=18432 9=2 -23310=1,2.000000e-01
+Split                    splitncnn_18             1 3 123 124 125 126
+Concat                   cat_17                   3 1 112 119 124 127
+Convolution              convrelu_18              1 1 127 128 0=32 1=3 4=1 5=1 6=27648 9=2 -23310=1,2.000000e-01
+Split                    splitncnn_19             1 2 128 129 130
+Concat                   cat_18                   4 1 113 120 125 129 131
+Convolution              convrelu_19              1 1 131 132 0=32 1=3 4=1 5=1 6=36864 9=2 -23310=1,2.000000e-01
+Concat                   cat_19                   5 1 114 121 126 130 132 133
+Convolution              conv_25                  1 1 133 134 0=32 1=3 4=1 5=1 6=46080
+Eltwise                  add_11                   2 1 134 115 136 0=1 -23301=2,2.000000e-01,1.000000e+00
+Split                    splitncnn_20             1 6 136 137 138 139 140 141 142
+Convolution              convrelu_20              1 1 142 143 0=32 1=3 4=1 5=1 6=9216 9=2 -23310=1,2.000000e-01
+Split                    splitncnn_21             1 4 143 144 145 146 147
+Concat                   cat_20                   2 1 137 144 148
+Convolution              convrelu_21              1 1 148 149 0=32 1=3 4=1 5=1 6=18432 9=2 -23310=1,2.000000e-01
+Split                    splitncnn_22             1 3 149 150 151 152
+Concat                   cat_21                   3 1 138 145 150 153
+Convolution              convrelu_22              1 1 153 154 0=32 1=3 4=1 5=1 6=27648 9=2 -23310=1,2.000000e-01
+Split                    splitncnn_23             1 2 154 155 156
+Concat                   cat_22                   4 1 139 146 151 155 157
+Convolution              convrelu_23              1 1 157 158 0=32 1=3 4=1 5=1 6=36864 9=2 -23310=1,2.000000e-01
+Concat                   cat_23                   5 1 140 147 152 156 158 159
+Convolution              conv_30                  1 1 159 160 0=32 1=3 4=1 5=1 6=46080
+Eltwise                  add_13                   2 1 160 141 162 0=1 -23301=2,2.000000e-01,1.000000e+00
+Eltwise                  add_15                   2 1 162 89 164 0=1 -23301=2,2.000000e-01,1.000000e+00
+Split                    splitncnn_24             1 7 164 165 166 167 168 169 170 171
+Convolution              convrelu_24              1 1 171 172 0=32 1=3 4=1 5=1 6=9216 9=2 -23310=1,2.000000e-01
+Split                    splitncnn_25             1 4 172 173 174 175 176
+Concat                   cat_24                   2 1 165 173 177
+Convolution              convrelu_25              1 1 177 178 0=32 1=3 4=1 5=1 6=18432 9=2 -23310=1,2.000000e-01
+Split                    splitncnn_26             1 3 178 179 180 181
+Concat                   cat_25                   3 1 166 174 179 182
+Convolution              convrelu_26              1 1 182 183 0=32 1=3 4=1 5=1 6=27648 9=2 -23310=1,2.000000e-01
+Split                    splitncnn_27             1 2 183 184 185
+Concat                   cat_26                   4 1 167 175 180 184 186
+Convolution              convrelu_27              1 1 186 187 0=32 1=3 4=1 5=1 6=36864 9=2 -23310=1,2.000000e-01
+Concat                   cat_27                   5 1 168 176 181 185 187 188
+Convolution              conv_35                  1 1 188 189 0=32 1=3 4=1 5=1 6=46080
+Eltwise                  add_17                   2 1 189 169 191 0=1 -23301=2,2.000000e-01,1.000000e+00
+Split                    splitncnn_28             1 6 191 192 193 194 195 196 197
+Convolution              convrelu_28              1 1 197 198 0=32 1=3 4=1 5=1 6=9216 9=2 -23310=1,2.000000e-01
+Split                    splitncnn_29             1 4 198 199 200 201 202
+Concat                   cat_28                   2 1 192 199 203
+Convolution              convrelu_29              1 1 203 204 0=32 1=3 4=1 5=1 6=18432 9=2 -23310=1,2.000000e-01
+Split                    splitncnn_30             1 3 204 205 206 207
+Concat                   cat_29                   3 1 193 200 205 208
+Convolution              convrelu_30              1 1 208 209 0=32 1=3 4=1 5=1 6=27648 9=2 -23310=1,2.000000e-01
+Split                    splitncnn_31             1 2 209 210 211
+Concat                   cat_30                   4 1 194 201 206 210 212
+Convolution              convrelu_31              1 1 212 213 0=32 1=3 4=1 5=1 6=36864 9=2 -23310=1,2.000000e-01
+Concat                   cat_31                   5 1 195 202 207 211 213 214
+Convolution              conv_40                  1 1 214 215 0=32 1=3 4=1 5=1 6=46080
+Eltwise                  add_19                   2 1 215 196 217 0=1 -23301=2,2.000000e-01,1.000000e+00
+Split                    splitncnn_32             1 6 217 218 219 220 221 222 223
+Convolution              convrelu_32              1 1 223 224 0=32 1=3 4=1 5=1 6=9216 9=2 -23310=1,2.000000e-01
+Split                    splitncnn_33             1 4 224 225 226 227 228
+Concat                   cat_32                   2 1 218 225 229
+Convolution              convrelu_33              1 1 229 230 0=32 1=3 4=1 5=1 6=18432 9=2 -23310=1,2.000000e-01
+Split                    splitncnn_34             1 3 230 231 232 233
+Concat                   cat_33                   3 1 219 226 231 234
+Convolution              convrelu_34              1 1 234 235 0=32 1=3 4=1 5=1 6=27648 9=2 -23310=1,2.000000e-01
+Split                    splitncnn_35             1 2 235 236 237
+Concat                   cat_34                   4 1 220 227 232 236 238
+Convolution              convrelu_35              1 1 238 239 0=32 1=3 4=1 5=1 6=36864 9=2 -23310=1,2.000000e-01
+Concat                   cat_35                   5 1 221 228 233 237 239 240
+Convolution              conv_45                  1 1 240 241 0=32 1=3 4=1 5=1 6=46080
+Eltwise                  add_21                   2 1 241 222 243 0=1 -23301=2,2.000000e-01,1.000000e+00
+Eltwise                  add_23                   2 1 243 170 245 0=1 -23301=2,2.000000e-01,1.000000e+00
+Split                    splitncnn_36             1 7 245 246 247 248 249 250 251 252
+Convolution              convrelu_36              1 1 252 253 0=32 1=3 4=1 5=1 6=9216 9=2 -23310=1,2.000000e-01
+Split                    splitncnn_37             1 4 253 254 255 256 257
+Concat                   cat_36                   2 1 246 254 258
+Convolution              convrelu_37              1 1 258 259 0=32 1=3 4=1 5=1 6=18432 9=2 -23310=1,2.000000e-01
+Split                    splitncnn_38             1 3 259 260 261 262
+Concat                   cat_37                   3 1 247 255 260 263
+Convolution              convrelu_38              1 1 263 264 0=32 1=3 4=1 5=1 6=27648 9=2 -23310=1,2.000000e-01
+Split                    splitncnn_39             1 2 264 265 266
+Concat                   cat_38                   4 1 248 256 261 265 267
+Convolution              convrelu_39              1 1 267 268 0=32 1=3 4=1 5=1 6=36864 9=2 -23310=1,2.000000e-01
+Concat                   cat_39                   5 1 249 257 262 266 268 269
+Convolution              conv_50                  1 1 269 270 0=32 1=3 4=1 5=1 6=46080
+Eltwise                  add_25                   2 1 270 250 272 0=1 -23301=2,2.000000e-01,1.000000e+00
+Split                    splitncnn_40             1 6 272 273 274 275 276 277 278
+Convolution              convrelu_40              1 1 278 279 0=32 1=3 4=1 5=1 6=9216 9=2 -23310=1,2.000000e-01
+Split                    splitncnn_41             1 4 279 280 281 282 283
+Concat                   cat_40                   2 1 273 280 284
+Convolution              convrelu_41              1 1 284 285 0=32 1=3 4=1 5=1 6=18432 9=2 -23310=1,2.000000e-01
+Split                    splitncnn_42             1 3 285 286 287 288
+Concat                   cat_41                   3 1 274 281 286 289
+Convolution              convrelu_42              1 1 289 290 0=32 1=3 4=1 5=1 6=27648 9=2 -23310=1,2.000000e-01
+Split                    splitncnn_43             1 2 290 291 292
+Concat                   cat_42                   4 1 275 282 287 291 293
+Convolution              convrelu_43              1 1 293 294 0=32 1=3 4=1 5=1 6=36864 9=2 -23310=1,2.000000e-01
+Concat                   cat_43                   5 1 276 283 288 292 294 295
+Convolution              conv_55                  1 1 295 296 0=32 1=3 4=1 5=1 6=46080
+Eltwise                  add_27                   2 1 296 277 298 0=1 -23301=2,2.000000e-01,1.000000e+00
+Split                    splitncnn_44             1 6 298 299 300 301 302 303 304
+Convolution              convrelu_44              1 1 304 305 0=32 1=3 4=1 5=1 6=9216 9=2 -23310=1,2.000000e-01
+Split                    splitncnn_45             1 4 305 306 307 308 309
+Concat                   cat_44                   2 1 299 306 310
+Convolution              convrelu_45              1 1 310 311 0=32 1=3 4=1 5=1 6=18432 9=2 -23310=1,2.000000e-01
+Split                    splitncnn_46             1 3 311 312 313 314
+Concat                   cat_45                   3 1 300 307 312 315
+Convolution              convrelu_46              1 1 315 316 0=32 1=3 4=1 5=1 6=27648 9=2 -23310=1,2.000000e-01
+Split                    splitncnn_47             1 2 316 317 318
+Concat                   cat_46                   4 1 301 308 313 317 319
+Convolution              convrelu_47              1 1 319 320 0=32 1=3 4=1 5=1 6=36864 9=2 -23310=1,2.000000e-01
+Concat                   cat_47                   5 1 302 309 314 318 320 321
+Convolution              conv_60                  1 1 321 322 0=32 1=3 4=1 5=1 6=46080
+Eltwise                  add_29                   2 1 322 303 324 0=1 -23301=2,2.000000e-01,1.000000e+00
+Eltwise                  add_31                   2 1 324 251 326 0=1 -23301=2,2.000000e-01,1.000000e+00
+Split                    splitncnn_48             1 7 326 327 328 329 330 331 332 333
+Convolution              convrelu_48              1 1 333 334 0=32 1=3 4=1 5=1 6=9216 9=2 -23310=1,2.000000e-01
+Split                    splitncnn_49             1 4 334 335 336 337 338
+Concat                   cat_48                   2 1 327 335 339
+Convolution              convrelu_49              1 1 339 340 0=32 1=3 4=1 5=1 6=18432 9=2 -23310=1,2.000000e-01
+Split                    splitncnn_50             1 3 340 341 342 343
+Concat                   cat_49                   3 1 328 336 341 344
+Convolution              convrelu_50              1 1 344 345 0=32 1=3 4=1 5=1 6=27648 9=2 -23310=1,2.000000e-01
+Split                    splitncnn_51             1 2 345 346 347
+Concat                   cat_50                   4 1 329 337 342 346 348
+Convolution              convrelu_51              1 1 348 349 0=32 1=3 4=1 5=1 6=36864 9=2 -23310=1,2.000000e-01
+Concat                   cat_51                   5 1 330 338 343 347 349 350
+Convolution              conv_65                  1 1 350 351 0=32 1=3 4=1 5=1 6=46080
+Eltwise                  add_33                   2 1 351 331 353 0=1 -23301=2,2.000000e-01,1.000000e+00
+Split                    splitncnn_52             1 6 353 354 355 356 357 358 359
+Convolution              convrelu_52              1 1 359 360 0=32 1=3 4=1 5=1 6=9216 9=2 -23310=1,2.000000e-01
+Split                    splitncnn_53             1 4 360 361 362 363 364
+Concat                   cat_52                   2 1 354 361 365
+Convolution              convrelu_53              1 1 365 366 0=32 1=3 4=1 5=1 6=18432 9=2 -23310=1,2.000000e-01
+Split                    splitncnn_54             1 3 366 367 368 369
+Concat                   cat_53                   3 1 355 362 367 370
+Convolution              convrelu_54              1 1 370 371 0=32 1=3 4=1 5=1 6=27648 9=2 -23310=1,2.000000e-01
+Split                    splitncnn_55             1 2 371 372 373
+Concat                   cat_54                   4 1 356 363 368 372 374
+Convolution              convrelu_55              1 1 374 375 0=32 1=3 4=1 5=1 6=36864 9=2 -23310=1,2.000000e-01
+Concat                   cat_55                   5 1 357 364 369 373 375 376
+Convolution              conv_70                  1 1 376 377 0=32 1=3 4=1 5=1 6=46080
+Eltwise                  add_35                   2 1 377 358 379 0=1 -23301=2,2.000000e-01,1.000000e+00
+Split                    splitncnn_56             1 6 379 380 381 382 383 384 385
+Convolution              convrelu_56              1 1 385 386 0=32 1=3 4=1 5=1 6=9216 9=2 -23310=1,2.000000e-01
+Split                    splitncnn_57             1 4 386 387 388 389 390
+Concat                   cat_56                   2 1 380 387 391
+Convolution              convrelu_57              1 1 391 392 0=32 1=3 4=1 5=1 6=18432 9=2 -23310=1,2.000000e-01
+Split                    splitncnn_58             1 3 392 393 394 395
+Concat                   cat_57                   3 1 381 388 393 396
+Convolution              convrelu_58              1 1 396 397 0=32 1=3 4=1 5=1 6=27648 9=2 -23310=1,2.000000e-01
+Split                    splitncnn_59             1 2 397 398 399
+Concat                   cat_58                   4 1 382 389 394 398 400
+Convolution              convrelu_59              1 1 400 401 0=32 1=3 4=1 5=1 6=36864 9=2 -23310=1,2.000000e-01
+Concat                   cat_59                   5 1 383 390 395 399 401 402
+Convolution              conv_75                  1 1 402 403 0=32 1=3 4=1 5=1 6=46080
+Eltwise                  add_37                   2 1 403 384 405 0=1 -23301=2,2.000000e-01,1.000000e+00
+Eltwise                  add_39                   2 1 405 332 407 0=1 -23301=2,2.000000e-01,1.000000e+00
+Split                    splitncnn_60             1 7 407 408 409 410 411 412 413 414
+Convolution              convrelu_60              1 1 414 415 0=32 1=3 4=1 5=1 6=9216 9=2 -23310=1,2.000000e-01
+Split                    splitncnn_61             1 4 415 416 417 418 419
+Concat                   cat_60                   2 1 408 416 420
+Convolution              convrelu_61              1 1 420 421 0=32 1=3 4=1 5=1 6=18432 9=2 -23310=1,2.000000e-01
+Split                    splitncnn_62             1 3 421 422 423 424
+Concat                   cat_61                   3 1 409 417 422 425
+Convolution              convrelu_62              1 1 425 426 0=32 1=3 4=1 5=1 6=27648 9=2 -23310=1,2.000000e-01
+Split                    splitncnn_63             1 2 426 427 428
+Concat                   cat_62                   4 1 410 418 423 427 429
+Convolution              convrelu_63              1 1 429 430 0=32 1=3 4=1 5=1 6=36864 9=2 -23310=1,2.000000e-01
+Concat                   cat_63                   5 1 411 419 424 428 430 431
+Convolution              conv_80                  1 1 431 432 0=32 1=3 4=1 5=1 6=46080
+Eltwise                  add_41                   2 1 432 412 434 0=1 -23301=2,2.000000e-01,1.000000e+00
+Split                    splitncnn_64             1 6 434 435 436 437 438 439 440
+Convolution              convrelu_64              1 1 440 441 0=32 1=3 4=1 5=1 6=9216 9=2 -23310=1,2.000000e-01
+Split                    splitncnn_65             1 4 441 442 443 444 445
+Concat                   cat_64                   2 1 435 442 446
+Convolution              convrelu_65              1 1 446 447 0=32 1=3 4=1 5=1 6=18432 9=2 -23310=1,2.000000e-01
+Split                    splitncnn_66             1 3 447 448 449 450
+Concat                   cat_65                   3 1 436 443 448 451
+Convolution              convrelu_66              1 1 451 452 0=32 1=3 4=1 5=1 6=27648 9=2 -23310=1,2.000000e-01
+Split                    splitncnn_67             1 2 452 453 454
+Concat                   cat_66                   4 1 437 444 449 453 455
+Convolution              convrelu_67              1 1 455 456 0=32 1=3 4=1 5=1 6=36864 9=2 -23310=1,2.000000e-01
+Concat                   cat_67                   5 1 438 445 450 454 456 457
+Convolution              conv_85                  1 1 457 458 0=32 1=3 4=1 5=1 6=46080
+Eltwise                  add_43                   2 1 458 439 460 0=1 -23301=2,2.000000e-01,1.000000e+00
+Split                    splitncnn_68             1 6 460 461 462 463 464 465 466
+Convolution              convrelu_68              1 1 466 467 0=32 1=3 4=1 5=1 6=9216 9=2 -23310=1,2.000000e-01
+Split                    splitncnn_69             1 4 467 468 469 470 471
+Concat                   cat_68                   2 1 461 468 472
+Convolution              convrelu_69              1 1 472 473 0=32 1=3 4=1 5=1 6=18432 9=2 -23310=1,2.000000e-01
+Split                    splitncnn_70             1 3 473 474 475 476
+Concat                   cat_69                   3 1 462 469 474 477
+Convolution              convrelu_70              1 1 477 478 0=32 1=3 4=1 5=1 6=27648 9=2 -23310=1,2.000000e-01
+Split                    splitncnn_71             1 2 478 479 480
+Concat                   cat_70                   4 1 463 470 475 479 481
+Convolution              convrelu_71              1 1 481 482 0=32 1=3 4=1 5=1 6=36864 9=2 -23310=1,2.000000e-01
+Concat                   cat_71                   5 1 464 471 476 480 482 483
+Convolution              conv_90                  1 1 483 484 0=32 1=3 4=1 5=1 6=46080
+Eltwise                  add_45                   2 1 484 465 486 0=1 -23301=2,2.000000e-01,1.000000e+00
+Eltwise                  add_47                   2 1 486 413 488 0=1 -23301=2,2.000000e-01,1.000000e+00
+Split                    splitncnn_72             1 7 488 489 490 491 492 493 494 495
+Convolution              convrelu_72              1 1 495 496 0=32 1=3 4=1 5=1 6=9216 9=2 -23310=1,2.000000e-01
+Split                    splitncnn_73             1 4 496 497 498 499 500
+Concat                   cat_72                   2 1 489 497 501
+Convolution              convrelu_73              1 1 501 502 0=32 1=3 4=1 5=1 6=18432 9=2 -23310=1,2.000000e-01
+Split                    splitncnn_74             1 3 502 503 504 505
+Concat                   cat_73                   3 1 490 498 503 506
+Convolution              convrelu_74              1 1 506 507 0=32 1=3 4=1 5=1 6=27648 9=2 -23310=1,2.000000e-01
+Split                    splitncnn_75             1 2 507 508 509
+Concat                   cat_74                   4 1 491 499 504 508 510
+Convolution              convrelu_75              1 1 510 511 0=32 1=3 4=1 5=1 6=36864 9=2 -23310=1,2.000000e-01
+Concat                   cat_75                   5 1 492 500 505 509 511 512
+Convolution              conv_95                  1 1 512 513 0=32 1=3 4=1 5=1 6=46080
+Eltwise                  add_49                   2 1 513 493 515 0=1 -23301=2,2.000000e-01,1.000000e+00
+Split                    splitncnn_76             1 6 515 516 517 518 519 520 521
+Convolution              convrelu_76              1 1 521 522 0=32 1=3 4=1 5=1 6=9216 9=2 -23310=1,2.000000e-01
+Split                    splitncnn_77             1 4 522 523 524 525 526
+Concat                   cat_76                   2 1 516 523 527
+Convolution              convrelu_77              1 1 527 528 0=32 1=3 4=1 5=1 6=18432 9=2 -23310=1,2.000000e-01
+Split                    splitncnn_78             1 3 528 529 530 531
+Concat                   cat_77                   3 1 517 524 529 532
+Convolution              convrelu_78              1 1 532 533 0=32 1=3 4=1 5=1 6=27648 9=2 -23310=1,2.000000e-01
+Split                    splitncnn_79             1 2 533 534 535
+Concat                   cat_78                   4 1 518 525 530 534 536
+Convolution              convrelu_79              1 1 536 537 0=32 1=3 4=1 5=1 6=36864 9=2 -23310=1,2.000000e-01
+Concat                   cat_79                   5 1 519 526 531 535 537 538
+Convolution              conv_100                 1 1 538 539 0=32 1=3 4=1 5=1 6=46080
+Eltwise                  add_51                   2 1 539 520 541 0=1 -23301=2,2.000000e-01,1.000000e+00
+Split                    splitncnn_80             1 6 541 542 543 544 545 546 547
+Convolution              convrelu_80              1 1 547 548 0=32 1=3 4=1 5=1 6=9216 9=2 -23310=1,2.000000e-01
+Split                    splitncnn_81             1 4 548 549 550 551 552
+Concat                   cat_80                   2 1 542 549 553
+Convolution              convrelu_81              1 1 553 554 0=32 1=3 4=1 5=1 6=18432 9=2 -23310=1,2.000000e-01
+Split                    splitncnn_82             1 3 554 555 556 557
+Concat                   cat_81                   3 1 543 550 555 558
+Convolution              convrelu_82              1 1 558 559 0=32 1=3 4=1 5=1 6=27648 9=2 -23310=1,2.000000e-01
+Split                    splitncnn_83             1 2 559 560 561
+Concat                   cat_82                   4 1 544 551 556 560 562
+Convolution              convrelu_83              1 1 562 563 0=32 1=3 4=1 5=1 6=36864 9=2 -23310=1,2.000000e-01
+Concat                   cat_83                   5 1 545 552 557 561 563 564
+Convolution              conv_105                 1 1 564 565 0=32 1=3 4=1 5=1 6=46080
+Eltwise                  add_53                   2 1 565 546 567 0=1 -23301=2,2.000000e-01,1.000000e+00
+Eltwise                  add_55                   2 1 567 494 569 0=1 -23301=2,2.000000e-01,1.000000e+00
+Split                    splitncnn_84             1 7 569 570 571 572 573 574 575 576
+Convolution              convrelu_84              1 1 576 577 0=32 1=3 4=1 5=1 6=9216 9=2 -23310=1,2.000000e-01
+Split                    splitncnn_85             1 4 577 578 579 580 581
+Concat                   cat_84                   2 1 570 578 582
+Convolution              convrelu_85              1 1 582 583 0=32 1=3 4=1 5=1 6=18432 9=2 -23310=1,2.000000e-01
+Split                    splitncnn_86             1 3 583 584 585 586
+Concat                   cat_85                   3 1 571 579 584 587
+Convolution              convrelu_86              1 1 587 588 0=32 1=3 4=1 5=1 6=27648 9=2 -23310=1,2.000000e-01
+Split                    splitncnn_87             1 2 588 589 590
+Concat                   cat_86                   4 1 572 580 585 589 591
+Convolution              convrelu_87              1 1 591 592 0=32 1=3 4=1 5=1 6=36864 9=2 -23310=1,2.000000e-01
+Concat                   cat_87                   5 1 573 581 586 590 592 593
+Convolution              conv_110                 1 1 593 594 0=32 1=3 4=1 5=1 6=46080
+Eltwise                  add_57                   2 1 594 574 596 0=1 -23301=2,2.000000e-01,1.000000e+00
+Split                    splitncnn_88             1 6 596 597 598 599 600 601 602
+Convolution              convrelu_88              1 1 602 603 0=32 1=3 4=1 5=1 6=9216 9=2 -23310=1,2.000000e-01
+Split                    splitncnn_89             1 4 603 604 605 606 607
+Concat                   cat_88                   2 1 597 604 608
+Convolution              convrelu_89              1 1 608 609 0=32 1=3 4=1 5=1 6=18432 9=2 -23310=1,2.000000e-01
+Split                    splitncnn_90             1 3 609 610 611 612
+Concat                   cat_89                   3 1 598 605 610 613
+Convolution              convrelu_90              1 1 613 614 0=32 1=3 4=1 5=1 6=27648 9=2 -23310=1,2.000000e-01
+Split                    splitncnn_91             1 2 614 615 616
+Concat                   cat_90                   4 1 599 606 611 615 617
+Convolution              convrelu_91              1 1 617 618 0=32 1=3 4=1 5=1 6=36864 9=2 -23310=1,2.000000e-01
+Concat                   cat_91                   5 1 600 607 612 616 618 619
+Convolution              conv_115                 1 1 619 620 0=32 1=3 4=1 5=1 6=46080
+Eltwise                  add_59                   2 1 620 601 622 0=1 -23301=2,2.000000e-01,1.000000e+00
+Split                    splitncnn_92             1 6 622 623 624 625 626 627 628
+Convolution              convrelu_92              1 1 628 629 0=32 1=3 4=1 5=1 6=9216 9=2 -23310=1,2.000000e-01
+Split                    splitncnn_93             1 4 629 630 631 632 633
+Concat                   cat_92                   2 1 623 630 634
+Convolution              convrelu_93              1 1 634 635 0=32 1=3 4=1 5=1 6=18432 9=2 -23310=1,2.000000e-01
+Split                    splitncnn_94             1 3 635 636 637 638
+Concat                   cat_93                   3 1 624 631 636 639
+Convolution              convrelu_94              1 1 639 640 0=32 1=3 4=1 5=1 6=27648 9=2 -23310=1,2.000000e-01
+Split                    splitncnn_95             1 2 640 641 642
+Concat                   cat_94                   4 1 625 632 637 641 643
+Convolution              convrelu_95              1 1 643 644 0=32 1=3 4=1 5=1 6=36864 9=2 -23310=1,2.000000e-01
+Concat                   cat_95                   5 1 626 633 638 642 644 645
+Convolution              conv_120                 1 1 645 646 0=32 1=3 4=1 5=1 6=46080
+Eltwise                  add_61                   2 1 646 627 648 0=1 -23301=2,2.000000e-01,1.000000e+00
+Eltwise                  add_63                   2 1 648 575 650 0=1 -23301=2,2.000000e-01,1.000000e+00
+Split                    splitncnn_96             1 7 650 651 652 653 654 655 656 657
+Convolution              convrelu_96              1 1 657 658 0=32 1=3 4=1 5=1 6=9216 9=2 -23310=1,2.000000e-01
+Split                    splitncnn_97             1 4 658 659 660 661 662
+Concat                   cat_96                   2 1 651 659 663
+Convolution              convrelu_97              1 1 663 664 0=32 1=3 4=1 5=1 6=18432 9=2 -23310=1,2.000000e-01
+Split                    splitncnn_98             1 3 664 665 666 667
+Concat                   cat_97                   3 1 652 660 665 668
+Convolution              convrelu_98              1 1 668 669 0=32 1=3 4=1 5=1 6=27648 9=2 -23310=1,2.000000e-01
+Split                    splitncnn_99             1 2 669 670 671
+Concat                   cat_98                   4 1 653 661 666 670 672
+Convolution              convrelu_99              1 1 672 673 0=32 1=3 4=1 5=1 6=36864 9=2 -23310=1,2.000000e-01
+Concat                   cat_99                   5 1 654 662 667 671 673 674
+Convolution              conv_125                 1 1 674 675 0=32 1=3 4=1 5=1 6=46080
+Eltwise                  add_65                   2 1 675 655 677 0=1 -23301=2,2.000000e-01,1.000000e+00
+Split                    splitncnn_100            1 6 677 678 679 680 681 682 683
+Convolution              convrelu_100             1 1 683 684 0=32 1=3 4=1 5=1 6=9216 9=2 -23310=1,2.000000e-01
+Split                    splitncnn_101            1 4 684 685 686 687 688
+Concat                   cat_100                  2 1 678 685 689
+Convolution              convrelu_101             1 1 689 690 0=32 1=3 4=1 5=1 6=18432 9=2 -23310=1,2.000000e-01
+Split                    splitncnn_102            1 3 690 691 692 693
+Concat                   cat_101                  3 1 679 686 691 694
+Convolution              convrelu_102             1 1 694 695 0=32 1=3 4=1 5=1 6=27648 9=2 -23310=1,2.000000e-01
+Split                    splitncnn_103            1 2 695 696 697
+Concat                   cat_102                  4 1 680 687 692 696 698
+Convolution              convrelu_103             1 1 698 699 0=32 1=3 4=1 5=1 6=36864 9=2 -23310=1,2.000000e-01
+Concat                   cat_103                  5 1 681 688 693 697 699 700
+Convolution              conv_130                 1 1 700 701 0=32 1=3 4=1 5=1 6=46080
+Eltwise                  add_67                   2 1 701 682 703 0=1 -23301=2,2.000000e-01,1.000000e+00
+Split                    splitncnn_104            1 6 703 704 705 706 707 708 709
+Convolution              convrelu_104             1 1 709 710 0=32 1=3 4=1 5=1 6=9216 9=2 -23310=1,2.000000e-01
+Split                    splitncnn_105            1 4 710 711 712 713 714
+Concat                   cat_104                  2 1 704 711 715
+Convolution              convrelu_105             1 1 715 716 0=32 1=3 4=1 5=1 6=18432 9=2 -23310=1,2.000000e-01
+Split                    splitncnn_106            1 3 716 717 718 719
+Concat                   cat_105                  3 1 705 712 717 720
+Convolution              convrelu_106             1 1 720 721 0=32 1=3 4=1 5=1 6=27648 9=2 -23310=1,2.000000e-01
+Split                    splitncnn_107            1 2 721 722 723
+Concat                   cat_106                  4 1 706 713 718 722 724
+Convolution              convrelu_107             1 1 724 725 0=32 1=3 4=1 5=1 6=36864 9=2 -23310=1,2.000000e-01
+Concat                   cat_107                  5 1 707 714 719 723 725 726
+Convolution              conv_135                 1 1 726 727 0=32 1=3 4=1 5=1 6=46080
+Eltwise                  add_69                   2 1 727 708 729 0=1 -23301=2,2.000000e-01,1.000000e+00
+Eltwise                  add_71                   2 1 729 656 731 0=1 -23301=2,2.000000e-01,1.000000e+00
+Split                    splitncnn_108            1 7 731 732 733 734 735 736 737 738
+Convolution              convrelu_108             1 1 738 739 0=32 1=3 4=1 5=1 6=9216 9=2 -23310=1,2.000000e-01
+Split                    splitncnn_109            1 4 739 740 741 742 743
+Concat                   cat_108                  2 1 732 740 744
+Convolution              convrelu_109             1 1 744 745 0=32 1=3 4=1 5=1 6=18432 9=2 -23310=1,2.000000e-01
+Split                    splitncnn_110            1 3 745 746 747 748
+Concat                   cat_109                  3 1 733 741 746 749
+Convolution              convrelu_110             1 1 749 750 0=32 1=3 4=1 5=1 6=27648 9=2 -23310=1,2.000000e-01
+Split                    splitncnn_111            1 2 750 751 752
+Concat                   cat_110                  4 1 734 742 747 751 753
+Convolution              convrelu_111             1 1 753 754 0=32 1=3 4=1 5=1 6=36864 9=2 -23310=1,2.000000e-01
+Concat                   cat_111                  5 1 735 743 748 752 754 755
+Convolution              conv_140                 1 1 755 756 0=32 1=3 4=1 5=1 6=46080
+Eltwise                  add_73                   2 1 756 736 758 0=1 -23301=2,2.000000e-01,1.000000e+00
+Split                    splitncnn_112            1 6 758 759 760 761 762 763 764
+Convolution              convrelu_112             1 1 764 765 0=32 1=3 4=1 5=1 6=9216 9=2 -23310=1,2.000000e-01
+Split                    splitncnn_113            1 4 765 766 767 768 769
+Concat                   cat_112                  2 1 759 766 770
+Convolution              convrelu_113             1 1 770 771 0=32 1=3 4=1 5=1 6=18432 9=2 -23310=1,2.000000e-01
+Split                    splitncnn_114            1 3 771 772 773 774
+Concat                   cat_113                  3 1 760 767 772 775
+Convolution              convrelu_114             1 1 775 776 0=32 1=3 4=1 5=1 6=27648 9=2 -23310=1,2.000000e-01
+Split                    splitncnn_115            1 2 776 777 778
+Concat                   cat_114                  4 1 761 768 773 777 779
+Convolution              convrelu_115             1 1 779 780 0=32 1=3 4=1 5=1 6=36864 9=2 -23310=1,2.000000e-01
+Concat                   cat_115                  5 1 762 769 774 778 780 781
+Convolution              conv_145                 1 1 781 782 0=32 1=3 4=1 5=1 6=46080
+Eltwise                  add_75                   2 1 782 763 784 0=1 -23301=2,2.000000e-01,1.000000e+00
+Split                    splitncnn_116            1 6 784 785 786 787 788 789 790
+Convolution              convrelu_116             1 1 790 791 0=32 1=3 4=1 5=1 6=9216 9=2 -23310=1,2.000000e-01
+Split                    splitncnn_117            1 4 791 792 793 794 795
+Concat                   cat_116                  2 1 785 792 796
+Convolution              convrelu_117             1 1 796 797 0=32 1=3 4=1 5=1 6=18432 9=2 -23310=1,2.000000e-01
+Split                    splitncnn_118            1 3 797 798 799 800
+Concat                   cat_117                  3 1 786 793 798 801
+Convolution              convrelu_118             1 1 801 802 0=32 1=3 4=1 5=1 6=27648 9=2 -23310=1,2.000000e-01
+Split                    splitncnn_119            1 2 802 803 804
+Concat                   cat_118                  4 1 787 794 799 803 805
+Convolution              convrelu_119             1 1 805 806 0=32 1=3 4=1 5=1 6=36864 9=2 -23310=1,2.000000e-01
+Concat                   cat_119                  5 1 788 795 800 804 806 807
+Convolution              conv_150                 1 1 807 808 0=32 1=3 4=1 5=1 6=46080
+Eltwise                  add_77                   2 1 808 789 810 0=1 -23301=2,2.000000e-01,1.000000e+00
+Eltwise                  add_79                   2 1 810 737 812 0=1 -23301=2,2.000000e-01,1.000000e+00
+Split                    splitncnn_120            1 7 812 813 814 815 816 817 818 819
+Convolution              convrelu_120             1 1 819 820 0=32 1=3 4=1 5=1 6=9216 9=2 -23310=1,2.000000e-01
+Split                    splitncnn_121            1 4 820 821 822 823 824
+Concat                   cat_120                  2 1 813 821 825
+Convolution              convrelu_121             1 1 825 826 0=32 1=3 4=1 5=1 6=18432 9=2 -23310=1,2.000000e-01
+Split                    splitncnn_122            1 3 826 827 828 829
+Concat                   cat_121                  3 1 814 822 827 830
+Convolution              convrelu_122             1 1 830 831 0=32 1=3 4=1 5=1 6=27648 9=2 -23310=1,2.000000e-01
+Split                    splitncnn_123            1 2 831 832 833
+Concat                   cat_122                  4 1 815 823 828 832 834
+Convolution              convrelu_123             1 1 834 835 0=32 1=3 4=1 5=1 6=36864 9=2 -23310=1,2.000000e-01
+Concat                   cat_123                  5 1 816 824 829 833 835 836
+Convolution              conv_155                 1 1 836 837 0=32 1=3 4=1 5=1 6=46080
+Eltwise                  add_81                   2 1 837 817 839 0=1 -23301=2,2.000000e-01,1.000000e+00
+Split                    splitncnn_124            1 6 839 840 841 842 843 844 845
+Convolution              convrelu_124             1 1 845 846 0=32 1=3 4=1 5=1 6=9216 9=2 -23310=1,2.000000e-01
+Split                    splitncnn_125            1 4 846 847 848 849 850
+Concat                   cat_124                  2 1 840 847 851
+Convolution              convrelu_125             1 1 851 852 0=32 1=3 4=1 5=1 6=18432 9=2 -23310=1,2.000000e-01
+Split                    splitncnn_126            1 3 852 853 854 855
+Concat                   cat_125                  3 1 841 848 853 856
+Convolution              convrelu_126             1 1 856 857 0=32 1=3 4=1 5=1 6=27648 9=2 -23310=1,2.000000e-01
+Split                    splitncnn_127            1 2 857 858 859
+Concat                   cat_126                  4 1 842 849 854 858 860
+Convolution              convrelu_127             1 1 860 861 0=32 1=3 4=1 5=1 6=36864 9=2 -23310=1,2.000000e-01
+Concat                   cat_127                  5 1 843 850 855 859 861 862
+Convolution              conv_160                 1 1 862 863 0=32 1=3 4=1 5=1 6=46080
+Eltwise                  add_83                   2 1 863 844 865 0=1 -23301=2,2.000000e-01,1.000000e+00
+Split                    splitncnn_128            1 6 865 866 867 868 869 870 871
+Convolution              convrelu_128             1 1 871 872 0=32 1=3 4=1 5=1 6=9216 9=2 -23310=1,2.000000e-01
+Split                    splitncnn_129            1 4 872 873 874 875 876
+Concat                   cat_128                  2 1 866 873 877
+Convolution              convrelu_129             1 1 877 878 0=32 1=3 4=1 5=1 6=18432 9=2 -23310=1,2.000000e-01
+Split                    splitncnn_130            1 3 878 879 880 881
+Concat                   cat_129                  3 1 867 874 879 882
+Convolution              convrelu_130             1 1 882 883 0=32 1=3 4=1 5=1 6=27648 9=2 -23310=1,2.000000e-01
+Split                    splitncnn_131            1 2 883 884 885
+Concat                   cat_130                  4 1 868 875 880 884 886
+Convolution              convrelu_131             1 1 886 887 0=32 1=3 4=1 5=1 6=36864 9=2 -23310=1,2.000000e-01
+Concat                   cat_131                  5 1 869 876 881 885 887 888
+Convolution              conv_165                 1 1 888 889 0=32 1=3 4=1 5=1 6=46080
+Eltwise                  add_85                   2 1 889 870 891 0=1 -23301=2,2.000000e-01,1.000000e+00
+Eltwise                  add_87                   2 1 891 818 893 0=1 -23301=2,2.000000e-01,1.000000e+00
+Split                    splitncnn_132            1 7 893 894 895 896 897 898 899 900
+Convolution              convrelu_132             1 1 900 901 0=32 1=3 4=1 5=1 6=9216 9=2 -23310=1,2.000000e-01
+Split                    splitncnn_133            1 4 901 902 903 904 905
+Concat                   cat_132                  2 1 894 902 906
+Convolution              convrelu_133             1 1 906 907 0=32 1=3 4=1 5=1 6=18432 9=2 -23310=1,2.000000e-01
+Split                    splitncnn_134            1 3 907 908 909 910
+Concat                   cat_133                  3 1 895 903 908 911
+Convolution              convrelu_134             1 1 911 912 0=32 1=3 4=1 5=1 6=27648 9=2 -23310=1,2.000000e-01
+Split                    splitncnn_135            1 2 912 913 914
+Concat                   cat_134                  4 1 896 904 909 913 915
+Convolution              convrelu_135             1 1 915 916 0=32 1=3 4=1 5=1 6=36864 9=2 -23310=1,2.000000e-01
+Concat                   cat_135                  5 1 897 905 910 914 916 917
+Convolution              conv_170                 1 1 917 918 0=32 1=3 4=1 5=1 6=46080
+Eltwise                  add_89                   2 1 918 898 920 0=1 -23301=2,2.000000e-01,1.000000e+00
+Split                    splitncnn_136            1 6 920 921 922 923 924 925 926
+Convolution              convrelu_136             1 1 926 927 0=32 1=3 4=1 5=1 6=9216 9=2 -23310=1,2.000000e-01
+Split                    splitncnn_137            1 4 927 928 929 930 931
+Concat                   cat_136                  2 1 921 928 932
+Convolution              convrelu_137             1 1 932 933 0=32 1=3 4=1 5=1 6=18432 9=2 -23310=1,2.000000e-01
+Split                    splitncnn_138            1 3 933 934 935 936
+Concat                   cat_137                  3 1 922 929 934 937
+Convolution              convrelu_138             1 1 937 938 0=32 1=3 4=1 5=1 6=27648 9=2 -23310=1,2.000000e-01
+Split                    splitncnn_139            1 2 938 939 940
+Concat                   cat_138                  4 1 923 930 935 939 941
+Convolution              convrelu_139             1 1 941 942 0=32 1=3 4=1 5=1 6=36864 9=2 -23310=1,2.000000e-01
+Concat                   cat_139                  5 1 924 931 936 940 942 943
+Convolution              conv_175                 1 1 943 944 0=32 1=3 4=1 5=1 6=46080
+Eltwise                  add_91                   2 1 944 925 946 0=1 -23301=2,2.000000e-01,1.000000e+00
+Split                    splitncnn_140            1 6 946 947 948 949 950 951 952
+Convolution              convrelu_140             1 1 952 953 0=32 1=3 4=1 5=1 6=9216 9=2 -23310=1,2.000000e-01
+Split                    splitncnn_141            1 4 953 954 955 956 957
+Concat                   cat_140                  2 1 947 954 958
+Convolution              convrelu_141             1 1 958 959 0=32 1=3 4=1 5=1 6=18432 9=2 -23310=1,2.000000e-01
+Split                    splitncnn_142            1 3 959 960 961 962
+Concat                   cat_141                  3 1 948 955 960 963
+Convolution              convrelu_142             1 1 963 964 0=32 1=3 4=1 5=1 6=27648 9=2 -23310=1,2.000000e-01
+Split                    splitncnn_143            1 2 964 965 966
+Concat                   cat_142                  4 1 949 956 961 965 967
+Convolution              convrelu_143             1 1 967 968 0=32 1=3 4=1 5=1 6=36864 9=2 -23310=1,2.000000e-01
+Concat                   cat_143                  5 1 950 957 962 966 968 969
+Convolution              conv_180                 1 1 969 970 0=32 1=3 4=1 5=1 6=46080
+Eltwise                  add_93                   2 1 970 951 972 0=1 -23301=2,2.000000e-01,1.000000e+00
+Eltwise                  add_95                   2 1 972 899 974 0=1 -23301=2,2.000000e-01,1.000000e+00
+Convolution              conv_181                 1 1 974 975 0=32 1=3 4=1 5=1 6=9216
+BinaryOp                 add_96                   2 1 8 975 976
+Interp                   upsample_331             1 1 976 977 0=1 1=3.000000e+00 2=3.000000e+00
+Convolution              convrelu_144             1 1 977 978 0=32 1=3 4=1 5=1 6=9216 9=2 -23310=1,2.000000e-01
+Convolution              convrelu_145             1 1 978 979 0=32 1=3 4=1 5=1 6=9216 9=2 -23310=1,2.000000e-01
+Convolution              conv_184                 1 1 979 out0 0=3 1=3 4=1 5=1 6=864

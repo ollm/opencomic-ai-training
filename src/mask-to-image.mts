@@ -130,9 +130,10 @@ for(const file of masksFiles)
 }
 
 const BORDER = type === 'border' || type === 'border-pixelated';
-const CHANNELS = type === 'channels' || type === 'channels-pixelated' || type === 'channels-inverted' || type === 'channels-inverted-pixelated';
+const CHANNELS = type === 'channels' || type === 'channels-pixelated' || type === 'channels-inverted' || type === 'channels-inverted-pixelated' || type === 'channels-inverted-full';
 const PIXELATED = type === 'border-pixelated' || type === 'channels-pixelated' || type === 'channels-inverted-pixelated';
-const INVERTED = type === 'channels-inverted' || type === 'channels-inverted-pixelated';
+const INVERTED = type === 'channels-inverted' || type === 'channels-inverted-pixelated' || type === 'channels-inverted-full';
+const FULL = type === 'channels-inverted-full';
 
 for(const file of files)
 {
@@ -390,11 +391,22 @@ for(const file of files)
 	}
 	else if(CHANNELS)
 	{
-		degraded.grayscale().recomb([
-			[1, 0, 0],
-			[0, 0, 0], // G = 0
-			[0, 0, 1],
-		]);
+		if(FULL)
+		{
+			degraded.grayscale().recomb([
+				[1, 0, 0],
+				[0, 1, 0], // G = 0
+				[0, 0, 1],
+			]);
+		}
+		else
+		{
+			degraded.grayscale().recomb([
+				[1, 0, 0],
+				[0, 0, 0], // G = 0
+				[0, 0, 1],
+			]);
+		}
 	}
 
 	await degraded.png().toFile(p.join(outputDegraded, filePng));
