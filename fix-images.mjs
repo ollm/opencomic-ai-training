@@ -32,6 +32,7 @@ if(!scale)
 
 const PRINT = process.argv.includes('--print');
 const DELETE = process.argv.includes('--delete');
+const MOVE = process.argv.includes('--move');
 
 if(!dataset)
 {
@@ -59,11 +60,13 @@ console.log([
 	`Size    : ${minSize || 'N/A'}`,
 	`Scale   : ${scale}`,
 	`Print   : ${PRINT}`,
-	`Delete  : ${DELETE}`
+	`Delete  : ${DELETE}`,
+	`Move    : ${MOVE}`
 ].join('\n')+'\n');
 
 const folder = p.join('./datasets', dataset);
 const path = p.join(import.meta.dirname, folder);
+const movedFolder = p.join(import.meta.dirname, './datasets', `${dataset}-moved-${scale}-${minSize || 'auto'}`); 
 
 const filesC = fs.readdirSync(p.join(path, cleanFolder));
 const filesD = fs.readdirSync(p.join(path, 'degraded'));
@@ -110,7 +113,23 @@ for(const file of files)
 
 	if(_delete)
 	{
-		if(DELETE)
+		if(MOVE)
+		{
+			const movedCleanDir = p.join(movedFolder, cleanFolder);
+			const movedDegradedDir = p.join(movedFolder, 'degraded');
+
+			const movedClean = p.join(movedCleanDir, p.basename(clean));
+			const movedDegraded = p.join(movedDegradedDir, p.basename(degraded));
+
+			if(!fs.existsSync(movedCleanDir)) fs.mkdirSync(movedCleanDir, {recursive: true});
+			if(!fs.existsSync(movedDegradedDir)) fs.mkdirSync(movedDegradedDir, {recursive: true});
+
+			if(fs.existsSync(clean)) fs.renameSync(clean, movedClean);
+			if(fs.existsSync(degraded)) fs.renameSync(degraded, movedDegraded);
+
+			console.log(`Moved: ${file}`);
+		}
+		else if(DELETE)
 		{
 			if(fs.existsSync(clean)) fs.unlinkSync(clean);
 			if(fs.existsSync(degraded)) fs.unlinkSync(degraded);
