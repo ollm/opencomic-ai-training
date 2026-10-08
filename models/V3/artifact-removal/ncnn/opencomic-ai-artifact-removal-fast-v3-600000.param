@@ -1,0 +1,298 @@
+7767517
+296 393
+Input                    in0                      0 1 in0
+Split                    splitncnn_0              1 2 in0 1 2
+Convolution              conv_0                   1 1 2 3 0=32 1=3 4=1 5=1 6=864
+Split                    splitncnn_1              1 2 3 4 5
+MemoryData               gblocks.1                0 1 6 0=1 1=1 2=32
+Permute                  permute_87               1 1 5 7 0=3
+LayerNorm                ln_37                    1 1 7 8 0=32 1=1.000000e-06
+Permute                  permute_88               1 1 8 9 0=4
+Convolution              conv_1                   1 1 9 10 0=96 1=3 4=1 5=1 6=27648
+Slice                    split_0                  1 3 10 11 12 13 -23300=3,48,16,32
+Slice                    split_1                  1 4 13 14 15 16 17 -23300=4,20,4,4,4
+ConvolutionDepthWise     convdw_119               1 1 15 18 0=4 1=3 4=1 5=1 6=36 7=4
+ConvolutionDepthWise     convdw_120               1 1 16 19 0=4 1=11 11=1 4=5 14=0 5=1 6=44 7=4
+ConvolutionDepthWise     convdw_121               1 1 17 20 0=4 1=1 11=11 14=5 5=1 6=44 7=4
+Concat                   cat_0                    4 1 14 18 19 20 21
+Mish                     mish_53                  1 1 11 22
+Concat                   cat_1                    2 1 12 21 23
+BinaryOp                 mul_0                    2 1 22 23 24 0=2
+Convolution              convmish_0               1 1 24 25 0=32 1=3 4=1 5=1 6=13824 9=5
+BinaryOp                 mul_1                    2 1 25 6 26 0=2
+BinaryOp                 add_2                    2 1 26 4 27
+Split                    splitncnn_2              1 2 27 28 29
+MemoryData               gblocks.2                0 1 30 0=1 1=1 2=32
+Permute                  permute_89               1 1 29 31 0=3
+LayerNorm                ln_38                    1 1 31 32 0=32 1=1.000000e-06
+Permute                  permute_90               1 1 32 33 0=4
+Convolution              conv_3                   1 1 33 34 0=96 1=3 4=1 5=1 6=27648
+Slice                    split_2                  1 3 34 35 36 37 -23300=3,48,16,32
+Slice                    split_3                  1 4 37 38 39 40 41 -23300=4,20,4,4,4
+ConvolutionDepthWise     convdw_122               1 1 39 42 0=4 1=3 4=1 5=1 6=36 7=4
+ConvolutionDepthWise     convdw_123               1 1 40 43 0=4 1=11 11=1 4=5 14=0 5=1 6=44 7=4
+ConvolutionDepthWise     convdw_124               1 1 41 44 0=4 1=1 11=11 14=5 5=1 6=44 7=4
+Concat                   cat_2                    4 1 38 42 43 44 45
+Mish                     mish_55                  1 1 35 46
+Concat                   cat_3                    2 1 36 45 47
+BinaryOp                 mul_3                    2 1 46 47 48 0=2
+Convolution              convmish_1               1 1 48 49 0=32 1=3 4=1 5=1 6=13824 9=5
+BinaryOp                 mul_4                    2 1 49 30 50 0=2
+BinaryOp                 add_5                    2 1 50 28 51
+Split                    splitncnn_3              1 2 51 52 53
+MemoryData               gblocks.3                0 1 54 0=1 1=1 2=32
+Permute                  permute_91               1 1 53 55 0=3
+LayerNorm                ln_39                    1 1 55 56 0=32 1=1.000000e-06
+Permute                  permute_92               1 1 56 57 0=4
+Convolution              conv_5                   1 1 57 58 0=96 1=3 4=1 5=1 6=27648
+Slice                    split_4                  1 3 58 59 60 61 -23300=3,48,16,32
+Slice                    split_5                  1 4 61 62 63 64 65 -23300=4,20,4,4,4
+ConvolutionDepthWise     convdw_125               1 1 63 66 0=4 1=3 4=1 5=1 6=36 7=4
+ConvolutionDepthWise     convdw_126               1 1 64 67 0=4 1=11 11=1 4=5 14=0 5=1 6=44 7=4
+ConvolutionDepthWise     convdw_127               1 1 65 68 0=4 1=1 11=11 14=5 5=1 6=44 7=4
+Concat                   cat_4                    4 1 62 66 67 68 69
+Mish                     mish_57                  1 1 59 70
+Concat                   cat_5                    2 1 60 69 71
+BinaryOp                 mul_6                    2 1 70 71 72 0=2
+Convolution              convmish_2               1 1 72 73 0=32 1=3 4=1 5=1 6=13824 9=5
+BinaryOp                 mul_7                    2 1 73 54 74 0=2
+BinaryOp                 add_8                    2 1 74 52 75
+Split                    splitncnn_4              1 2 75 76 77
+MemoryData               gblocks.4                0 1 78 0=1 1=1 2=32
+Permute                  permute_93               1 1 77 79 0=3
+LayerNorm                ln_40                    1 1 79 80 0=32 1=1.000000e-06
+Permute                  permute_94               1 1 80 81 0=4
+Convolution              conv_7                   1 1 81 82 0=96 1=3 4=1 5=1 6=27648
+Slice                    split_6                  1 3 82 83 84 85 -23300=3,48,16,32
+Slice                    split_7                  1 4 85 86 87 88 89 -23300=4,20,4,4,4
+ConvolutionDepthWise     convdw_128               1 1 87 90 0=4 1=3 4=1 5=1 6=36 7=4
+ConvolutionDepthWise     convdw_129               1 1 88 91 0=4 1=11 11=1 4=5 14=0 5=1 6=44 7=4
+ConvolutionDepthWise     convdw_130               1 1 89 92 0=4 1=1 11=11 14=5 5=1 6=44 7=4
+Concat                   cat_6                    4 1 86 90 91 92 93
+Mish                     mish_59                  1 1 83 94
+Concat                   cat_7                    2 1 84 93 95
+BinaryOp                 mul_9                    2 1 94 95 96 0=2
+Convolution              convmish_3               1 1 96 97 0=32 1=3 4=1 5=1 6=13824 9=5
+BinaryOp                 mul_10                   2 1 97 78 98 0=2
+BinaryOp                 add_11                   2 1 98 76 99
+Split                    splitncnn_5              1 2 99 100 101
+MemoryData               gblocks.5                0 1 102 0=1 1=1 2=32
+Permute                  permute_95               1 1 101 103 0=3
+LayerNorm                ln_41                    1 1 103 104 0=32 1=1.000000e-06
+Permute                  permute_96               1 1 104 105 0=4
+Convolution              conv_9                   1 1 105 106 0=96 1=3 4=1 5=1 6=27648
+Slice                    split_8                  1 3 106 107 108 109 -23300=3,48,16,32
+Slice                    split_9                  1 4 109 110 111 112 113 -23300=4,20,4,4,4
+ConvolutionDepthWise     convdw_131               1 1 111 114 0=4 1=3 4=1 5=1 6=36 7=4
+ConvolutionDepthWise     convdw_132               1 1 112 115 0=4 1=11 11=1 4=5 14=0 5=1 6=44 7=4
+ConvolutionDepthWise     convdw_133               1 1 113 116 0=4 1=1 11=11 14=5 5=1 6=44 7=4
+Concat                   cat_8                    4 1 110 114 115 116 117
+Mish                     mish_61                  1 1 107 118
+Concat                   cat_9                    2 1 108 117 119
+BinaryOp                 mul_12                   2 1 118 119 120 0=2
+Convolution              convmish_4               1 1 120 121 0=32 1=3 4=1 5=1 6=13824 9=5
+BinaryOp                 mul_13                   2 1 121 102 122 0=2
+BinaryOp                 add_14                   2 1 122 100 123
+Split                    splitncnn_6              1 2 123 124 125
+MemoryData               gblocks.6                0 1 126 0=1 1=1 2=32
+Permute                  permute_97               1 1 125 127 0=3
+LayerNorm                ln_42                    1 1 127 128 0=32 1=1.000000e-06
+Permute                  permute_98               1 1 128 129 0=4
+Convolution              conv_11                  1 1 129 130 0=96 1=3 4=1 5=1 6=27648
+Slice                    split_10                 1 3 130 131 132 133 -23300=3,48,16,32
+Slice                    split_11                 1 4 133 134 135 136 137 -23300=4,20,4,4,4
+ConvolutionDepthWise     convdw_134               1 1 135 138 0=4 1=3 4=1 5=1 6=36 7=4
+ConvolutionDepthWise     convdw_135               1 1 136 139 0=4 1=11 11=1 4=5 14=0 5=1 6=44 7=4
+ConvolutionDepthWise     convdw_136               1 1 137 140 0=4 1=1 11=11 14=5 5=1 6=44 7=4
+Concat                   cat_10                   4 1 134 138 139 140 141
+Mish                     mish_63                  1 1 131 142
+Concat                   cat_11                   2 1 132 141 143
+BinaryOp                 mul_15                   2 1 142 143 144 0=2
+Convolution              convmish_5               1 1 144 145 0=32 1=3 4=1 5=1 6=13824 9=5
+BinaryOp                 mul_16                   2 1 145 126 146 0=2
+BinaryOp                 add_17                   2 1 146 124 147
+Split                    splitncnn_7              1 2 147 148 149
+MemoryData               gblocks.7                0 1 150 0=1 1=1 2=32
+Permute                  permute_99               1 1 149 151 0=3
+LayerNorm                ln_43                    1 1 151 152 0=32 1=1.000000e-06
+Permute                  permute_100              1 1 152 153 0=4
+Convolution              conv_13                  1 1 153 154 0=96 1=3 4=1 5=1 6=27648
+Slice                    split_12                 1 3 154 155 156 157 -23300=3,48,16,32
+Slice                    split_13                 1 4 157 158 159 160 161 -23300=4,20,4,4,4
+ConvolutionDepthWise     convdw_137               1 1 159 162 0=4 1=3 4=1 5=1 6=36 7=4
+ConvolutionDepthWise     convdw_138               1 1 160 163 0=4 1=11 11=1 4=5 14=0 5=1 6=44 7=4
+ConvolutionDepthWise     convdw_139               1 1 161 164 0=4 1=1 11=11 14=5 5=1 6=44 7=4
+Concat                   cat_12                   4 1 158 162 163 164 165
+Mish                     mish_65                  1 1 155 166
+Concat                   cat_13                   2 1 156 165 167
+BinaryOp                 mul_18                   2 1 166 167 168 0=2
+Convolution              convmish_6               1 1 168 169 0=32 1=3 4=1 5=1 6=13824 9=5
+BinaryOp                 mul_19                   2 1 169 150 170 0=2
+BinaryOp                 add_20                   2 1 170 148 171
+Split                    splitncnn_8              1 2 171 172 173
+MemoryData               gblocks.8                0 1 174 0=1 1=1 2=32
+Permute                  permute_101              1 1 173 175 0=3
+LayerNorm                ln_44                    1 1 175 176 0=32 1=1.000000e-06
+Permute                  permute_102              1 1 176 177 0=4
+Convolution              conv_15                  1 1 177 178 0=96 1=3 4=1 5=1 6=27648
+Slice                    split_14                 1 3 178 179 180 181 -23300=3,48,16,32
+Slice                    split_15                 1 4 181 182 183 184 185 -23300=4,20,4,4,4
+ConvolutionDepthWise     convdw_140               1 1 183 186 0=4 1=3 4=1 5=1 6=36 7=4
+ConvolutionDepthWise     convdw_141               1 1 184 187 0=4 1=11 11=1 4=5 14=0 5=1 6=44 7=4
+ConvolutionDepthWise     convdw_142               1 1 185 188 0=4 1=1 11=11 14=5 5=1 6=44 7=4
+Concat                   cat_14                   4 1 182 186 187 188 189
+Mish                     mish_67                  1 1 179 190
+Concat                   cat_15                   2 1 180 189 191
+BinaryOp                 mul_21                   2 1 190 191 192 0=2
+Convolution              convmish_7               1 1 192 193 0=32 1=3 4=1 5=1 6=13824 9=5
+BinaryOp                 mul_22                   2 1 193 174 194 0=2
+BinaryOp                 add_23                   2 1 194 172 195
+Split                    splitncnn_9              1 2 195 196 197
+MemoryData               gblocks.9                0 1 198 0=1 1=1 2=32
+Permute                  permute_103              1 1 197 199 0=3
+LayerNorm                ln_45                    1 1 199 200 0=32 1=1.000000e-06
+Permute                  permute_104              1 1 200 201 0=4
+Convolution              conv_17                  1 1 201 202 0=96 1=3 4=1 5=1 6=27648
+Slice                    split_16                 1 3 202 203 204 205 -23300=3,48,16,32
+Slice                    split_17                 1 4 205 206 207 208 209 -23300=4,20,4,4,4
+ConvolutionDepthWise     convdw_143               1 1 207 210 0=4 1=3 4=1 5=1 6=36 7=4
+ConvolutionDepthWise     convdw_144               1 1 208 211 0=4 1=11 11=1 4=5 14=0 5=1 6=44 7=4
+ConvolutionDepthWise     convdw_145               1 1 209 212 0=4 1=1 11=11 14=5 5=1 6=44 7=4
+Concat                   cat_16                   4 1 206 210 211 212 213
+Mish                     mish_69                  1 1 203 214
+Concat                   cat_17                   2 1 204 213 215
+BinaryOp                 mul_24                   2 1 214 215 216 0=2
+Convolution              convmish_8               1 1 216 217 0=32 1=3 4=1 5=1 6=13824 9=5
+BinaryOp                 mul_25                   2 1 217 198 218 0=2
+BinaryOp                 add_26                   2 1 218 196 219
+Split                    splitncnn_10             1 2 219 220 221
+MemoryData               gblocks.10               0 1 222 0=1 1=1 2=32
+Permute                  permute_105              1 1 221 223 0=3
+LayerNorm                ln_46                    1 1 223 224 0=32 1=1.000000e-06
+Permute                  permute_106              1 1 224 225 0=4
+Convolution              conv_19                  1 1 225 226 0=96 1=3 4=1 5=1 6=27648
+Slice                    split_18                 1 3 226 227 228 229 -23300=3,48,16,32
+Slice                    split_19                 1 4 229 230 231 232 233 -23300=4,20,4,4,4
+ConvolutionDepthWise     convdw_146               1 1 231 234 0=4 1=3 4=1 5=1 6=36 7=4
+ConvolutionDepthWise     convdw_147               1 1 232 235 0=4 1=11 11=1 4=5 14=0 5=1 6=44 7=4
+ConvolutionDepthWise     convdw_148               1 1 233 236 0=4 1=1 11=11 14=5 5=1 6=44 7=4
+Concat                   cat_18                   4 1 230 234 235 236 237
+Mish                     mish_71                  1 1 227 238
+Concat                   cat_19                   2 1 228 237 239
+BinaryOp                 mul_27                   2 1 238 239 240 0=2
+Convolution              convmish_9               1 1 240 241 0=32 1=3 4=1 5=1 6=13824 9=5
+BinaryOp                 mul_28                   2 1 241 222 242 0=2
+BinaryOp                 add_29                   2 1 242 220 243
+Split                    splitncnn_11             1 2 243 244 245
+MemoryData               gblocks.11               0 1 246 0=1 1=1 2=32
+Permute                  permute_107              1 1 245 247 0=3
+LayerNorm                ln_47                    1 1 247 248 0=32 1=1.000000e-06
+Permute                  permute_108              1 1 248 249 0=4
+Convolution              conv_21                  1 1 249 250 0=96 1=3 4=1 5=1 6=27648
+Slice                    split_20                 1 3 250 251 252 253 -23300=3,48,16,32
+Slice                    split_21                 1 4 253 254 255 256 257 -23300=4,20,4,4,4
+ConvolutionDepthWise     convdw_149               1 1 255 258 0=4 1=3 4=1 5=1 6=36 7=4
+ConvolutionDepthWise     convdw_150               1 1 256 259 0=4 1=11 11=1 4=5 14=0 5=1 6=44 7=4
+ConvolutionDepthWise     convdw_151               1 1 257 260 0=4 1=1 11=11 14=5 5=1 6=44 7=4
+Concat                   cat_20                   4 1 254 258 259 260 261
+Mish                     mish_73                  1 1 251 262
+Concat                   cat_21                   2 1 252 261 263
+BinaryOp                 mul_30                   2 1 262 263 264 0=2
+Convolution              convmish_10              1 1 264 265 0=32 1=3 4=1 5=1 6=13824 9=5
+BinaryOp                 mul_31                   2 1 265 246 266 0=2
+BinaryOp                 add_32                   2 1 266 244 267
+Split                    splitncnn_12             1 2 267 268 269
+MemoryData               gblocks.12               0 1 270 0=1 1=1 2=32
+Permute                  permute_109              1 1 269 271 0=3
+LayerNorm                ln_48                    1 1 271 272 0=32 1=1.000000e-06
+Permute                  permute_110              1 1 272 273 0=4
+Convolution              conv_23                  1 1 273 274 0=96 1=3 4=1 5=1 6=27648
+Slice                    split_22                 1 3 274 275 276 277 -23300=3,48,16,32
+Slice                    split_23                 1 4 277 278 279 280 281 -23300=4,20,4,4,4
+ConvolutionDepthWise     convdw_152               1 1 279 282 0=4 1=3 4=1 5=1 6=36 7=4
+ConvolutionDepthWise     convdw_153               1 1 280 283 0=4 1=11 11=1 4=5 14=0 5=1 6=44 7=4
+ConvolutionDepthWise     convdw_154               1 1 281 284 0=4 1=1 11=11 14=5 5=1 6=44 7=4
+Concat                   cat_22                   4 1 278 282 283 284 285
+Mish                     mish_75                  1 1 275 286
+Concat                   cat_23                   2 1 276 285 287
+BinaryOp                 mul_33                   2 1 286 287 288 0=2
+Convolution              convmish_11              1 1 288 289 0=32 1=3 4=1 5=1 6=13824 9=5
+BinaryOp                 mul_34                   2 1 289 270 290 0=2
+BinaryOp                 add_35                   2 1 290 268 291
+Split                    splitncnn_13             1 2 291 292 293
+MemoryData               gblocks.13               0 1 294 0=1 1=1 2=32
+Permute                  permute_111              1 1 293 295 0=3
+LayerNorm                ln_49                    1 1 295 296 0=32 1=1.000000e-06
+Permute                  permute_112              1 1 296 297 0=4
+Convolution              conv_25                  1 1 297 298 0=96 1=3 4=1 5=1 6=27648
+Slice                    split_24                 1 3 298 299 300 301 -23300=3,48,16,32
+Slice                    split_25                 1 4 301 302 303 304 305 -23300=4,20,4,4,4
+ConvolutionDepthWise     convdw_155               1 1 303 306 0=4 1=3 4=1 5=1 6=36 7=4
+ConvolutionDepthWise     convdw_156               1 1 304 307 0=4 1=11 11=1 4=5 14=0 5=1 6=44 7=4
+ConvolutionDepthWise     convdw_157               1 1 305 308 0=4 1=1 11=11 14=5 5=1 6=44 7=4
+Concat                   cat_24                   4 1 302 306 307 308 309
+Mish                     mish_77                  1 1 299 310
+Concat                   cat_25                   2 1 300 309 311
+BinaryOp                 mul_36                   2 1 310 311 312 0=2
+Convolution              convmish_12              1 1 312 313 0=32 1=3 4=1 5=1 6=13824 9=5
+BinaryOp                 mul_37                   2 1 313 294 314 0=2
+BinaryOp                 add_38                   2 1 314 292 315
+Split                    splitncnn_14             1 2 315 316 317
+MemoryData               gblocks.14               0 1 318 0=1 1=1 2=32
+Permute                  permute_113              1 1 317 319 0=3
+LayerNorm                ln_50                    1 1 319 320 0=32 1=1.000000e-06
+Permute                  permute_114              1 1 320 321 0=4
+Convolution              conv_27                  1 1 321 322 0=96 1=3 4=1 5=1 6=27648
+Slice                    split_26                 1 3 322 323 324 325 -23300=3,48,16,32
+Slice                    split_27                 1 4 325 326 327 328 329 -23300=4,20,4,4,4
+ConvolutionDepthWise     convdw_158               1 1 327 330 0=4 1=3 4=1 5=1 6=36 7=4
+ConvolutionDepthWise     convdw_159               1 1 328 331 0=4 1=11 11=1 4=5 14=0 5=1 6=44 7=4
+ConvolutionDepthWise     convdw_160               1 1 329 332 0=4 1=1 11=11 14=5 5=1 6=44 7=4
+Concat                   cat_26                   4 1 326 330 331 332 333
+Mish                     mish_79                  1 1 323 334
+Concat                   cat_27                   2 1 324 333 335
+BinaryOp                 mul_39                   2 1 334 335 336 0=2
+Convolution              convmish_13              1 1 336 337 0=32 1=3 4=1 5=1 6=13824 9=5
+BinaryOp                 mul_40                   2 1 337 318 338 0=2
+BinaryOp                 add_41                   2 1 338 316 339
+Split                    splitncnn_15             1 2 339 340 341
+MemoryData               gblocks.15               0 1 342 0=1 1=1 2=32
+Permute                  permute_115              1 1 341 343 0=3
+LayerNorm                ln_51                    1 1 343 344 0=32 1=1.000000e-06
+Permute                  permute_116              1 1 344 345 0=4
+Convolution              conv_29                  1 1 345 346 0=96 1=3 4=1 5=1 6=27648
+Slice                    split_28                 1 3 346 347 348 349 -23300=3,48,16,32
+Slice                    split_29                 1 4 349 350 351 352 353 -23300=4,20,4,4,4
+ConvolutionDepthWise     convdw_161               1 1 351 354 0=4 1=3 4=1 5=1 6=36 7=4
+ConvolutionDepthWise     convdw_162               1 1 352 355 0=4 1=11 11=1 4=5 14=0 5=1 6=44 7=4
+ConvolutionDepthWise     convdw_163               1 1 353 356 0=4 1=1 11=11 14=5 5=1 6=44 7=4
+Concat                   cat_28                   4 1 350 354 355 356 357
+Mish                     mish_81                  1 1 347 358
+Concat                   cat_29                   2 1 348 357 359
+BinaryOp                 mul_42                   2 1 358 359 360 0=2
+Convolution              convmish_14              1 1 360 361 0=32 1=3 4=1 5=1 6=13824 9=5
+BinaryOp                 mul_43                   2 1 361 342 362 0=2
+BinaryOp                 add_44                   2 1 362 340 363
+Split                    splitncnn_16             1 2 363 364 365
+MemoryData               gblocks.16               0 1 366 0=1 1=1 2=32
+Permute                  permute_117              1 1 365 367 0=3
+LayerNorm                ln_52                    1 1 367 368 0=32 1=1.000000e-06
+Permute                  permute_118              1 1 368 369 0=4
+Convolution              conv_31                  1 1 369 370 0=96 1=3 4=1 5=1 6=27648
+Slice                    split_30                 1 3 370 371 372 373 -23300=3,48,16,32
+Slice                    split_31                 1 4 373 374 375 376 377 -23300=4,20,4,4,4
+ConvolutionDepthWise     convdw_164               1 1 375 378 0=4 1=3 4=1 5=1 6=36 7=4
+ConvolutionDepthWise     convdw_165               1 1 376 379 0=4 1=11 11=1 4=5 14=0 5=1 6=44 7=4
+ConvolutionDepthWise     convdw_166               1 1 377 380 0=4 1=1 11=11 14=5 5=1 6=44 7=4
+Concat                   cat_30                   4 1 374 378 379 380 381
+Mish                     mish_83                  1 1 371 382
+Concat                   cat_31                   2 1 372 381 383
+BinaryOp                 mul_45                   2 1 382 383 384 0=2
+Convolution              convmish_15              1 1 384 385 0=32 1=3 4=1 5=1 6=13824 9=5
+BinaryOp                 mul_46                   2 1 385 366 386 0=2
+BinaryOp                 add_47                   2 1 386 364 387
+Convolution              convmish_16              1 1 387 388 0=64 1=3 4=1 5=1 6=18432 9=5
+Convolution              convmish_17              1 1 388 389 0=32 1=3 4=1 5=1 6=18432 9=5
+Convolution              conv_35                  1 1 389 390 0=32 1=1 5=1 6=1024
+Convolution              conv_36                  1 1 390 391 0=3 1=3 4=1 5=1 6=864
+BinaryOp                 add_48                   2 1 391 1 out0

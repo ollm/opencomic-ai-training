@@ -4,6 +4,56 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## OpenComic AI v3.0
+
+### New
+
+##### General
+
+- Use MoSRV2 architecture for all models instead of ESRGAN and Compact. [`a25543a`](https://github.com/ollm/opencomic-ai-training/commit/a25543a8697cd35bbc84d43c7e51b43223664dd2)
+
+##### Descreen Mask
+
+- New descreen mask model [`37dd79e`](https://github.com/ollm/opencomic-ai-training/commit/37dd79e86f1a1eb682b5dd20a09d83c54ec8c63b)
+
+### Models
+
+#### Artifact Removal
+
+| Model | Type | Pretrained From | Image Pairs | Iterations |
+| --- | --- | --- | ---: | ---: |
+| `opencomic-ai-artifact-removal-fast-v3` | MoSRV2 | - | 400,000 | 600,000 |
+| `opencomic-ai-artifact-removal-balanced-v3` | MoSRV2 | - | 400,000 | 600,000 |
+| `opencomic-ai-artifact-removal-balanced-v3-ps` | MoSRV2 | - | 400,000 | 500,000 |
+| `opencomic-ai-artifact-removal-quality-v3-ps` | MoSRV2 | - | 400,000 | 500,000 |
+
+#### Descreen
+
+| Model | Type | Pretrained From | Image Pairs | Iterations |
+| --- | --- | --- | ---: | ---: |
+| `opencomic-ai-descreen-hard-fast-v3` | MoSRV2 | `artifact-removal-fast-v3` | 120,000 | 600,000 |
+| `opencomic-ai-descreen-hard-fast-v3-256` | MoSRV2 | `descreen-hard-fast-v3` | 120,000 | 150,000 |
+| `opencomic-ai-descreen-hard-balanced-v3` | MoSRV2 | `artifact-removal-balanced-v3` | 120,000 | 600,000 |
+| `opencomic-ai-descreen-hard-balanced-v3-256` | MoSRV2 | `descreen-hard-balanced-v3` | 120,000 | 150,000 |
+
+#### Descreen Mask
+
+| Model | Type | Pretrained From | Image Pairs | Iterations |
+| --- | --- | --- | ---: | ---: |
+| `opencomic-ai-descreen-mask-fast-v3` | MoSRV2 | `artifact-removal-fast-v3` | 120,000 | 500,000 |
+| `opencomic-ai-descreen-mask-fast-v3-256` | MoSRV2 | `descreen-mask-fast-v3` | 120,000 | 150,000 |
+
+#### Upscale
+
+| Model | Type | Pretrained From | Image Pairs | Iterations |
+| --- | --- | --- | ---: | ---: |
+| `opencomic-ai-upscale-2x-fast-v3` | MoSRV2 | `artifact-removal-fast-v3` | 100,000 | 600,000 |
+| `opencomic-ai-upscale-2x-balanced-v3` | MoSRV2 | `artifact-removal-balanced-v3` | 100,000 | 600,000 |
+| `opencomic-ai-upscale-3x-fast-v3` | MoSRV2 | `upscale-2x-fast-v3` | 100,000 | 300,000 |
+| `opencomic-ai-upscale-3x-balanced-v3` | MoSRV2 | `upscale-2x-balanced-v3` | 100,000 | 300,000 |
+| `opencomic-ai-upscale-4x-fast-v3` | MoSRV2 | `upscale-2x-fast-v3` | 100,000 | 300,000 |
+| `opencomic-ai-upscale-4x-balanced-v3` | MoSRV2 | `upscale-2x-balanced-v3` | 100,000 | 300,000 |
+
 ## OpenComic AI v2.0
 
 ### New
