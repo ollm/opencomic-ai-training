@@ -173,14 +173,15 @@ The models can be found in the [`models`](models) folder, in the [`ollm/opencomi
 | `opencomic-ai-upscale-4x-fast-v3` | MoSRV2 | `upscale-2x-fast-v3` | 100,000 | 300,000 |
 | `opencomic-ai-upscale-4x-balanced-v3` | MoSRV2 | `upscale-2x-balanced-v3` | 100,000 | 300,000 |
 
+See the [changelog](./CHANGELOG.md#opencomic-ai-v30) for details.
 
 ### [v2.0](https://github.com/ollm/opencomic-ai-training/releases/tag/v2.0)
 
-See in https://github.com/ollm/opencomic-ai-training/releases/tag/v2.0
+See the [changelog](./CHANGELOG.md#opencomic-ai-v20) for details.
 
 ### [v1.0](https://github.com/ollm/opencomic-ai-training/releases/tag/v1.0.1)
 
-See in https://github.com/ollm/opencomic-ai-training/releases/tag/v1.0.1
+See the [changelog](./CHANGELOG.md#opencomic-ai-v10) for details.
 
 ## Acknowledgments
 
