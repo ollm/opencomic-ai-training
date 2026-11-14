@@ -135,7 +135,82 @@ Typical workflow:
 
 The models can be found in the [`models`](models) folder, in the [`ollm/opencomic-ai-models`](https://github.com/ollm/opencomic-ai-models) repository, or in the [releases](https://github.com/ollm/opencomic-ai-training/releases) section.
 
-### Artifact Removal
+
+### v3
+
+#### Artifact Removal
+
+| Model | Type | Pretrained From | Image Pairs | Iterations |
+| --- | --- | --- | ---: | ---: |
+| `opencomic-ai-artifact-removal-fast-v3` | MoSRV2 | - | 400,000 | 600,000 |
+| `opencomic-ai-artifact-removal-balanced-v3` | MoSRV2 | - | 400,000 | 600,000 |
+| `opencomic-ai-artifact-removal-balanced-v3-ps` | MoSRV2 | - | 400,000 | 500,000 |
+| `opencomic-ai-artifact-removal-quality-v3-ps` | MoSRV2 | - | 400,000 | 500,000 |
+
+#### Descreen
+
+| Model | Type | Pretrained From | Image Pairs | Iterations |
+| --- | --- | --- | ---: | ---: |
+| `opencomic-ai-descreen-hard-fast-v3` | MoSRV2 | `artifact-removal-fast-v3` | 120,000 | 600,000 |
+| `opencomic-ai-descreen-hard-fast-v3-256` | MoSRV2 | `descreen-hard-fast-v3` | 120,000 | 150,000 |
+| `opencomic-ai-descreen-hard-balanced-v3` | MoSRV2 | `artifact-removal-balanced-v3` | 120,000 | 600,000 |
+| `opencomic-ai-descreen-hard-balanced-v3-256` | MoSRV2 | `descreen-hard-balanced-v3` | 120,000 | 150,000 |
+
+#### Descreen Mask
+
+| Model | Type | Pretrained From | Image Pairs | Iterations |
+| --- | --- | --- | ---: | ---: |
+| `opencomic-ai-descreen-mask-fast-v3` | MoSRV2 | `artifact-removal-fast-v3` | 120,000 | 500,000 |
+| `opencomic-ai-descreen-mask-fast-v3-256` | MoSRV2 | `descreen-mask-fast-v3` | 120,000 | 150,000 |
+
+#### Upscale
+
+| Model | Type | Pretrained From | Image Pairs | Iterations |
+| --- | --- | --- | ---: | ---: |
+| `opencomic-ai-upscale-2x-fast-v3` | MoSRV2 | `artifact-removal-fast-v3` | 100,000 | 600,000 |
+| `opencomic-ai-upscale-2x-balanced-v3` | MoSRV2 | `artifact-removal-balanced-v3` | 100,000 | 600,000 |
+| `opencomic-ai-upscale-3x-fast-v3` | MoSRV2 | `upscale-2x-fast-v3` | 100,000 | 300,000 |
+| `opencomic-ai-upscale-3x-balanced-v3` | MoSRV2 | `upscale-2x-balanced-v3` | 100,000 | 300,000 |
+| `opencomic-ai-upscale-4x-fast-v3` | MoSRV2 | `upscale-2x-fast-v3` | 100,000 | 300,000 |
+| `opencomic-ai-upscale-4x-balanced-v3` | MoSRV2 | `upscale-2x-balanced-v3` | 100,000 | 300,000 |
+
+
+### v2
+
+#### Artifact Removal
+
+| Model | Type | Pretrained From | Image Pairs | Iterations |
+| --- | --- | --- | ---: | ---: |
+| `opencomic-ai-artifact-removal-compact-v2` | Compact | `artifact-removal-compact` | 400,000 | 45,000 |
+| `opencomic-ai-artifact-removal-lite-v2` | ESRGAN Lite | `artifact-removal-lite` | 400,000 | 100,000 |
+| `opencomic-ai-artifact-removal-v2` | ESRGAN | `artifact-removal` | 400,000 | 100,000 |
+
+#### Descreen
+
+| Model | Type | Pretrained From | Image Pairs | Iterations |
+| --- | --- | --- | ---: | ---: |
+| `opencomic-ai-descreen-hard-compact-v2` | Compact | `descreen-hard-compact` | 120,000 | 45,000 |
+| `opencomic-ai-descreen-hard-lite-v2` | ESRGAN Lite | `descreen-hard-lite` | 120,000 | 100,000 |
+| `opencomic-ai-descreen-hard-v2` | ESRGAN | `descreen-hard` | 120,000 | 100,000 |
+
+#### Upscale
+
+| Model | Type | Pretrained From | Image Pairs | Iterations |
+| --- | --- | --- | ---: | ---: |
+| `opencomic-ai-upscale-2x-compact-v2` | Compact | `upscale-2x-compact` | 100,000 | 45,000 |
+| `opencomic-ai-upscale-2x-lite-v2` | ESRGAN Lite | `upscale-2x-lite` | 100,000 | 100,000 |
+| `opencomic-ai-upscale-2x-v2` | ESRGAN | `upscale-2x` | 100,000 | 100,000 |
+| `opencomic-ai-upscale-3x-compact-v2` | Compact | `upscale-3x-compact` | 100,000 | 45,000 |
+| `opencomic-ai-upscale-3x-lite-v2` | ESRGAN Lite | `upscale-3x-lite` | 100,000 | 100,000 |
+| `opencomic-ai-upscale-3x-v2` | ESRGAN | `upscale-3x` | 100,000 | 100,000 |
+| `opencomic-ai-upscale-4x-compact-v2` | Compact | `upscale-4x-compact` | 100,000 | 45,000 |
+| `opencomic-ai-upscale-4x-lite-v2` | ESRGAN Lite | `upscale-4x-lite` | 100,000 | 100,000 |
+| `opencomic-ai-upscale-4x-v2` | ESRGAN | `upscale-4x` | 100,000 | 100,000 |
+
+
+### v1
+
+#### Artifact Removal
 
 | Model | Type | Pretrained From | Image Pairs | Iterations |
 | --- | --- | --- | ---: | ---: |
@@ -143,7 +218,7 @@ The models can be found in the [`models`](models) folder, in the [`ollm/opencomi
 | `opencomic-ai-artifact-removal-lite` | ESRGAN Lite | - | 400,000 | 1,000,000 |
 | `opencomic-ai-artifact-removal` | ESRGAN | - | 400,000 | 1,000,000 |
 
-### Descreen
+#### Descreen
 
 | Model | Type | Pretrained From | Image Pairs | Iterations |
 | --- | --- | --- | ---: | ---: |
@@ -151,7 +226,7 @@ The models can be found in the [`models`](models) folder, in the [`ollm/opencomi
 | `opencomic-ai-descreen-hard-lite` | ESRGAN Lite | `artifact-removal-lite` | 120,000 | 1,000,000 |
 | `opencomic-ai-descreen-hard` | ESRGAN | `artifact-removal` | 120,000 | 1,000,000 |
 
-### Upscale
+#### Upscale
 
 | Model | Type | Pretrained From | Image Pairs | Iterations |
 | --- | --- | --- | ---: | ---: |
