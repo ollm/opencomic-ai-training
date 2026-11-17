@@ -14,6 +14,7 @@ import paint from './drawing/paint.mjs';
 import dots from './drawing/dots.mjs';
 import lines from './drawing/lines.mjs';
 import halftone from './drawing/halftone.mjs';
+import randomFilter from './drawing/random-filter.mjs';
 import texture from './drawing/texture.mjs';
 import gradient from './drawing/gradient.mjs'
 import brush from './drawing/brush.mjs'
@@ -472,6 +473,14 @@ async function processDegradations(layers: Layers, areas: Area[], setProgress: (
 							_options.setValues(config.halftone[areas[0]], 'inKrita.halftone');
 
 							break;
+
+						case 'random-noise':
+						case 'random-pick':
+
+							config[inKrita.type] = await randomFilter.config(areas, imageOptions, inKrita, inKrita.type);
+							_options.setValues(config[inKrita.type][areas[0]], `inKrita.${inKrita.type}`);
+
+							break;
 					}
 
 					_configs[inKrita.type] = config;
@@ -493,6 +502,14 @@ async function processDegradations(layers: Layers, areas: Area[], setProgress: (
 
 							await halftone.removeAll(areas);
 							const _halftone = await halftone.addAllWithConfig(imageOptions, areas, config.halftone, false);
+
+							break;
+
+						case 'random-noise':
+						case 'random-pick':
+
+							await randomFilter.removeAll(areas, inKrita.type);
+							await randomFilter.addAllWithConfig(imageOptions, areas, inKrita.type, config[inKrita.type], false);
 
 							break;
 					}
@@ -524,6 +541,20 @@ async function processDegradations(layers: Layers, areas: Area[], setProgress: (
 							{
 								if(_halftone[area as Area])
 									_layers[area as Area]!.halftone = _halftone[area as Area];
+							}
+
+							break;
+
+						case 'random-noise':
+						case 'random-pick':
+
+							await randomFilter.removeAll(areas, inKrita.type);
+							const _randomFilter = await randomFilter.addAllWithConfig(imageOptions, areas, inKrita.type, config[inKrita.type], true);
+
+							for(const area in _randomFilter)
+							{
+								if(_randomFilter[area as Area])
+									_layers[area as Area]![inKrita.type] = _randomFilter[area as Area];
 							}
 
 							break;

@@ -1,0 +1,31 @@
+-   type: random-noise
+    prob: 1.0
+    singleRun: true
+    sameInAllLayers: true
+    applyIn:
+        -   value: without
+            weight: 10.0
+        -   value: both
+            weight: 1.0
+    colorSpace: # GRAYA adds grey noise; RGBA adds RGB noise
+        -   value: GRAYA
+            weight: 1.0
+        -   value: RGBA
+            weight: 1.0
+    both:
+        level: [5, 30]
+        opacity: [25, 75]
+
+-   type: random-pick
+    prob: 1.0
+    singleRun: true
+    sameInAllLayers: true
+    applyIn:
+        -   value: without
+            weight: 10.0
+        -   value: both
+            weight: 1.0
+    both:
+        level: [5, 50]
+        windowsize: [2, 10]
+        opacity: [25, 75]

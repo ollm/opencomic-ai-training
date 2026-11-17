@@ -33,6 +33,8 @@ degradations:
             maxError: 1 # Used in flatten-svg
         inKrita:
 
+            -   file: options/common/random-filters.yml
+
             -   type: halftone
                 prob: 1.0
                 singleRun: false # Apply halftone only once for all degradations, reduce Krita processing time
