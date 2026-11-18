@@ -215,7 +215,7 @@ async function generateImages() {
 			await promise;
 
 			// For test in krita
-			await sleep(1000000);
+			// await sleep(1000000);
 		}
 		catch
 		{

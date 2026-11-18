@@ -114,7 +114,7 @@ degradations:
                 both: true
                 scale: [0.9, 1.1]
                 kernel: [linear, cubic, mitchell, lanczos2, lanczos3, mks2013, mks2021, bicubic, bilinear, nohalo, lbb, vsqbs] # kernels: nearest, linear, cubic, mitchell, lanczos2, lanczos3, mks2013, mks2021 | and also affine: bicubic, bilinear, nohalo, lbb, vsqbs
-                clean: # Different kernels for clean images can produce different final image sizes, use checkSizes: true
+                clean: # Different kernels for clean images can produce different final image sizes, use checkSizes: true, TODO: Can also produce misaligned images, disabling this is recommended. (This is fixed now)
                     kernel: [mitchell, lanczos2, lanczos3, mks2013, mks2021] # Avoid moire effect in clean image
 
         checkSizes: true # Check that clean and degraded images have the same size (clean == degraded * multiplier)

@@ -51,6 +51,8 @@ async function resize(options: any, degradation: Record<string, any>, image: str
 
 	_sharp = _sharp.png({compressionLevel: 0, force: true});
 
+	let affineResize = false;
+
 	if(affine.has(kernel))
 	{
 		let _width = width;
@@ -70,7 +72,16 @@ async function resize(options: any, degradation: Record<string, any>, image: str
 		if(_width != width)
 			_sharp = _sharp.resize({kernel: 'cubic', width: _width, height: _height, fit: sharp.fit.fill});
 
-		_sharp = _sharp.affine([size.width / _width, 0, 0, size.height / _height], {interpolator: kernel});
+		const scaleX = size.width / _width;
+		const scaleY = size.height / _height;
+
+		_sharp = _sharp.extend({top: 1, bottom: 1, left: 1, right: 1, extendWith: 'copy'});
+		_sharp = _sharp.affine(
+			[scaleX, 0, 0, scaleY],
+			{interpolator: kernel, idx: -1, idy: -1, odx: scaleX / 2, ody: scaleY / 2},
+		);
+
+		affineResize = true;
 	}
 	else
 	{
@@ -78,6 +89,11 @@ async function resize(options: any, degradation: Record<string, any>, image: str
 	}
 
 	const {data, info} = await _sharp.toBuffer({resolveWithObject: true});
+
+	if(affineResize && (info.width !== size.width || info.height !== size.height))
+	{
+		return await sharp(data).extract({left: 0, top: 0, width: size.width, height: size.height}).png({compressionLevel: 0, force: true}).toBuffer();
+	}
 
 	return data;
 

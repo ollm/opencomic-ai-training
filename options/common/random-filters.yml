@@ -6,7 +6,7 @@
         -   value: without
             weight: 10.0
         -   value: both
-            weight: 1.0
+            weight: 2.0
     colorSpace: # GRAYA adds grey noise; RGBA adds RGB noise
         -   value: GRAYA
             weight: 1.0
@@ -24,7 +24,7 @@
         -   value: without
             weight: 10.0
         -   value: both
-            weight: 1.0
+            weight: 2.0
     both:
         level: [5, 50]
         windowsize: [2, 10]
