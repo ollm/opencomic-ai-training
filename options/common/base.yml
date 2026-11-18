@@ -38,6 +38,7 @@ size:
     size: [500, 2000] # Force square image
     # width: [500, 2000]
     # height: [500, 2000]
+    min: 256
     multiple: 4
 
 lineart:

@@ -34,18 +34,20 @@ async function resize(options: any, degradation: Record<string, any>, image: str
 		fit: sharp.fit.fill, // Force exact size
 	};
 
-	// Minimum size 64x64
-	if(size.width < 64 || size.height < 64)
+	const minSize = options.base.size?.min ?? options.base.minSize ?? 256;
+
+	// Minimum size 256x256
+	if(size.width < minSize || size.height < minSize)
 	{
 		if(size.width < size.height)
 		{
-			size.width = 64;
-			size.height = Math.round((64 / width) * height);
+			size.width = minSize;
+			size.height = Math.round((minSize / width) * height);
 		}
 		else
 		{
-			size.height = 64;
-			size.width = Math.round((64 / height) * width);
+			size.height = minSize;
+			size.width = Math.round((minSize / height) * width);
 		}
 	}
 
@@ -74,11 +76,13 @@ async function resize(options: any, degradation: Record<string, any>, image: str
 
 		const scaleX = size.width / _width;
 		const scaleY = size.height / _height;
+		const offsetX = scaleX <= 1 ? (scaleX - 1) / 2 : scaleX / 2;
+		const offsetY = scaleY <= 1 ? (scaleY - 1) / 2 : scaleY / 2;
 
 		_sharp = _sharp.extend({top: 1, bottom: 1, left: 1, right: 1, extendWith: 'copy'});
 		_sharp = _sharp.affine(
 			[scaleX, 0, 0, scaleY],
-			{interpolator: kernel, idx: -1, idy: -1, odx: scaleX / 2, ody: scaleY / 2},
+			{interpolator: kernel, idx: -1, idy: -1, odx: offsetX, ody: offsetY},
 		);
 
 		affineResize = true;
