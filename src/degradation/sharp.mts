@@ -76,14 +76,19 @@ async function resize(options: any, degradation: Record<string, any>, image: str
 
 		const scaleX = size.width / _width;
 		const scaleY = size.height / _height;
-		const offsetX = scaleX <= 1 ? (scaleX - 1) / 2 : scaleX / 2;
-		const offsetY = scaleY <= 1 ? (scaleY - 1) / 2 : scaleY / 2;
+		const offsetX = (scaleX - 1) / 2;
+		const offsetY = (scaleY - 1) / 2;
 
-		_sharp = _sharp.extend({top: 1, bottom: 1, left: 1, right: 1, extendWith: 'copy'});
-		_sharp = _sharp.affine(
-			[scaleX, 0, 0, scaleY],
-			{interpolator: kernel, idx: -1, idy: -1, odx: offsetX, ody: offsetY},
-		);
+		const resized = await _sharp.toBuffer();
+		const padded = await sharp(resized).extend({top: 1, bottom: 1, left: 1, right: 1, extendWith: 'copy'}).png({compressionLevel: 0, force: true}).toBuffer();
+
+		_sharp = sharp(padded).affine([scaleX, 0, 0, scaleY], {
+			interpolator: kernel,
+			idx: -1,
+			idy: -1,
+			odx: offsetX,
+			ody: offsetY
+		}).png({compressionLevel: 0, force: true});
 
 		affineResize = true;
 	}
